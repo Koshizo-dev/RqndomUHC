@@ -25,6 +25,8 @@ public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
 
     @Override
     public void onDisable() {
+        if (gameManager.taskManager != null)
+            gameManager.taskManager.cancel();
         super.onDisable();
     }
 

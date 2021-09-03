@@ -5,9 +5,9 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.uhcapi.GameValue;
+import io.rqndomhax.uhcapi.RValue;
 
-public class GameMessages extends GameValue {
+public class GameMessages extends RValue {
 
     public GameMessages() {
         addObject("io.rqndomhax.rqndomuhc.player_dead", "The player %player% is dead !");

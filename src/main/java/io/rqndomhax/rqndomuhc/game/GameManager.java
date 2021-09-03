@@ -17,6 +17,7 @@ public class GameManager implements UHCAPI {
     final GameScoreboard gameScoreboard;
     final Set<RGamePlayer> gamePlayers = new HashSet<>();
     final GameRules gameRules;
+    final RHost hostManager = new RHost();
     final GameMessages gameMessages = new GameMessages();
     final JavaPlugin plugin;
 
@@ -44,5 +45,10 @@ public class GameManager implements UHCAPI {
     @Override
     public Set<RGamePlayer> getGamePlayers() {
         return gamePlayers;
+    }
+
+    @Override
+    public RHost getHostManager() {
+        return hostManager;
     }
 }

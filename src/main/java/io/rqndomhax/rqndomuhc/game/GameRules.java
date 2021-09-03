@@ -5,14 +5,17 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.uhcapi.GameValue;
+import io.rqndomhax.rqndomuhc.scenarios.ScenariosManager;
 import io.rqndomhax.uhcapi.IRules;
+import io.rqndomhax.uhcapi.RScenarios;
+import io.rqndomhax.uhcapi.RValue;
 
 public class GameRules implements IRules {
 
     String gameTitle;
     final GameManager gameManager;
-    final GameValue gameTimers = new Timers();
+    final RValue gameTimers = new RValue();
+    final RScenarios scenariosManager = new ScenariosManager();
 
     public GameRules(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -29,7 +32,12 @@ public class GameRules implements IRules {
     }
 
     @Override
-    public GameValue getTimers() {
+    public RValue getTimers() {
         return gameTimers;
+    }
+
+    @Override
+    public RScenarios getScenarios() {
+        return scenariosManager;
     }
 }

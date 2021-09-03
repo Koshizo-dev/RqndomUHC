@@ -6,49 +6,72 @@
 package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.uhcapi.RGamePlayer;
+import io.rqndomhax.uhcapi.RValue;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class GamePlayer implements RGamePlayer {
 
+    boolean isAlive = true;
+    final UUID playerUniqueID;
+    final String playerName;
+    final Set<UUID> playerKills = new HashSet<>();
+    Location playerLocation;
+    ItemStack[] inventory = new ItemStack[40];
+    final RValue playerInfos = new RValue();
+
+    public GamePlayer(UUID playerUniqueID, String playerName) {
+        this.playerUniqueID = playerUniqueID;
+        this.playerName = playerName;
+    }
+
     @Override
     public UUID getUniqueID() {
-        return null;
+        return playerUniqueID;
     }
 
     @Override
     public String getName() {
-        return null;
+        return playerName;
     }
 
     @Override
     public Player getPlayer() {
-        return null;
+        return Bukkit.getPlayer(playerUniqueID);
     }
 
     @Override
     public OfflinePlayer getOfflinePlayer() {
-        return null;
+        return Bukkit.getOfflinePlayer(playerUniqueID);
     }
 
     @Override
     public boolean isAlive() {
-        return false;
+        return isAlive;
     }
 
     @Override
-    public List<UUID> getKills() {
-        return null;
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
+
+    @Override
+    public Set<UUID> getKills() {
+        return playerKills;
     }
 
     @Override
     public Location getPlayerLocation() {
-        return null;
+        return playerLocation;
+    }
+
+    @Override
+    public RValue getPlayerInfos() {
+        return playerInfos;
     }
 }

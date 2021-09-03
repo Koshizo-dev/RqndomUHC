@@ -28,6 +28,8 @@ public class TStart implements GameTask {
         if (mainTask == null)
             return;
 
+        // TODO SEND TO PLAYER STARTING
+
         if (remainingTime-- == 0)
             mainTask.lastTaskFinished = true;
     }

@@ -33,6 +33,7 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
     public TaskManager(GameManager gameManager) {
         this.gameManager = gameManager;
         tasks.add(TStart.class);
+        tasks.add(TTeleportation.class);
         beforeTasks.put("io.rqndomhax.rqndomuhc.check_episode", new TEpisode(this));
         runTaskTimer(gameManager.getPlugin(), 0, 20);
     }

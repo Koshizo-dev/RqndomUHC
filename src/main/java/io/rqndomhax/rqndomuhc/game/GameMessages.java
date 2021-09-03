@@ -7,8 +7,6 @@ package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.uhcapi.GameValue;
 
-import java.util.HashMap;
-
 public class GameMessages extends GameValue {
 
     public GameMessages() {

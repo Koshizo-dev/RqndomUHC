@@ -9,14 +9,14 @@ import io.rqndomhax.uhcapi.GameValue;
 import io.rqndomhax.uhcapi.IScenarios;
 import org.bukkit.event.Listener;
 
-import java.util.*;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GameScenarios extends GameValue implements IScenarios{
 
     @Override
     public Set<Listener> getScenarios() {
-        return new HashSet<>(getObjects().values()).stream().map(object -> (Listener) object).collect(Collectors.toSet());
+        return getObjects().values().stream().map(object -> (Listener) object).collect(Collectors.toSet());
     }
 
     @Override

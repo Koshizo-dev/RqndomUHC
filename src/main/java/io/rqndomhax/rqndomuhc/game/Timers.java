@@ -5,26 +5,8 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.uhcapi.ITimers;
+import io.rqndomhax.uhcapi.GameValue;
 
-import java.util.HashMap;
+public class Timers extends GameValue {
 
-public class Timers implements ITimers {
-
-    HashMap<String, Object> timers = new HashMap<>();
-
-    @Override
-    public void addTimer(String timerName, Object timerValue) {
-        timers.put(timerName, timerValue);
-    }
-
-    @Override
-    public void removeTimer(String timerName) {
-        timers.remove(timerName);
-    }
-
-    @Override
-    public HashMap<String, Object> getTimers() {
-        return timers;
-    }
 }

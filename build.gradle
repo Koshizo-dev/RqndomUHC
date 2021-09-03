@@ -21,7 +21,8 @@ dependencies {
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
     implementation 'xyz.xenondevs:particle:1.5.1'
     implementation 'fr.mrmicky:fastboard:1.2.0'
-    implementation files('../RqndomUHC-API')
+    compileOnly files('../RqndomUHC-API/')
+    implementation files('../RqndomUHC-API/build/libs/RqndomUHC-API-1.0-SNAPSHOT.jar')
 }
 
 test {

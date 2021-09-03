@@ -6,15 +6,16 @@
 package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.rqndomuhc.GameScoreboard;
-import io.rqndomhax.uhcapi.GameValue;
-import io.rqndomhax.uhcapi.IRules;
-import io.rqndomhax.uhcapi.IScoreboard;
-import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.*;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameManager implements UHCAPI {
 
     final GameScoreboard gameScoreboard;
+    final Set<RGamePlayer> gamePlayers = new HashSet<>();
     final GameRules gameRules;
     final GameMessages gameMessages = new GameMessages();
     final JavaPlugin plugin;
@@ -40,7 +41,8 @@ public class GameManager implements UHCAPI {
         return gameRules;
     }
 
-    public GameValue getGameMessages() {
-        return gameMessages;
+    @Override
+    public Set<RGamePlayer> getGamePlayers() {
+        return gamePlayers;
     }
 }

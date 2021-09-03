@@ -5,6 +5,7 @@
 
 package io.rqndomhax.rqndomuhc;
 
+import io.rqndomhax.rqndomuhc.game.GameManager;
 import io.rqndomhax.uhcapi.GetUHCAPI;
 import io.rqndomhax.uhcapi.UHCAPI;
 import org.bukkit.Bukkit;
@@ -17,7 +18,7 @@ public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
 
     @Override
     public void onEnable() {
-        this.gameManager = new GameManager();
+        this.gameManager = new GameManager(this);
         Bukkit.getServicesManager().register(GetUHCAPI.class, this, this, ServicePriority.Highest);
         super.onEnable();
     }

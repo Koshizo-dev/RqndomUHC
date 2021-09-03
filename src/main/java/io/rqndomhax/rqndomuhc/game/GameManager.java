@@ -3,8 +3,10 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package io.rqndomhax.rqndomuhc;
+package io.rqndomhax.rqndomuhc.game;
 
+import io.rqndomhax.rqndomuhc.GameScoreboard;
+import io.rqndomhax.uhcapi.GameValue;
 import io.rqndomhax.uhcapi.IRules;
 import io.rqndomhax.uhcapi.IScoreboard;
 import io.rqndomhax.uhcapi.UHCAPI;
@@ -14,6 +16,7 @@ public class GameManager implements UHCAPI {
 
     final GameScoreboard gameScoreboard;
     final GameRules gameRules;
+    final GameMessages gameMessages = new GameMessages();
     final JavaPlugin plugin;
 
     public GameManager(JavaPlugin plugin) {
@@ -35,5 +38,9 @@ public class GameManager implements UHCAPI {
     @Override
     public IRules getRules() {
         return gameRules;
+    }
+
+    public GameValue getGameMessages() {
+        return gameMessages;
     }
 }

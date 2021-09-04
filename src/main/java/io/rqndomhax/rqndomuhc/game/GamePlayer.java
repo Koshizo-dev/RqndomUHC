@@ -20,6 +20,8 @@ public class GamePlayer implements RGamePlayer {
     boolean isAlive = true;
     final UUID playerUniqueID;
     final String playerName;
+
+
     final Set<UUID> playerKills = new HashSet<>();
     Location playerLocation;
     ItemStack[] inventory = new ItemStack[40];

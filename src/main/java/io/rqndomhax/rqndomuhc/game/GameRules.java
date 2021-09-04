@@ -6,11 +6,11 @@
 package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.rqndomuhc.scenarios.ScenariosManager;
-import io.rqndomhax.uhcapi.IRules;
+import io.rqndomhax.uhcapi.RRules;
 import io.rqndomhax.uhcapi.RScenarios;
 import io.rqndomhax.uhcapi.RValue;
 
-public class GameRules implements IRules {
+public class GameRules implements RRules {
 
     String gameTitle;
     final GameManager gameManager;

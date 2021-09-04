@@ -5,12 +5,12 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.uhcapi.GameTask;
 import io.rqndomhax.uhcapi.RScenario;
+import io.rqndomhax.uhcapi.RTask;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
-public class TTeleportation implements GameTask {
+public class TTeleportation implements RTask {
 
     final String taskName;
     final TaskManager taskManager;

@@ -5,9 +5,9 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.uhcapi.GameTask;
+import io.rqndomhax.uhcapi.RTask;
 
-public class TEpisode implements GameTask {
+public class TEpisode implements RTask {
 
     final String taskName;
     final TaskManager taskManager;

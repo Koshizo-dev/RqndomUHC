@@ -36,12 +36,12 @@ public class GameManager implements UHCAPI {
     }
 
     @Override
-    public IScoreboard getScoreboard() {
+    public RScoreboard getScoreboard() {
         return gameScoreboard;
     }
 
     @Override
-    public IRules getRules() {
+    public RRules getRules() {
         return gameRules;
     }
 

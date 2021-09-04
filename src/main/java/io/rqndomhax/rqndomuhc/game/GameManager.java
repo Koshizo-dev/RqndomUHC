@@ -7,7 +7,12 @@ package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.rqndomuhc.GameScoreboard;
 import io.rqndomhax.rqndomuhc.tasks.TaskManager;
-import io.rqndomhax.uhcapi.*;
+import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.game.RGamePlayer;
+import io.rqndomhax.uhcapi.game.RHost;
+import io.rqndomhax.uhcapi.game.RRules;
+import io.rqndomhax.uhcapi.utils.RDynamicInventory;
+import io.rqndomhax.uhcapi.utils.RScoreboard;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;

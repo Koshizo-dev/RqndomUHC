@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.uhcapi.RValue;
+import io.rqndomhax.uhcapi.utils.RValue;
 
 public class GameMessages extends RValue {
 

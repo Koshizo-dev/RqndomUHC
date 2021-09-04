@@ -6,9 +6,9 @@
 package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.rqndomuhc.scenarios.ScenariosManager;
-import io.rqndomhax.uhcapi.RRules;
-import io.rqndomhax.uhcapi.RScenarios;
-import io.rqndomhax.uhcapi.RValue;
+import io.rqndomhax.uhcapi.game.RRules;
+import io.rqndomhax.uhcapi.utils.RScenarios;
+import io.rqndomhax.uhcapi.utils.RValue;
 
 public class GameRules implements RRules {
 

@@ -5,7 +5,7 @@ plugins {
 
 group 'io.rqndomhax'
 version '1.0-SNAPSHOT'
-description = 'RqndomUHC by RqndomHax'
+description 'RqndomUHC by RqndomHax'
 
 compileJava.getOptions().setEncoding("UTF-8")
 
@@ -15,14 +15,11 @@ repositories {
     mavenLocal();
 }
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     compileOnly 'org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT'
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.7.0'
     implementation 'xyz.xenondevs:particle:1.5.1'
     implementation 'fr.mrmicky:fastboard:1.2.0'
     implementation files('../RqndomUHC-API/build/libs/RqndomUHC-API-1.0-SNAPSHOT.jar')
-    compileOnly files('../RqndomUHC-API/')
 }
 
 test {

@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.uhcapi.RTask;
+import io.rqndomhax.uhcapi.game.RTask;
 
 public class TEpisode implements RTask {
 

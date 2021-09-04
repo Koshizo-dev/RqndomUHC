@@ -7,8 +7,7 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.uhcapi.RGameTask;
-import io.rqndomhax.uhcapi.RTask;
+import io.rqndomhax.uhcapi.game.RTask;
 
 public class TStart implements RTask {
 

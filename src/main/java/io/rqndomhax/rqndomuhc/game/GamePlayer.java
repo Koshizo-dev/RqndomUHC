@@ -5,15 +5,17 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.uhcapi.RGamePlayer;
-import io.rqndomhax.uhcapi.RValue;
+import io.rqndomhax.uhcapi.game.RGamePlayer;
+import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public class GamePlayer implements RGamePlayer {
 

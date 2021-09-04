@@ -5,8 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.scenarios;
 
-import io.rqndomhax.uhcapi.RScenario;
-import io.rqndomhax.uhcapi.RScenarios;
+import io.rqndomhax.uhcapi.utils.RScenarios;
 
 public class ScenariosManager extends RScenarios {
 

@@ -33,7 +33,7 @@ public class TTeleportation implements RTask {
     public void loop() {
         if (remainingTime-- == 0) {
             // TODO break platforms etcetc
-            taskManager.getGameManager().getRules().getScenariosManager().getScenarios().forEach(this::registerScenario);
+            taskManager.getGameManager().getRules().getScenariosManager().getScenarios().values().forEach(this::registerScenario);
         }
     }
 

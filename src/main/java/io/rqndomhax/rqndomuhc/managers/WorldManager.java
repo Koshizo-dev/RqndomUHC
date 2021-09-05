@@ -68,7 +68,6 @@ public class WorldManager extends RValue implements RWorldManager {
 
     @Override
     public HashMap<String, World> getWorlds() {
-        return null;
-        // TODO
+        return (HashMap<String, World>) castObjects(World.class);
     }
 }

@@ -10,8 +10,7 @@ import io.rqndomhax.uhcapi.scenarios.RScenario;
 import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.HashMap;
 
 public class ScenariosManager extends RValue implements RScenariosManager {
 
@@ -20,8 +19,8 @@ public class ScenariosManager extends RValue implements RScenariosManager {
     }
 
     @Override
-    public Set<RScenario> getScenarios() {
-        return getObjects().values().stream().map(object -> (RScenario) object).collect(Collectors.toSet());
+    public HashMap<String, RScenario> getScenarios() {
+        return (HashMap<String, RScenario>) castObjects(RScenario.class);
     }
 
     @Override

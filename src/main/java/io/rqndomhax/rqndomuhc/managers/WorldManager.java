@@ -2,10 +2,10 @@ package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.world.RWorldManager;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;

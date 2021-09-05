@@ -18,9 +18,6 @@ public class WorldManager extends RValue implements RWorldManager {
         if (file == null || !file.exists() || !file.isDirectory())
             return null;
 
-        if (!newDir.createNewFile())
-            return null;
-
         FileUtils.copyDirectory(file, newDir);
         if (!newDir.exists())
             return null;

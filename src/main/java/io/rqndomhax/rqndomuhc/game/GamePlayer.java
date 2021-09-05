@@ -23,7 +23,6 @@ public class GamePlayer implements RGamePlayer {
     final UUID playerUniqueID;
     final String playerName;
 
-
     final Set<UUID> playerKills = new HashSet<>();
     Location playerLocation;
     ItemStack[] inventory = new ItemStack[40];

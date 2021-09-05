@@ -5,9 +5,11 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package io.rqndomhax.rqndomuhc.tasks;
+package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.rqndomuhc.GameManager;
+import io.rqndomhax.rqndomuhc.tasks.TEpisode;
+import io.rqndomhax.rqndomuhc.tasks.TStart;
+import io.rqndomhax.rqndomuhc.tasks.TTeleportation;
 import io.rqndomhax.uhcapi.game.RGameTask;
 import io.rqndomhax.uhcapi.game.RTask;
 import org.bukkit.scheduler.BukkitRunnable;

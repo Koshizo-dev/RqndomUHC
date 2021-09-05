@@ -6,7 +6,7 @@
 package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.fastboard.FastBoard;
-import io.rqndomhax.rqndomuhc.GameManager;
+import io.rqndomhax.rqndomuhc.managers.GameManager;
 import io.rqndomhax.uhcapi.utils.RScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

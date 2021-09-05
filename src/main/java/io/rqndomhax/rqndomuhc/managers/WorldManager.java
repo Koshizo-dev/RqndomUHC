@@ -1,4 +1,4 @@
-package io.rqndomhax.rqndomuhc.world;
+package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.world.RWorldManager;
@@ -9,9 +9,17 @@ import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
+import java.util.HashMap;
 
 public class WorldManager extends RValue implements RWorldManager {
+
+    public WorldManager() {
+        try {
+            createWorld("io.rqndomhax.rqndomuhc.world.meetup", new File("Meetup"), new File("original/Meetup"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public World createWorld(String key, File newDir, File file) throws IOException {
@@ -50,6 +58,7 @@ public class WorldManager extends RValue implements RWorldManager {
         removeObject(world);
     }
 
+    @Override
     public World getWorld(String key) {
         Object result = getObjects().get(key);
         if (result == null)
@@ -57,8 +66,9 @@ public class WorldManager extends RValue implements RWorldManager {
         return (World) result;
     }
 
-    private String getKey(World world) {
-        return getObjects().entrySet().stream().filter(target -> target.getValue().equals(world)).map(Map.Entry::getKey).findAny().orElse(null);
+    @Override
+    public HashMap<String, World> getWorlds() {
+        return null;
+        // TODO
     }
-
 }

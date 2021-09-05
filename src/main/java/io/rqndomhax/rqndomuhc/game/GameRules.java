@@ -5,10 +5,12 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.rqndomuhc.GameManager;
-import io.rqndomhax.rqndomuhc.scenarios.ScenariosManager;
+import io.rqndomhax.rqndomuhc.managers.GameManager;
+import io.rqndomhax.rqndomuhc.managers.RolesManager;
+import io.rqndomhax.rqndomuhc.managers.ScenariosManager;
 import io.rqndomhax.uhcapi.game.RRules;
-import io.rqndomhax.uhcapi.utils.RScenarios;
+import io.rqndomhax.uhcapi.role.RRoleManager;
+import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 
 public class GameRules implements RRules {
@@ -16,7 +18,8 @@ public class GameRules implements RRules {
     String gameTitle;
     final GameManager gameManager;
     final RValue gameTimers = new RValue();
-    final RScenarios scenariosManager = new ScenariosManager();
+    final RScenariosManager scenariosManager = new ScenariosManager();
+    final RRoleManager rolesManager = new RolesManager();
 
     public GameRules(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -38,7 +41,12 @@ public class GameRules implements RRules {
     }
 
     @Override
-    public RScenarios getScenarios() {
+    public RScenariosManager getScenariosManager() {
         return scenariosManager;
+    }
+
+    @Override
+    public RRoleManager getRolesManager() {
+        return rolesManager;
     }
 }

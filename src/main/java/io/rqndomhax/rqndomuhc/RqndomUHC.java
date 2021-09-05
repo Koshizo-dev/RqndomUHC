@@ -5,6 +5,7 @@
 
 package io.rqndomhax.rqndomuhc;
 
+import io.rqndomhax.rqndomuhc.managers.GameManager;
 import io.rqndomhax.uhcapi.GetUHCAPI;
 import io.rqndomhax.uhcapi.UHCAPI;
 import org.bukkit.Bukkit;

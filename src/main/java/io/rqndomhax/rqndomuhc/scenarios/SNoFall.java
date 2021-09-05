@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.scenarios;
 
-import io.rqndomhax.uhcapi.utils.RScenario;
+import io.rqndomhax.uhcapi.scenarios.RScenario;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

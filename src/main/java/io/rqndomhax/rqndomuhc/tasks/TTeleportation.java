@@ -5,8 +5,9 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
+import io.rqndomhax.rqndomuhc.managers.TaskManager;
 import io.rqndomhax.uhcapi.game.RTask;
-import io.rqndomhax.uhcapi.utils.RScenario;
+import io.rqndomhax.uhcapi.scenarios.RScenario;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
@@ -32,7 +33,7 @@ public class TTeleportation implements RTask {
     public void loop() {
         if (remainingTime-- == 0) {
             // TODO break platforms etcetc
-            taskManager.getGameManager().getRules().getScenarios().getScenarios().forEach(this::registerScenario);
+            taskManager.getGameManager().getRules().getScenariosManager().getScenarios().forEach(this::registerScenario);
         }
     }
 

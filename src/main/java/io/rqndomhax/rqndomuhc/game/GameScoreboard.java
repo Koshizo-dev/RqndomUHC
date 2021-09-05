@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import fr.mrmicky.fastboard.FastBoard;
+import io.rqndomhax.fastboard.FastBoard;
 import io.rqndomhax.rqndomuhc.GameManager;
 import io.rqndomhax.uhcapi.utils.RScoreboard;
 import org.bukkit.Bukkit;

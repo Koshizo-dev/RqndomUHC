@@ -5,6 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
+import io.rqndomhax.rqndomuhc.GameManager;
 import io.rqndomhax.rqndomuhc.scenarios.ScenariosManager;
 import io.rqndomhax.uhcapi.game.RRules;
 import io.rqndomhax.uhcapi.utils.RScenarios;

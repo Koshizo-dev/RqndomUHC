@@ -3,10 +3,10 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package io.rqndomhax.rqndomuhc;
+package io.rqndomhax.rqndomuhc.game;
 
 import fr.mrmicky.fastboard.FastBoard;
-import io.rqndomhax.rqndomuhc.game.GameManager;
+import io.rqndomhax.rqndomuhc.GameManager;
 import io.rqndomhax.uhcapi.utils.RScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

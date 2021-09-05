@@ -7,7 +7,7 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.rqndomuhc.game.GameManager;
+import io.rqndomhax.rqndomuhc.GameManager;
 import io.rqndomhax.uhcapi.game.RGameTask;
 import io.rqndomhax.uhcapi.game.RTask;
 import org.bukkit.scheduler.BukkitRunnable;

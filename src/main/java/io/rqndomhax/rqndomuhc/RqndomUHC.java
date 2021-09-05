@@ -5,12 +5,13 @@
 
 package io.rqndomhax.rqndomuhc;
 
-import io.rqndomhax.rqndomuhc.game.GameManager;
 import io.rqndomhax.uhcapi.GetUHCAPI;
 import io.rqndomhax.uhcapi.UHCAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.IOException;
 
 public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
 
@@ -18,15 +19,29 @@ public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
 
     @Override
     public void onEnable() {
-        this.gameManager = new GameManager(this);
-        Bukkit.getServicesManager().register(GetUHCAPI.class, this, this, ServicePriority.Highest);
-        super.onEnable();
+        try {
+            this.gameManager = new GameManager(this);
+            Bukkit.getServicesManager().register(GetUHCAPI.class, this, this, ServicePriority.Highest);
+            super.onEnable();
+        } catch (IOException e) {
+            e.printStackTrace();
+            onDisable();
+        }
     }
 
     @Override
     public void onDisable() {
+        if (gameManager == null) {
+            super.onDisable();
+            return;
+        }
         if (gameManager.taskManager != null)
             gameManager.taskManager.cancel();
+        try {
+            gameManager.getWorldManager().deleteWorld("io.rqndomhax.rqndomuhc.world.meetup", false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         super.onDisable();
     }
 

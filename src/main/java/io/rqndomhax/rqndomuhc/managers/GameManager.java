@@ -76,4 +76,9 @@ public class GameManager implements UHCAPI {
     public WorldManager getWorldManager() {
         return worldManager;
     }
+
+    @Override
+    public RRoleManager getRoleManager() {
+        return rolesManager;
+    }
 }

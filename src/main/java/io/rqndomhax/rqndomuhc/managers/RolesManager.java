@@ -9,38 +9,57 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class RolesManager extends RValue implements RRoleManager {
+public class RolesManager implements RRoleManager {
 
     final RValue activeRoles = new RValue();
+    final RValue roles = new RValue();
+    final RValue teams = new RValue();
 
     @Override
-    public void createRole(String roleKey, Class<? extends RRole> role) {
-        addObject(roleKey, role);
+    public void addTeam(String s, Class<?> aClass) {
+
+    }
+
+    @Override
+    public void removeTeam(Class<?> aClass) {
+
+    }
+
+    @Override
+    public void removeTeam(String s) {
+
+    }
+
+    @Override
+    public void createRole(String roleKey, RRole role) {
+        roles.addObject(roleKey, role);
     }
 
     @Override
     public void deleteRole(String roleKey) {
-        removeObject(roleKey);
+        roles.removeObject(roleKey);
+        disableRole(roleKey);
     }
 
     @Override
-    public void deleteRole(Class<? extends RRole> target) {
-        removeObject(getObjects().entrySet().stream().filter(role -> role.getValue().equals(target)).map(Map.Entry::getKey).findFirst().orElse(null));
+    public void deleteRole(RRole target) {
+        roles.removeObject(roles.getObjects().entrySet().stream().filter(role -> role.getValue().equals(target)).map(Map.Entry::getKey).findFirst().orElse(null));
+        disableRole(target);
     }
 
     @Override
     public HashMap<String, RRole> getRoles() {
-        return (HashMap<String, RRole>) castObjects(RRole.class);
+        return (HashMap<String, RRole>) roles.castObjects(RRole.class);
     }
 
     @Override
     public void enableRole(RRole role) {
-        activeRoles.addObject(getKey(role), role);
+        activeRoles.addObject(roles.getKey(role), role);
     }
 
     @Override
     public void enableRole(String roleKey) {
-        activeRoles.addObject(roleKey, getObject(roleKey));
+        activeRoles.addObject(roleKey, roles.getObject(roleKey));
     }
 
     @Override

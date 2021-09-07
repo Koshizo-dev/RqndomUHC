@@ -6,14 +6,20 @@
 package io.rqndomhax.rqndomuhc.scenarios;
 
 import io.rqndomhax.uhcapi.scenarios.RScenario;
+import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.inventory.ItemStack;
 
-public class SNoFall implements Listener, RScenario {
+public class SNoFall extends RValue implements Listener, RScenario {
+
+    public SNoFall() {
+        addObject("item", Material.STONE);
+        addObject("author", "RqndomHax");
+        addObject("name", "NoFall");
+    }
 
     @Override
     public void init() {
@@ -29,7 +35,7 @@ public class SNoFall implements Listener, RScenario {
     }
 
     @Override
-    public ItemStack getConfigItem() {
-        return new ItemStack(Material.STONE);
+    public RValue getScenarioInfos() {
+        return this;
     }
 }

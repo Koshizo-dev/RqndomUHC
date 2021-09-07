@@ -16,6 +16,7 @@ public class ScenariosManager extends RValue implements RScenariosManager {
 
     public ScenariosManager() {
         registerScenario("io.rqndomhax.rqndomuhc.scenarios.no_fall", new SNoFall());
+        registerScenario("io.rqndomhax.rqndomuhc.scenarios.no_fall", new SNoFall());
     }
 
     @Override

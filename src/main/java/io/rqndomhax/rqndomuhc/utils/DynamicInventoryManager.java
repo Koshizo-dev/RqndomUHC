@@ -14,10 +14,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class DynamicInventoryManager extends RValue implements RDynamicInventory, Listener {
 
@@ -47,11 +44,10 @@ public class DynamicInventoryManager extends RValue implements RDynamicInventory
 
     @Override
     public void onInventoryClose(Player player) {
-        if (!players.values().stream().anyMatch(playerS -> playerS.contains(player)))
+        if (players.values().stream().noneMatch(playerS -> playerS.contains(player)))
             return;
-        player.closeInventory();
 
-        Optional<RInventory> result = players.entrySet().stream().filter(target -> target.getValue().contains(player)).map(inventory -> inventory.getKey()).findFirst();
+        Optional<RInventory> result = players.entrySet().stream().filter(target -> target.getValue().contains(player)).map(Map.Entry::getKey).findFirst();
 
         if (!result.isPresent())
             return;

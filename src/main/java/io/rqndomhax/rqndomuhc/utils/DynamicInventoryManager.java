@@ -78,8 +78,8 @@ public class DynamicInventoryManager extends RValue implements RDynamicInventory
     }
 
     @Override
-    public String getInventoryName(RInventory inventory) {
-        return getKey(inventory);
+    public String getInventoryKey(RInventory rInventory) {
+        return getKey(rInventory);
     }
 
     @Override

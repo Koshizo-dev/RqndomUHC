@@ -43,4 +43,29 @@ public class ScenariosManager extends RValue implements RScenariosManager {
     public void unregisterScenario(RScenario scenario) {
         removeObject(scenario);
     }
+
+    @Override
+    public void enableScenario(RScenario rScenario) {
+        // TODO
+    }
+
+    @Override
+    public void enableScenario(String s) {
+        // TODO
+    }
+
+    @Override
+    public void disableScenario(RScenario rScenario) {
+        // TODO
+    }
+
+    @Override
+    public void disableScenario(String s) {
+        // TODO
+    }
+
+    @Override
+    public HashMap<String, RScenario> getActiveScenarios() {
+        return null;
+    }
 }

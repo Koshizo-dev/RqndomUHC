@@ -16,18 +16,18 @@ public class RolesManager implements RRoleManager {
     final RValue teams = new RValue();
 
     @Override
-    public void addTeam(String s, Class<?> aClass) {
-
+    public void addTeam(String teamKey, Class<?> team) {
+        teams.addObject(teamKey, team);
     }
 
     @Override
-    public void removeTeam(Class<?> aClass) {
-
+    public void removeTeam(Class<?> team) {
+        teams.removeObject(team);
     }
 
     @Override
-    public void removeTeam(String s) {
-
+    public void removeTeam(String teamKey) {
+        teams.removeKey(teamKey);
     }
 
     @Override

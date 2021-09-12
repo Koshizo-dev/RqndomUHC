@@ -12,7 +12,10 @@ import io.rqndomhax.uhcapi.utils.RValue;
 
 import java.util.HashMap;
 
-public class ScenariosManager extends RValue implements RScenariosManager {
+public class ScenariosManager implements RScenariosManager {
+
+    RValue activeScenarios = new RValue();
+    RValue scenarios = new RValue();
 
     public ScenariosManager() {
         registerScenario("io.rqndomhax.rqndomuhc.scenarios.no_fall", new SNoFall());
@@ -21,51 +24,53 @@ public class ScenariosManager extends RValue implements RScenariosManager {
 
     @Override
     public HashMap<String, RScenario> getScenarios() {
-        return (HashMap<String, RScenario>) castObjects(RScenario.class);
+        return (HashMap<String, RScenario>) scenarios.castObjects(RScenario.class);
     }
 
     @Override
     public RScenario getScenario(String key) {
-        return (RScenario) getObject(key);
+        return (RScenario) scenarios.getObject(key);
     }
 
     @Override
     public void registerScenario(String name, RScenario scenario) {
-        addObject(name, scenario);
+        scenarios.addObject(name, scenario);
     }
 
     @Override
-    public void unregisterScenario(String name) {
-        removeKey(name);
+    public void unregisterScenario(String scenarioKey) {
+        scenarios.removeKey(scenarioKey);
+        activeScenarios.removeKey(scenarioKey);
     }
 
     @Override
     public void unregisterScenario(RScenario scenario) {
-        removeObject(scenario);
+        scenarios.removeObject(scenario);
+        scenarios.removeObject(scenario);
     }
 
     @Override
-    public void enableScenario(RScenario rScenario) {
-        // TODO
+    public void enableScenario(RScenario scenario) {
+        activeScenarios.addObject(scenarios.getKey(scenario), scenario);
     }
 
     @Override
-    public void enableScenario(String s) {
-        // TODO
+    public void enableScenario(String scenarioKey) {
+        activeScenarios.addObject(scenarioKey, scenarios.getObject(scenarioKey));
     }
 
     @Override
-    public void disableScenario(RScenario rScenario) {
-        // TODO
+    public void disableScenario(RScenario scenario) {
+        activeScenarios.removeObject(scenario);
     }
 
     @Override
-    public void disableScenario(String s) {
-        // TODO
+    public void disableScenario(String scenarioKey) {
+        activeScenarios.removeKey(scenarioKey);
     }
 
     @Override
     public HashMap<String, RScenario> getActiveScenarios() {
-        return null;
+        return (HashMap<String, RScenario>) activeScenarios.castObjects(RScenario.class);
     }
 }

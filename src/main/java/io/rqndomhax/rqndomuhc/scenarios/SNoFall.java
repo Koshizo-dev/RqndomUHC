@@ -5,6 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.scenarios;
 
+import io.rqndomhax.uhcapi.game.RGamePlayer;
 import io.rqndomhax.uhcapi.scenarios.RScenario;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Material;
@@ -23,6 +24,15 @@ public class SNoFall extends RValue implements Listener, RScenario {
 
     @Override
     public void init() {
+    }
+
+    @Override
+    public void init(RGamePlayer gamePlayer) {
+    }
+
+    @Override
+    public void destroy() {
+
     }
 
     @EventHandler

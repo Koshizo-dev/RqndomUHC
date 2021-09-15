@@ -17,11 +17,13 @@ import io.rqndomhax.uhcapi.role.RRoleManager;
 import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RDynamicInventory;
 import io.rqndomhax.uhcapi.utils.RScoreboard;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class GameManager implements UHCAPI {
 
@@ -33,8 +35,6 @@ public class GameManager implements UHCAPI {
     final RHostManager hostManager = new HostManager();
     final GameMessages gameMessages = new GameMessages();
     final WorldManager worldManager = new WorldManager();
-    final RRoleManager rolesManager = new RolesManager();
-    final RScenariosManager scenariosManager = new ScenariosManager();
     final JavaPlugin plugin;
 
     public GameManager(JavaPlugin plugin) throws IOException {
@@ -64,6 +64,21 @@ public class GameManager implements UHCAPI {
     }
 
     @Override
+    public RGamePlayer getGamePlayer(String username) {
+        return getGamePlayers().stream().filter(gamePlayer -> gamePlayer.getName().equals(username)).findFirst().orElse(null);
+    }
+
+    @Override
+    public RGamePlayer getGamePlayer(UUID uuid) {
+        return getGamePlayers().stream().filter(gamePlayer -> gamePlayer.getUniqueID().equals(uuid)).findFirst().orElse(null);
+    }
+
+    @Override
+    public RGamePlayer getGamePlayer(Player player) {
+        return getGamePlayers().stream().filter(gamePlayer -> gamePlayer.getUniqueID().equals(player.getUniqueId())).findFirst().orElse(null);
+    }
+
+    @Override
     public RHostManager getHostManager() {
         return hostManager;
     }
@@ -75,10 +90,5 @@ public class GameManager implements UHCAPI {
 
     public WorldManager getWorldManager() {
         return worldManager;
-    }
-
-    @Override
-    public RRoleManager getRoleManager() {
-        return rolesManager;
     }
 }

@@ -7,8 +7,12 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
+import io.rqndomhax.rqndomuhc.managers.ScenariosManager;
 import io.rqndomhax.rqndomuhc.managers.TaskManager;
 import io.rqndomhax.uhcapi.game.RTask;
+import io.rqndomhax.uhcapi.scenarios.RScenario;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 
 public class TStart implements RTask {
 
@@ -31,8 +35,14 @@ public class TStart implements RTask {
 
         // TODO SEND TO PLAYER STARTING
 
-        if (remainingTime-- == 0)
+        if (remainingTime-- == 0) {
             mainTask.lastTaskFinished = true;
+            init();
+        }
+    }
+
+    private void init() {
+
     }
 
     @Override

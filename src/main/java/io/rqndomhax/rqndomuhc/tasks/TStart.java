@@ -42,7 +42,7 @@ public class TStart implements RTask {
     }
 
     private void init() {
-
+        mainTask.getGameManager().getRules().getScenariosManager().enableScenarios();
     }
 
     @Override

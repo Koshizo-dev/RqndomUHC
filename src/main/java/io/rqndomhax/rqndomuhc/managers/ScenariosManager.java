@@ -5,14 +5,12 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.rqndomuhc.scenarios.SNoFall;
 import io.rqndomhax.uhcapi.scenarios.RScenario;
 import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 

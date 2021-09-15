@@ -18,12 +18,13 @@ public class GameRules implements RRules {
     String gameTitle;
     final GameManager gameManager;
     final RValue gameTimers = new RValue();
-    final RScenariosManager scenariosManager;
-    final RRoleManager rolesManager = new RolesManager();
+    RScenariosManager scenariosManager;
+    RRoleManager rolesManager;
 
     public GameRules(GameManager gameManager) {
         this.gameManager = gameManager;
-        scenariosManager = new ScenariosManager(gameManager);
+        setScenariosManager(new ScenariosManager(gameManager));
+        setRolesManager(new RolesManager());
     }
 
     @Override
@@ -47,7 +48,17 @@ public class GameRules implements RRules {
     }
 
     @Override
+    public void setScenariosManager(RScenariosManager scenariosManager) {
+        this.scenariosManager = scenariosManager;
+    }
+
+    @Override
     public RRoleManager getRolesManager() {
         return rolesManager;
+    }
+
+    @Override
+    public void setRolesManager(RRoleManager rolesManager) {
+        this.rolesManager = rolesManager;
     }
 }

@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.scenarios;
 
-import io.rqndomhax.rqndomuhc.managers.GameManager;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.RGamePlayer;
 import io.rqndomhax.uhcapi.scenarios.RScenario;
 import io.rqndomhax.uhcapi.utils.RValue;
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 
 public class SCatEyes extends RValue implements Listener, RScenario {
 
-    final GameManager gameManager;
+    final UHCAPI api;
 
-    public SCatEyes(GameManager gameManager) {
-        this.gameManager = gameManager;
+    public SCatEyes(UHCAPI api) {
+        this.api = api;
         addObject("item", Material.GOLDEN_CARROT);
         addObject("author", "unknown");
         addObject("name", "Cat eyes");
@@ -33,13 +33,13 @@ public class SCatEyes extends RValue implements Listener, RScenario {
 
     @Override
     public void init() {
-        for (RGamePlayer gamePlayer : gameManager.getGamePlayers())
+        for (RGamePlayer gamePlayer : api.getGamePlayers())
             init(gamePlayer);
     }
 
     @Override
     public void destroy() {
-        for (Player player : Bukkit.getOnlinePlayers().stream().filter(player -> gameManager.getGamePlayer(player) != null).collect(Collectors.toSet()))
+            for (Player player : Bukkit.getOnlinePlayers().stream().filter(player -> api.getGamePlayer(player) != null).collect(Collectors.toSet()))
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
     }
 
@@ -60,6 +60,6 @@ public class SCatEyes extends RValue implements Listener, RScenario {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        init(gameManager.getGamePlayer(event.getPlayer()));
+        init(api.getGamePlayer(event.getPlayer()));
     }
 }

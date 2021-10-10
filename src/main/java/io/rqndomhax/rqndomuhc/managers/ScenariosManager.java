@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.uhcapi.scenarios.RScenario;
+import io.rqndomhax.uhcapi.scenarios.IScenario;
 import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;
@@ -25,17 +25,17 @@ public class ScenariosManager implements RScenariosManager {
     }
 
     @Override
-    public HashMap<String, RScenario> getScenarios() {
-        return (HashMap<String, RScenario>) scenarios.castObjects(RScenario.class);
+    public HashMap<String, IScenario> getScenarios() {
+        return (HashMap<String, IScenario>) scenarios.castObjects(IScenario.class);
     }
 
     @Override
-    public RScenario getScenario(String key) {
-        return (RScenario) scenarios.getObject(key);
+    public IScenario getScenario(String key) {
+        return (IScenario) scenarios.getObject(key);
     }
 
     @Override
-    public void registerScenario(String name, RScenario scenario) {
+    public void registerScenario(String name, IScenario scenario) {
         scenarios.addObject(name, scenario);
     }
 
@@ -46,13 +46,13 @@ public class ScenariosManager implements RScenariosManager {
     }
 
     @Override
-    public void unregisterScenario(RScenario scenario) {
+    public void unregisterScenario(IScenario scenario) {
         scenarios.removeObject(scenario);
         scenarios.removeObject(scenario);
     }
 
     @Override
-    public void activateScenario(RScenario scenario) {
+    public void activateScenario(IScenario scenario) {
         activeScenarios.addObject(scenarios.getKey(scenario), scenario);
     }
 
@@ -61,7 +61,7 @@ public class ScenariosManager implements RScenariosManager {
     }
 
     @Override
-    public void deactivateScenario(RScenario scenario) {
+    public void deactivateScenario(IScenario scenario) {
         activeScenarios.removeObject(scenario);
     }
 
@@ -71,18 +71,18 @@ public class ScenariosManager implements RScenariosManager {
     }
 
     @Override
-    public HashMap<String, RScenario> getActiveScenarios() {
-        return (HashMap<String, RScenario>) activeScenarios.castObjects(RScenario.class);
+    public HashMap<String, IScenario> getActiveScenarios() {
+        return (HashMap<String, IScenario>) activeScenarios.castObjects(IScenario.class);
     }
 
     @Override
     public void enableScenarios() {
-        for (RScenario scenario : getActiveScenarios().values())
+        for (IScenario scenario : getActiveScenarios().values())
             enableScenario(scenario);
     }
 
     @Override
-    public void enableScenario(RScenario scenario) {
+    public void enableScenario(IScenario scenario) {
         scenario.init();
         if (scenario instanceof Listener)
             Bukkit.getPluginManager().registerEvents((Listener) scenario, gameManager.plugin);
@@ -91,17 +91,17 @@ public class ScenariosManager implements RScenariosManager {
     @Override
     public void enableScenario(String scenarioKey) {
         if (activeScenarios.getObjects().containsKey(scenarioKey))
-            enableScenario((RScenario) activeScenarios.getObject(scenarioKey));
+            enableScenario((IScenario) activeScenarios.getObject(scenarioKey));
     }
 
     @Override
     public void disableScenarios() {
-        for (RScenario scenario : getActiveScenarios().values())
+        for (IScenario scenario : getActiveScenarios().values())
             disableScenario(scenario);
     }
 
     @Override
-    public void disableScenario(RScenario scenario) {
+    public void disableScenario(IScenario scenario) {
         scenario.destroy();
         if (scenario instanceof Listener)
             HandlerList.unregisterAll((Listener) scenario);
@@ -110,7 +110,7 @@ public class ScenariosManager implements RScenariosManager {
     @Override
     public void disableScenario(String scenarioKey) {
         if (activeScenarios.getObjects().containsKey(scenarioKey))
-            disableScenario((RScenario) activeScenarios.getObject(scenarioKey));
+            disableScenario((IScenario) activeScenarios.getObject(scenarioKey));
     }
 
 

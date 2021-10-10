@@ -1,7 +1,7 @@
 package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.uhcapi.utils.RValue;
-import io.rqndomhax.uhcapi.world.RWorldManager;
+import io.rqndomhax.uhcapi.world.IWorldManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class WorldManager extends RValue implements RWorldManager {
+public class WorldManager extends RValue implements IWorldManager {
 
     public WorldManager() {
         try {

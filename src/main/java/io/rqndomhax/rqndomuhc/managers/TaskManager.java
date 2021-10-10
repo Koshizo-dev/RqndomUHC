@@ -10,8 +10,8 @@ package io.rqndomhax.rqndomuhc.managers;
 import io.rqndomhax.rqndomuhc.tasks.TEpisode;
 import io.rqndomhax.rqndomuhc.tasks.TStart;
 import io.rqndomhax.rqndomuhc.tasks.TTeleportation;
-import io.rqndomhax.uhcapi.game.RGameTask;
-import io.rqndomhax.uhcapi.game.RTask;
+import io.rqndomhax.uhcapi.game.IGameTask;
+import io.rqndomhax.uhcapi.game.ITask;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.InvocationTargetException;
@@ -20,14 +20,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class TaskManager extends BukkitRunnable implements RGameTask {
+public class TaskManager extends BukkitRunnable implements IGameTask {
 
     private final GameManager gameManager;
     public boolean lastTaskFinished = true;
-    private final HashMap<String, RTask> beforeTasks = new HashMap<>();
-    private final HashMap<String, RTask> afterTasks = new HashMap<>();
-    private final List<Class<? extends RTask>> tasks = new ArrayList<>();
-    private RTask currentTask = null;
+    private final HashMap<String, ITask> beforeTasks = new HashMap<>();
+    private final HashMap<String, ITask> afterTasks = new HashMap<>();
+    private final List<Class<? extends ITask>> tasks = new ArrayList<>();
+    private ITask currentTask = null;
     int elapsedRawTime = 0;
     public int elapsedTime = 0;
     public int episode = 0;
@@ -63,12 +63,12 @@ public class TaskManager extends BukkitRunnable implements RGameTask {
     }
 
     @Override
-    public List<Class<? extends RTask>> getTasks() {
+    public List<Class<? extends ITask>> getTasks() {
         return tasks;
     }
 
     @Override
-    public RTask getCurrentTask() {
+    public ITask getCurrentTask() {
         return currentTask;
     }
 
@@ -91,13 +91,13 @@ public class TaskManager extends BukkitRunnable implements RGameTask {
     public boolean startNextTask() throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if (tasks.isEmpty())
             return false;
-        currentTask = (RTask) tasks.get(0).getDeclaredConstructors()[0].newInstance(this);
+        currentTask = (ITask) tasks.get(0).getDeclaredConstructors()[0].newInstance(this);
         tasks.remove(0);
         return true;
     }
 
-    private void runTasks(Collection<RTask> tasks) {
-        for (RTask task : tasks)
+    private void runTasks(Collection<ITask> tasks) {
+        for (ITask task : tasks)
             task.loop();
     }
 }

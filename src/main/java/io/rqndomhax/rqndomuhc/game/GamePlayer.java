@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.uhcapi.game.RGamePlayer;
+import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class GamePlayer implements RGamePlayer {
+public class GamePlayer implements IGamePlayer {
 
     boolean isAlive = true;
     final UUID playerUniqueID;

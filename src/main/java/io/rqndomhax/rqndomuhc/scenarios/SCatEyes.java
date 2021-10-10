@@ -6,8 +6,8 @@
 package io.rqndomhax.rqndomuhc.scenarios;
 
 import io.rqndomhax.uhcapi.UHCAPI;
-import io.rqndomhax.uhcapi.game.RGamePlayer;
-import io.rqndomhax.uhcapi.scenarios.RScenario;
+import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.scenarios.IScenario;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,7 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.stream.Collectors;
 
-public class SCatEyes extends RValue implements Listener, RScenario {
+public class SCatEyes extends RValue implements Listener, IScenario {
 
     final UHCAPI api;
 
@@ -33,7 +33,7 @@ public class SCatEyes extends RValue implements Listener, RScenario {
 
     @Override
     public void init() {
-        for (RGamePlayer gamePlayer : api.getGamePlayers())
+        for (IGamePlayer gamePlayer : api.getGamePlayers())
             init(gamePlayer);
     }
 
@@ -44,7 +44,7 @@ public class SCatEyes extends RValue implements Listener, RScenario {
     }
 
     @Override
-    public void init(RGamePlayer gamePlayer) {
+    public void init(IGamePlayer gamePlayer) {
         if (gamePlayer == null)
             return;
         Player player = gamePlayer.getPlayer();

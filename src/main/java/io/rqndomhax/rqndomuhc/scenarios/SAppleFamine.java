@@ -5,8 +5,8 @@
 
 package io.rqndomhax.rqndomuhc.scenarios;
 
-import io.rqndomhax.uhcapi.game.RGamePlayer;
-import io.rqndomhax.uhcapi.scenarios.RScenario;
+import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.scenarios.IScenario;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Material;
 import org.bukkit.block.data.type.Leaves;
@@ -17,7 +17,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 
-public class SAppleFamine extends RValue implements Listener, RScenario {
+public class SAppleFamine extends RValue implements Listener, IScenario {
 
     public SAppleFamine() {
         addObject("item", Material.APPLE);
@@ -30,7 +30,7 @@ public class SAppleFamine extends RValue implements Listener, RScenario {
     }
 
     @Override
-    public void init(RGamePlayer gamePlayer) {
+    public void init(IGamePlayer gamePlayer) {
 
     }
 

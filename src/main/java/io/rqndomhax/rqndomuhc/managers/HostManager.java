@@ -5,7 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.uhcapi.game.RHostManager;
+import io.rqndomhax.uhcapi.game.IHostManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.entity.Player;
 
@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class HostManager extends RValue implements RHostManager {
+public class HostManager extends RValue implements IHostManager {
 
     public HostManager() {
         addObject("coHosts", new HashSet<>());

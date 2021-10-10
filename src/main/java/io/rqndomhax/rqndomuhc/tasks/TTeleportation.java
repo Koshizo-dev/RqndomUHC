@@ -6,12 +6,12 @@
 package io.rqndomhax.rqndomuhc.tasks;
 
 import io.rqndomhax.rqndomuhc.managers.TaskManager;
-import io.rqndomhax.uhcapi.game.RTask;
-import io.rqndomhax.uhcapi.scenarios.RScenario;
+import io.rqndomhax.uhcapi.game.ITask;
+import io.rqndomhax.uhcapi.scenarios.IScenario;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
-public class TTeleportation implements RTask {
+public class TTeleportation implements ITask {
 
     final String taskName;
     final TaskManager taskManager;
@@ -42,7 +42,7 @@ public class TTeleportation implements RTask {
         return null;
     }
 
-    private void registerScenario(RScenario scenario) {
+    private void registerScenario(IScenario scenario) {
         scenario.init();
         if (scenario instanceof Listener)
             Bukkit.getPluginManager().registerEvents((Listener) scenario, taskManager.getGameManager().getPlugin());

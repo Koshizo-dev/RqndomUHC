@@ -3,35 +3,55 @@
  *  Github: https://github.com/RqndomHax
  */
 
-package io.rqndomhax.rqndomuhc.utils;
+package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.uhcapi.utils.RDynamicInventory;
 import io.rqndomhax.uhcapi.utils.RValue;
-import io.rqndomhax.uhcapi.utils.inventory.RInventory;
+import io.rqndomhax.uhcapi.utils.inventory.*;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 
-public class DynamicInventoryManager extends RValue implements RDynamicInventory, Listener {
+public class DynamicInventoryManager implements IDynamicInventoryManager, Listener {
 
+    private final RValue inventories = new RValue();
     private final HashMap<RInventory, Set<Player>> players = new HashMap<>();
+
+    public DynamicInventoryManager(JavaPlugin plugin) {
+        RInventoryManager inventoryManager = new RInventoryManager();
+        Bukkit.getPluginManager().registerEvents(new RInventoryHandler(plugin, inventoryManager), plugin);
+        new RInventoryTask(inventoryManager).runTaskTimer(plugin, 0, 1);
+        Bukkit.getPluginManager().registerEvents(this, plugin);
+    }
 
     @Override
     public void addInventory(String inventoryName, RInventory inventory) {
-        addObject(inventoryName, inventory);
+        inventories.addObject(inventoryName, inventory);
         players.put(inventory, new HashSet<>());
     }
 
+    @Override
+    public void removeInventory(String inventoryName) {
+        inventories.removeKey(inventoryName);
+    }
+
+    @Override
+    public void removeInventory(RInventory inventory) {
+        inventories.removeObject(inventory);
+    }
 
     @Override
     public void openInventory(String inventoryName, Player player) {
-        openInventory((RInventory) getObject(inventoryName), player);
+        Object inventory = inventories.getObject(inventoryName);
+        if (inventory instanceof RInventory)
+            openInventory((RInventory) inventory, player);
     }
-
 
     @Override
     public void openInventory(RInventory inventory, Player player) {
@@ -39,6 +59,7 @@ public class DynamicInventoryManager extends RValue implements RDynamicInventory
             return;
 
         players.get(inventory).add(player);
+        player.openInventory(inventory.getInventory());
     }
 
 
@@ -58,7 +79,7 @@ public class DynamicInventoryManager extends RValue implements RDynamicInventory
 
     @Override
     public void updateInventory(String inventoryName) {
-        updateInventory((RInventory) getObjects().get(inventoryName));
+        updateInventory((RInventory) inventories.getObject(inventoryName));
     }
 
     @Override
@@ -74,22 +95,26 @@ public class DynamicInventoryManager extends RValue implements RDynamicInventory
 
     @Override
     public RInventory getInventory(String inventoryName) {
-        return (RInventory) getObject(inventoryName);
+        return (RInventory) inventories.getObject(inventoryName);
     }
 
     @Override
-    public String getInventoryKey(RInventory rInventory) {
-        return getKey(rInventory);
+    public String getInventoryKey(RInventory inventory) {
+        return inventories.getKey(inventory);
     }
 
     @Override
     public HashMap<String, RInventory> getInventories() {
-        return null;
-        // TODO
+        return (HashMap<String, RInventory>) inventories.castObjects(RInventory.class);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClose(InventoryCloseEvent event) {
+        onInventoryClose((Player) event.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void onPlayerLeave(PlayerQuitEvent event) {
         onInventoryClose((Player) event.getPlayer());
     }
 

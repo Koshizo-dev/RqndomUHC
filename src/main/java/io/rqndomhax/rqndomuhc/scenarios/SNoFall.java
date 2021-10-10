@@ -5,8 +5,8 @@
 
 package io.rqndomhax.rqndomuhc.scenarios;
 
-import io.rqndomhax.uhcapi.game.RGamePlayer;
-import io.rqndomhax.uhcapi.scenarios.RScenario;
+import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.scenarios.IScenario;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 
-public class SNoFall extends RValue implements Listener, RScenario {
+public class SNoFall extends RValue implements Listener, IScenario {
 
     public SNoFall() {
         addObject("item", Material.STONE);
@@ -27,7 +27,7 @@ public class SNoFall extends RValue implements Listener, RScenario {
     }
 
     @Override
-    public void init(RGamePlayer gamePlayer) {
+    public void init(IGamePlayer gamePlayer) {
     }
 
     @Override

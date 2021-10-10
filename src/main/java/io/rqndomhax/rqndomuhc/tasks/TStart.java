@@ -8,9 +8,9 @@
 package io.rqndomhax.rqndomuhc.tasks;
 
 import io.rqndomhax.rqndomuhc.managers.TaskManager;
-import io.rqndomhax.uhcapi.game.RTask;
+import io.rqndomhax.uhcapi.game.ITask;
 
-public class TStart implements RTask {
+public class TStart implements ITask {
 
     private final TaskManager mainTask;
     String taskName = "io.rqndomhax.rqndomuhc.startTask";

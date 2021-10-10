@@ -7,14 +7,14 @@ package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.fastboard.FastBoard;
 import io.rqndomhax.rqndomuhc.managers.GameManager;
-import io.rqndomhax.uhcapi.utils.RScoreboard;
+import io.rqndomhax.uhcapi.utils.IScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class GameScoreboard implements RScoreboard {
+public class GameScoreboard implements IScoreboard {
 
     final GameManager gameManager;
     final HashMap<UUID, FastBoard> boards = new HashMap<>();

@@ -8,15 +8,14 @@ package io.rqndomhax.rqndomuhc.managers;
 import io.rqndomhax.rqndomuhc.game.GameMessages;
 import io.rqndomhax.rqndomuhc.game.GameRules;
 import io.rqndomhax.rqndomuhc.game.GameScoreboard;
-import io.rqndomhax.rqndomuhc.utils.DynamicInventoryManager;
 import io.rqndomhax.uhcapi.UHCAPI;
-import io.rqndomhax.uhcapi.game.RGamePlayer;
-import io.rqndomhax.uhcapi.game.RHostManager;
-import io.rqndomhax.uhcapi.game.RRules;
-import io.rqndomhax.uhcapi.utils.RDynamicInventory;
-import io.rqndomhax.uhcapi.utils.RScoreboard;
+import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.game.IHostManager;
+import io.rqndomhax.uhcapi.game.IRules;
+import io.rqndomhax.uhcapi.utils.IScoreboard;
 import io.rqndomhax.uhcapi.utils.RValue;
-import io.rqndomhax.uhcapi.world.RWorldManager;
+import io.rqndomhax.uhcapi.utils.inventory.IDynamicInventoryManager;
+import io.rqndomhax.uhcapi.world.IWorldManager;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -27,21 +26,21 @@ import java.util.UUID;
 
 public class GameManager implements UHCAPI {
 
-    RScoreboard gameScoreboard;
-    final Set<RGamePlayer> gamePlayers = new HashSet<>();
-    RRules gameRules;
-    RDynamicInventory inventories;
+    IScoreboard gameScoreboard;
+    final Set<IGamePlayer> gamePlayers = new HashSet<>();
+    IRules gameRules;
+    IDynamicInventoryManager inventories;
     public TaskManager taskManager = null;
-    RHostManager hostManager;
+    IHostManager hostManager;
     final RValue gameMessages = new GameMessages();
-    RWorldManager worldManager;
+    IWorldManager worldManager;
     final JavaPlugin plugin;
 
     public GameManager(JavaPlugin plugin) throws IOException {
         this.plugin = plugin;
         setScoreboardManager(new GameScoreboard(this));
         setRules(new GameRules(this));
-        setInventories(new DynamicInventoryManager());
+        setInventories(new DynamicInventoryManager(plugin));
         setHostManager(new HostManager());
         setWorldManager(new WorldManager());
     }
@@ -52,72 +51,72 @@ public class GameManager implements UHCAPI {
     }
 
     @Override
-    public RScoreboard getScoreboardManager() {
+    public IScoreboard getScoreboardManager() {
         return gameScoreboard;
     }
 
     @Override
-    public void setScoreboardManager(RScoreboard gameScoreboard) {
+    public void setScoreboardManager(IScoreboard gameScoreboard) {
         this.gameScoreboard = gameScoreboard;
     }
 
     @Override
-    public RRules getRules() {
+    public IRules getRules() {
         return gameRules;
     }
 
     @Override
-    public void setRules(RRules gameRules) {
+    public void setRules(IRules gameRules) {
         this.gameRules = gameRules;
     }
 
     @Override
-    public Set<RGamePlayer> getGamePlayers() {
+    public Set<IGamePlayer> getGamePlayers() {
         return gamePlayers;
     }
 
     @Override
-    public RGamePlayer getGamePlayer(String username) {
+    public IGamePlayer getGamePlayer(String username) {
         return getGamePlayers().stream().filter(gamePlayer -> gamePlayer.getName().equals(username)).findFirst().orElse(null);
     }
 
     @Override
-    public RGamePlayer getGamePlayer(UUID uuid) {
+    public IGamePlayer getGamePlayer(UUID uuid) {
         return getGamePlayers().stream().filter(gamePlayer -> gamePlayer.getUniqueID().equals(uuid)).findFirst().orElse(null);
     }
 
     @Override
-    public RGamePlayer getGamePlayer(Player player) {
+    public IGamePlayer getGamePlayer(Player player) {
         return getGamePlayers().stream().filter(gamePlayer -> gamePlayer.getUniqueID().equals(player.getUniqueId())).findFirst().orElse(null);
     }
 
     @Override
-    public RHostManager getHostManager() {
+    public IHostManager getHostManager() {
         return hostManager;
     }
 
     @Override
-    public void setHostManager(RHostManager hostManager) {
+    public void setHostManager(IHostManager hostManager) {
         this.hostManager = hostManager;
     }
 
     @Override
-    public RDynamicInventory getInventories() {
+    public IDynamicInventoryManager getInventories() {
         return inventories;
     }
 
     @Override
-    public void setInventories(RDynamicInventory inventories) {
+    public void setInventories(IDynamicInventoryManager inventories) {
         this.inventories = inventories;
     }
 
     @Override
-    public RWorldManager getWorldManager() {
+    public IWorldManager getWorldManager() {
         return worldManager;
     }
 
     @Override
-    public void setWorldManager(RWorldManager worldManager) {
+    public void setWorldManager(IWorldManager worldManager) {
         this.worldManager = worldManager;
     }
 }

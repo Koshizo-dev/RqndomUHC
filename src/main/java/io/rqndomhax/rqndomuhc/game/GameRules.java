@@ -8,18 +8,18 @@ package io.rqndomhax.rqndomuhc.game;
 import io.rqndomhax.rqndomuhc.managers.GameManager;
 import io.rqndomhax.rqndomuhc.managers.RolesManager;
 import io.rqndomhax.rqndomuhc.managers.ScenariosManager;
-import io.rqndomhax.uhcapi.game.RRules;
-import io.rqndomhax.uhcapi.role.RRoleManager;
+import io.rqndomhax.uhcapi.game.IRules;
+import io.rqndomhax.uhcapi.role.IRoleManager;
 import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 
-public class GameRules implements RRules {
+public class GameRules implements IRules {
 
     String gameTitle;
     final GameManager gameManager;
     final RValue gameTimers = new RValue();
     RScenariosManager scenariosManager;
-    RRoleManager rolesManager;
+    IRoleManager rolesManager;
 
     public GameRules(GameManager gameManager) {
         this.gameManager = gameManager;
@@ -53,12 +53,12 @@ public class GameRules implements RRules {
     }
 
     @Override
-    public RRoleManager getRolesManager() {
+    public IRoleManager getRolesManager() {
         return rolesManager;
     }
 
     @Override
-    public void setRolesManager(RRoleManager rolesManager) {
+    public void setRolesManager(IRoleManager rolesManager) {
         this.rolesManager = rolesManager;
     }
 }

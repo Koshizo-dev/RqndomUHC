@@ -6,20 +6,15 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 
+import javax.swing.text.html.Option;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class WorldManager extends RValue implements IWorldManager {
-
-    public WorldManager() {
-        try {
-            createWorld("io.rqndomhax.rqndomuhc.world.meetup", new File("Meetup"), new File("original/Meetup"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public World createWorld(String key, File newDir, File file) throws IOException {
@@ -53,6 +48,8 @@ public class WorldManager extends RValue implements IWorldManager {
             return;
 
         File worldFolder = world.getWorldFolder();
+        for (Player player : world.getPlayers())
+            player.kickPlayer("RqndomUHC > World deleting");
         Bukkit.unloadWorld(world, saveChunks);
         FileUtils.deleteDirectory(worldFolder);
         removeObject(world);

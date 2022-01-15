@@ -6,6 +6,7 @@
 package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.rqndomuhc.game.GameMessages;
+import io.rqndomhax.rqndomuhc.game.GamePlayer;
 import io.rqndomhax.rqndomuhc.game.GameRules;
 import io.rqndomhax.rqndomuhc.game.GameScoreboard;
 import io.rqndomhax.uhcapi.UHCAPI;
@@ -16,6 +17,7 @@ import io.rqndomhax.uhcapi.utils.IScoreboard;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.IDynamicInventoryManager;
 import io.rqndomhax.uhcapi.world.IWorldManager;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class GameManager implements UHCAPI {
 
@@ -39,10 +42,15 @@ public class GameManager implements UHCAPI {
     public GameManager(JavaPlugin plugin) throws IOException {
         this.plugin = plugin;
         setScoreboardManager(new GameScoreboard(this));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Register scoreboard manager");
         setRules(new GameRules(this));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered rules");
         setInventories(new DynamicInventoryManager(plugin));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered inventories manager");
         setHostManager(new HostManager());
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host manager");
         setWorldManager(new WorldManager());
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered world manager");
     }
 
     @Override
@@ -88,6 +96,13 @@ public class GameManager implements UHCAPI {
     @Override
     public IGamePlayer getGamePlayer(Player player) {
         return getGamePlayers().stream().filter(gamePlayer -> gamePlayer.getUniqueID().equals(player.getUniqueId())).findFirst().orElse(null);
+    }
+
+    @Override
+    public IGamePlayer registerGamePlayer(Player player) {
+        IGamePlayer target = new GamePlayer(player.getUniqueId(), player.getName());
+        getGamePlayers().add(target);
+        return target;
     }
 
     @Override

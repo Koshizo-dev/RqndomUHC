@@ -24,7 +24,7 @@ public class GamePlayer implements IGamePlayer {
     final String playerName;
 
     final Set<UUID> playerKills = new HashSet<>();
-    Location playerLocation;
+    Location lastKnownLocation = null;
     ItemStack[] inventory = new ItemStack[40];
     final RValue playerInfos = new RValue();
 
@@ -70,7 +70,11 @@ public class GamePlayer implements IGamePlayer {
 
     @Override
     public Location getPlayerLocation() {
-        return playerLocation;
+        Player player = getPlayer();
+        if (player == null)
+            return lastKnownLocation;
+        lastKnownLocation = player.getLocation();
+        return lastKnownLocation;
     }
 
     @Override

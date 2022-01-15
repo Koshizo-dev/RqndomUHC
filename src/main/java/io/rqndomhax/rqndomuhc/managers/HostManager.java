@@ -31,7 +31,6 @@ public class HostManager extends RValue implements IHostManager {
         return isIn(object, getObject("host"));
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public boolean isCoHost(Object object) {

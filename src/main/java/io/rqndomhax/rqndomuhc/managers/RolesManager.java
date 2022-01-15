@@ -15,18 +15,19 @@ public class RolesManager implements IRoleManager {
     final RValue roles = new RValue();
 
     @Override
-    public void createRole(String roleKey, IRole role) {
+    public void registerRole(String roleKey, IRole role) {
         roles.addObject(roleKey, role);
+        enableRole(role);
     }
 
     @Override
-    public void deleteRole(String roleKey) {
+    public void unregisterRole(String roleKey) {
         roles.removeObject(roleKey);
         disableRole(roleKey);
     }
 
     @Override
-    public void deleteRole(IRole target) {
+    public void unregisterRole(IRole target) {
         roles.removeObject(roles.getObjects().entrySet().stream().filter(role -> role.getValue().equals(target)).map(Map.Entry::getKey).findFirst().orElse(null));
         disableRole(target);
     }

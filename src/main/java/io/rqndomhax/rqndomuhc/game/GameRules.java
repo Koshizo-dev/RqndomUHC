@@ -12,6 +12,9 @@ import io.rqndomhax.uhcapi.game.IRules;
 import io.rqndomhax.uhcapi.role.IRoleManager;
 import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
+import org.bukkit.Bukkit;
+
+import java.util.logging.Level;
 
 public class GameRules implements IRules {
 
@@ -24,7 +27,9 @@ public class GameRules implements IRules {
     public GameRules(GameManager gameManager) {
         this.gameManager = gameManager;
         setScenariosManager(new ScenariosManager(gameManager));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered scenarios manager");
         setRolesManager(new RolesManager());
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered roles manager");
     }
 
     @Override

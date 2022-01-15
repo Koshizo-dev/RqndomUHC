@@ -13,10 +13,11 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
 
-    private GameManager gameManager;
+    private UHCAPI gameManager;
 
     @Override
     public void onEnable() {
@@ -28,6 +29,7 @@ public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
             e.printStackTrace();
             onDisable();
         }
+        System.out.println(Bukkit.getServicesManager().getRegistration(GetUHCAPI.class));
     }
 
     @Override
@@ -35,13 +37,6 @@ public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
         if (gameManager == null) {
             super.onDisable();
             return;
-        }
-        if (gameManager.taskManager != null)
-            gameManager.taskManager.cancel();
-        try {
-            gameManager.getWorldManager().deleteWorld("io.rqndomhax.rqndomuhc.world.meetup", false);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         super.onDisable();
     }

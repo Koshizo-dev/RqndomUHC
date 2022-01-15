@@ -12,9 +12,14 @@ import javax.swing.text.html.Option;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
-public class WorldManager extends RValue implements IWorldManager {
+public class WorldManager implements IWorldManager {
+
+    private RValue worlds = new RValue();
+    private final Set<World> deleteOnDisable = new HashSet<>();
 
     @Override
     public World createWorld(String key, File newDir, File file) throws IOException {
@@ -27,7 +32,7 @@ public class WorldManager extends RValue implements IWorldManager {
 
         World newWorld = new WorldCreator(newDir.getPath()).createWorld();
 
-        addObject(key, newWorld);
+        worlds.addObject(key, newWorld);
 
         return newWorld;
     }
@@ -38,26 +43,26 @@ public class WorldManager extends RValue implements IWorldManager {
     }
 
     @Override
-    public void deleteWorld(String key, boolean saveChunks) throws IOException {
-        deleteWorld(getWorld(key), saveChunks);
+    public void deleteWorld(String key) throws IOException {
+        deleteWorld(getWorld(key));
     }
 
     @Override
-    public void deleteWorld(World world, boolean saveChunks) throws IOException {
+    public void deleteWorld(World world) throws IOException {
         if (world == null)
             return;
 
         File worldFolder = world.getWorldFolder();
         for (Player player : world.getPlayers())
             player.kickPlayer("RqndomUHC > World deleting");
-        Bukkit.unloadWorld(world, saveChunks);
+        Bukkit.unloadWorld(world, false);
         FileUtils.deleteDirectory(worldFolder);
-        removeObject(world);
+        worlds.removeObject(world);
     }
 
     @Override
     public World getWorld(String key) {
-        Object result = getObjects().get(key);
+        Object result = worlds.getObjects().get(key);
         if (result == null)
             return null;
         return (World) result;
@@ -65,6 +70,7 @@ public class WorldManager extends RValue implements IWorldManager {
 
     @Override
     public HashMap<String, World> getWorlds() {
-        return (HashMap<String, World>) castObjects(World.class);
+        return (HashMap<String, World>) worlds.castObjects(World.class);
     }
+
 }

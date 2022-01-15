@@ -29,7 +29,6 @@ public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
             e.printStackTrace();
             onDisable();
         }
-        System.out.println(Bukkit.getServicesManager().getRegistration(GetUHCAPI.class));
     }
 
     @Override

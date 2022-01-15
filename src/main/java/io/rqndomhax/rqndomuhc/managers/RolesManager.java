@@ -4,6 +4,8 @@ import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.role.IRole;
 import io.rqndomhax.uhcapi.role.IRoleManager;
 import io.rqndomhax.uhcapi.utils.RValue;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -63,18 +65,14 @@ public class RolesManager implements IRoleManager {
     }
 
     @Override
-    public Set<IGamePlayer> getGamePlayers(IRole role, Set<IGamePlayer> gamePlayers) {
-        return gamePlayers.stream().filter(gamePlayer -> gamePlayer.getPlayerInfos().getObjects().values().stream().anyMatch(info -> role.getClass().isInstance(info))).collect(Collectors.toSet());
-    }
-
-    @Override
-    public IRole getRole(IGamePlayer gamePlayer) {
-        return gamePlayer.getPlayerInfos().getObjects().values().stream().filter(info -> info instanceof IRole).map(info -> (IRole) info).findFirst().orElse(null);
+    public Set<IGamePlayer> getGamePlayers(Class<? extends IRole> role, Set<IGamePlayer> gamePlayers) {
+        return gamePlayers.stream().filter(gamePlayer -> gamePlayer.getPlayerInfos().getObjects().values().stream().anyMatch(role::isInstance)).collect(Collectors.toSet());
     }
 
     @Override
     public void dispatchRoles(Set<IGamePlayer> gamePlayers) {
         List<IGamePlayer> remainingPlayers = new ArrayList<>(gamePlayers);
+        Set<IRole> roles = new HashSet<>();
 
         for (IRole role : getActiveRoles().values()) {
             if (remainingPlayers.size() == 0)
@@ -82,13 +80,18 @@ public class RolesManager implements IRoleManager {
             IGamePlayer gamePlayer = remainingPlayers.get(0);
             try {
                 IRole newRole = (IRole) role.getClass().getDeclaredConstructors()[0].newInstance(gamePlayer);
-                newRole.onRoleGiven();
                 gamePlayer.getPlayerInfos().addObject("role", newRole);
+                roles.add(newRole);
                 remainingPlayers.remove(gamePlayer);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
-                return;
+                System.err.println("An error happened on the role: " + role);
+                Player player = gamePlayer.getPlayer();
+                if (player != null)
+                    player.sendMessage(ChatColor.RED + "Un problème est survenu lors de l'attribution de votre rôle (" + role.getClass().getName() + ") !!!");
             }
         }
+        for (IRole t : roles)
+            t.onRoleGiven();
     }
 }

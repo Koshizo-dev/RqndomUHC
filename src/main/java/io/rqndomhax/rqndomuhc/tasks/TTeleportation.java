@@ -5,7 +5,6 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.rqndomuhc.managers.TaskManager;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.ITask;
 import io.rqndomhax.uhcapi.scenarios.IScenario;
@@ -21,7 +20,8 @@ public class TTeleportation implements ITask {
     public TTeleportation(UHCAPI api) {
         this.api = api;
         this.taskName = "api.teleportation";
-        remainingTime = (Integer) api.getRules().getTimers().getObject("api.teleportation_duration");
+        remainingTime = (Integer) api.getRules().getGameInfos().getObject("api.teleportation_duration");
+        api.getGameTaskManager().setGameState("TELEPORTATION");
     }
 
     @Override

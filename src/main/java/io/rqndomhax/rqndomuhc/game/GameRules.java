@@ -20,19 +20,21 @@ public class GameRules implements IRules {
 
     String gameTitle;
     final GameManager gameManager;
-    final RValue gameTimers = new RValue();
+    final RValue gameInfos = new RValue();
     RScenariosManager scenariosManager;
     IRoleManager rolesManager;
 
     public GameRules(GameManager gameManager) {
         this.gameManager = gameManager;
         setScenariosManager(new ScenariosManager(gameManager));
-        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered scenarios manager");
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered scenarios manager.");
         setRolesManager(new RolesManager());
-        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered roles manager");
-        gameTimers.addObject("api.episode_length", 20);
-        gameTimers.addObject("api.teleportation_duration", 15);
-        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered default timers");
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered roles manager.");
+        gameInfos.addObject("api.episode_length", 20);
+        gameInfos.addObject("api.teleportation_duration", 15);
+        gameInfos.addObject("api.isServerLocked", false);
+        gameInfos.addObject("api.serverLockedKickMessage", "The server is currently locked!");
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered default timers.");
     }
 
     @Override
@@ -46,8 +48,8 @@ public class GameRules implements IRules {
     }
 
     @Override
-    public RValue getTimers() {
-        return gameTimers;
+    public RValue getGameInfos() {
+        return gameInfos;
     }
 
     @Override

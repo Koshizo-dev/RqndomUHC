@@ -13,7 +13,6 @@ import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
 

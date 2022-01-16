@@ -7,11 +7,9 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.rqndomuhc.managers.TaskManager;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.ITask;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
 public class TStart implements ITask {
 
@@ -29,10 +27,7 @@ public class TStart implements ITask {
 
     @Override
     public void loop() {
-        if (api.getGameTaskManager() == null)
-            return;
-
-        if (!(api.getGameTaskManager().getGameInfos().getObject("api.gameState")).equals("LOBBY_START")) {
+        if (!(api.getGameTaskManager().getGameState().equals("LOBBY_START"))) {
             if (wasStarting)
                 remainingTime = 15; // We set back to the default start time if it has been canceled
             return;

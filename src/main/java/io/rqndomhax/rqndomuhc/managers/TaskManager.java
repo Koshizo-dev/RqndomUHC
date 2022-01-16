@@ -10,6 +10,7 @@ package io.rqndomhax.rqndomuhc.managers;
 import io.rqndomhax.rqndomuhc.tasks.TEpisode;
 import io.rqndomhax.rqndomuhc.tasks.TStart;
 import io.rqndomhax.rqndomuhc.tasks.TTeleportation;
+import io.rqndomhax.uhcapi.events.GameStateEvent;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGameTask;
 import io.rqndomhax.uhcapi.game.ITask;
@@ -20,7 +21,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 public class TaskManager extends BukkitRunnable implements IGameTask {
@@ -32,6 +32,7 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
     private final List<ITask> afterTasks = new ArrayList<>();
     private final List<Class<? extends ITask>> tasks = new ArrayList<>();
     private ITask currentTask = null;
+    private String gameState;
 
     public TaskManager(UHCAPI api) {
         this.api = api;
@@ -41,7 +42,7 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
         gameInfos.addObject("api.episode",0);
         gameInfos.addObject("api.episodeLength", 20*60);
         gameInfos.addObject("api.hasGameStarted", false);
-        gameInfos.addObject("api.gameState", "LOBBY");
+        setGameState("LOBBY");
         tasks.add(TStart.class);
         tasks.add(TTeleportation.class);
         beforeTasks.add(new TEpisode(api));
@@ -98,6 +99,17 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
     @Override
     public void endCurrentTask() {
         this.lastTaskFinished = true;
+    }
+
+    @Override
+    public void setGameState(String gameState) {
+        this.gameState = gameState;
+        Bukkit.getPluginManager().callEvent(new GameStateEvent(gameState));
+    }
+
+    @Override
+    public String getGameState() {
+        return gameState;
     }
 
     private void runTasks(Collection<ITask> tasks) {

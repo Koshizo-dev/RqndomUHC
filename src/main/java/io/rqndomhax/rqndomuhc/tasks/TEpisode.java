@@ -6,7 +6,6 @@
 package io.rqndomhax.rqndomuhc.tasks;
 
 import io.rqndomhax.uhcapi.UHCAPI;
-import io.rqndomhax.uhcapi.game.IGameTask;
 import io.rqndomhax.uhcapi.game.ITask;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;

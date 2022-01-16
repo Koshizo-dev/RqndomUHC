@@ -1,33 +1,34 @@
 package io.rqndomhax.rqndomuhc.managers;
 
+import io.rqndomhax.rqndomuhc.utils.MBuilder;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.world.IWorldManager;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
-import javax.swing.text.html.Option;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 public class WorldManager implements IWorldManager {
 
     private final RValue worlds = new RValue();
-    private World meetup = null;
-    private World preparation = null;
-    private World lobby = null;
+    private World meetup;
+    private World preparation;
+    private Location lobby;
     private final Set<World> deleteOnDisable = new HashSet<>();
+    private final UHCAPI api;
 
-    public WorldManager() {
-        lobby = Bukkit.getWorlds().get(0);
-        preparation = lobby;
-        meetup = lobby;
+    public WorldManager(UHCAPI api) {
+        World def = Bukkit.getWorlds().get(0);
+        lobby = new Location(def,0, def.getHighestBlockYAt(0, 0), 0);
+        preparation = def;
+        meetup = def;
+        this.api = api;
     }
 
     @Override
@@ -49,16 +50,6 @@ public class WorldManager implements IWorldManager {
     @Override
     public World generateWorld(String world) {
         return null;
-    }
-
-    @Override
-    public void setLobby(String key) {
-        setLobby(getWorld(key));
-    }
-
-    @Override
-    public void setLobby(World world) {
-        this.lobby = world;
     }
 
     @Override
@@ -113,8 +104,18 @@ public class WorldManager implements IWorldManager {
     }
 
     @Override
-    public World getLobby() {
-        return lobby;
+    public void generatePreparationWorld() {
+        // TODO
+    }
+
+    @Override
+    public void generateDefaultEndGameLobby() {
+        // TODO
+    }
+
+    @Override
+    public void setEndGameLobby(Location location) {
+        // TODO
     }
 
     @Override
@@ -125,6 +126,27 @@ public class WorldManager implements IWorldManager {
     @Override
     public World getPreparationWorld() {
         return preparation;
+    }
+
+    @Override
+    public void generateDefaultLobby(Location center, int radius) {
+        new MBuilder(Material.GRAY_STAINED_GLASS, radius, center, true, false, 235, api.getPlugin());
+        setLobby(center);
+    }
+
+    @Override
+    public void destroyDefaultLobby(Location center, int radius) {
+        new MBuilder(Material.AIR, radius, center, true, false, 235, api.getPlugin());
+    }
+
+    @Override
+    public void setLobby(Location lobby) {
+        this.lobby = lobby;
+    }
+
+    @Override
+    public Location getLobby() {
+        return lobby;
     }
 
     @Override

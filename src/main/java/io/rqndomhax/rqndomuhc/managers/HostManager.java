@@ -7,13 +7,18 @@ package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.uhcapi.game.IHostManager;
 import io.rqndomhax.uhcapi.utils.RValue;
+import io.rqndomhax.uhcapi.utils.inventory.RInventory;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 public class HostManager extends RValue implements IHostManager {
+
+    final HashMap<JavaPlugin, RInventory> pluginConfigInventory = new HashMap<>();
 
     public HostManager() {
         addObject("coHosts", new HashSet<>());
@@ -24,7 +29,6 @@ public class HostManager extends RValue implements IHostManager {
     public void setHost(Object object) {
         addObject("host", object);
     }
-
 
     @Override
     public boolean isHost(Object object) {
@@ -45,11 +49,20 @@ public class HostManager extends RValue implements IHostManager {
         ((Set<Object>) getObject("coHosts")).add(object);
     }
 
-
     @Override
     @SuppressWarnings("unchecked")
     public void removeCoHost(Object object) {
         ((Set<Object>) getObject("coHosts")).remove(object);
+    }
+
+    @Override
+    public HashMap<JavaPlugin, RInventory> getPluginConfigInventory() {
+        return pluginConfigInventory;
+    }
+
+    @Override
+    public RInventory getConfigInventory(JavaPlugin plugin) {
+        return pluginConfigInventory.get(plugin);
     }
 
     private boolean isIn(Object object, Object target) {

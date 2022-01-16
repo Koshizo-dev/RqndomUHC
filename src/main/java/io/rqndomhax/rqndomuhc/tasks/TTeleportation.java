@@ -6,6 +6,7 @@
 package io.rqndomhax.rqndomuhc.tasks;
 
 import io.rqndomhax.rqndomuhc.managers.TaskManager;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.ITask;
 import io.rqndomhax.uhcapi.scenarios.IScenario;
 import org.bukkit.Bukkit;
@@ -14,26 +15,21 @@ import org.bukkit.event.Listener;
 public class TTeleportation implements ITask {
 
     final String taskName;
-    final TaskManager taskManager;
+    final UHCAPI api;
     int remainingTime;
 
-    public TTeleportation(TaskManager taskManager, String taskName) {
-        this.taskManager = taskManager;
-        this.taskName = taskName;
-        remainingTime = (Integer) taskManager.getGameManager().getRules().getTimers().getObject("io.rqndomhax.rqndomuhc.teleportation_duration");
-    }
-
-    public TTeleportation(TaskManager taskManager) {
-        this.taskManager = taskManager;
-        this.taskName = "default";
-        remainingTime = (Integer) taskManager.getGameManager().getRules().getTimers().getObject("io.rqndomhax.rqndomuhc.teleportation_duration");
+    public TTeleportation(UHCAPI api) {
+        this.api = api;
+        this.taskName = "api.teleportation";
+        remainingTime = (Integer) api.getRules().getTimers().getObject("api.teleportation_duration");
     }
 
     @Override
     public void loop() {
         if (remainingTime-- == 0) {
-            // TODO break platforms etcetc
-            taskManager.getGameManager().getRules().getScenariosManager().getScenarios().values().forEach(this::registerScenario);
+            api.getRules().getScenariosManager().getScenarios().values().forEach(this::registerScenario);
+            api.getGameTaskManager().endCurrentTask();
+            api.getGameTaskManager().getGameInfos().addObject("api.episode", 1); // We start the first episode
         }
     }
 
@@ -45,6 +41,6 @@ public class TTeleportation implements ITask {
     private void registerScenario(IScenario scenario) {
         scenario.init();
         if (scenario instanceof Listener)
-            Bukkit.getPluginManager().registerEvents((Listener) scenario, taskManager.getGameManager().getPlugin());
+            Bukkit.getPluginManager().registerEvents((Listener) scenario, api.getPlugin());
     }
 }

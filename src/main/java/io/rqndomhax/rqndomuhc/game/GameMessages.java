@@ -10,7 +10,7 @@ import io.rqndomhax.uhcapi.utils.RValue;
 public class GameMessages extends RValue {
 
     public GameMessages() {
-        addObject("io.rqndomhax.rqndomuhc.player_dead", "The player %player% is dead !");
-        addObject("io.rqndomhax.rqndomuhc.player_revive", "The player %player% has been revived !");
+        addObject("api.player_dead", "The player %player% is dead !");
+        addObject("api.player_revive", "The player %player% has been revived !");
     }
 }

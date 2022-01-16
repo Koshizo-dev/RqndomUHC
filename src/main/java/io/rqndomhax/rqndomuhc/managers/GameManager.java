@@ -11,6 +11,7 @@ import io.rqndomhax.rqndomuhc.game.GameRules;
 import io.rqndomhax.rqndomuhc.game.GameScoreboard;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.game.IGameTask;
 import io.rqndomhax.uhcapi.game.IHostManager;
 import io.rqndomhax.uhcapi.game.IRules;
 import io.rqndomhax.uhcapi.utils.IScoreboard;
@@ -20,6 +21,7 @@ import io.rqndomhax.uhcapi.world.IWorldManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -33,7 +35,7 @@ public class GameManager implements UHCAPI {
     final Set<IGamePlayer> gamePlayers = new HashSet<>();
     IRules gameRules;
     IDynamicInventoryManager inventories;
-    public TaskManager taskManager = null;
+    IGameTask taskManager = null;
     IHostManager hostManager;
     final RValue gameMessages = new GameMessages();
     IWorldManager worldManager;
@@ -51,6 +53,8 @@ public class GameManager implements UHCAPI {
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host manager");
         setWorldManager(new WorldManager());
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered world manager");
+        setGameTaskManager(new TaskManager(this));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered game task manager");
     }
 
     @Override
@@ -103,6 +107,18 @@ public class GameManager implements UHCAPI {
         IGamePlayer target = new GamePlayer(player.getUniqueId(), player.getName());
         getGamePlayers().add(target);
         return target;
+    }
+
+    @Override
+    public IGameTask getGameTaskManager() {
+        return taskManager;
+    }
+
+    @Override
+    public void setGameTaskManager(IGameTask taskManager) {
+        if (getGameTaskManager() instanceof BukkitRunnable)
+            ((BukkitRunnable) getGameTaskManager()).cancel();
+        this.taskManager = taskManager;
     }
 
     @Override

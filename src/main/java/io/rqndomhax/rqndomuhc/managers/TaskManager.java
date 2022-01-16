@@ -10,8 +10,11 @@ package io.rqndomhax.rqndomuhc.managers;
 import io.rqndomhax.rqndomuhc.tasks.TEpisode;
 import io.rqndomhax.rqndomuhc.tasks.TStart;
 import io.rqndomhax.rqndomuhc.tasks.TTeleportation;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGameTask;
 import io.rqndomhax.uhcapi.game.ITask;
+import io.rqndomhax.uhcapi.utils.RValue;
+import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.lang.reflect.InvocationTargetException;
@@ -22,44 +25,49 @@ import java.util.List;
 
 public class TaskManager extends BukkitRunnable implements IGameTask {
 
-    private final GameManager gameManager;
+    final UHCAPI api;
     public boolean lastTaskFinished = true;
-    private final HashMap<String, ITask> beforeTasks = new HashMap<>();
-    private final HashMap<String, ITask> afterTasks = new HashMap<>();
+    final RValue gameInfos;
+    private final List<ITask> beforeTasks = new ArrayList<>();
+    private final List<ITask> afterTasks = new ArrayList<>();
     private final List<Class<? extends ITask>> tasks = new ArrayList<>();
     private ITask currentTask = null;
-    int elapsedRawTime = 0;
-    public int elapsedTime = 0;
-    public int episode = 0;
 
-    public TaskManager(GameManager gameManager) {
-        this.gameManager = gameManager;
+    public TaskManager(UHCAPI api) {
+        this.api = api;
+        this.gameInfos = new RValue();
+        gameInfos.addObject("api.elapsedRawTime", 0);
+        gameInfos.addObject("api.elapsedTime",0);
+        gameInfos.addObject("api.episode",0);
+        gameInfos.addObject("api.episodeLength", 20*60);
+        gameInfos.addObject("api.hasGameStarted", false);
+        gameInfos.addObject("api.gameState", "LOBBY");
         tasks.add(TStart.class);
         tasks.add(TTeleportation.class);
-        beforeTasks.put("io.rqndomhax.rqndomuhc.check_episode", new TEpisode(this));
-        runTaskTimer(gameManager.getPlugin(), 0, 20);
+        beforeTasks.add(new TEpisode(api));
+        runTaskTimer(api.getPlugin(), 0, 20);
     }
 
     @Override
     public void run() {
-        runTasks(beforeTasks.values());
+        runTasks(beforeTasks);
         if (lastTaskFinished) {
             try {
                 if (!startNextTask())
                     cancel();
-            } catch (IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
+                Bukkit.broadcastMessage("[RqndomUHC] TaskManager >> An error happened during the initialization of a GameTask, please contact a dev !");
+                Bukkit.broadcastMessage("[RqndomUHC] GameTask >> " + tasks.get(0));
+                cancel();
+                return;
             }
         }
         else
-        if (currentTask != null)
-            currentTask.loop();
-        elapsedRawTime++;
-        runTasks(afterTasks.values());
-    }
-
-    public GameManager getGameManager() {
-        return gameManager;
+            if (currentTask != null)
+                currentTask.loop();
+        getGameInfos().addObject("api.elapsedRawTime", (Integer) getGameInfos().getObject("api.elapsedRawTime") + 1);
+        runTasks(afterTasks);
     }
 
     @Override
@@ -73,27 +81,23 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
     }
 
     @Override
-    public int getEpisode() {
-        return episode;
-    }
-
-    @Override
-    public int getElapsedTime() {
-        return elapsedTime;
-    }
-
-    @Override
-    public int getElapsedRawTime() {
-        return elapsedRawTime;
+    public RValue getGameInfos() {
+        return gameInfos;
     }
 
     @Override
     public boolean startNextTask() throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if (tasks.isEmpty())
             return false;
-        currentTask = (ITask) tasks.get(0).getDeclaredConstructors()[0].newInstance(this);
+        currentTask = (ITask) tasks.get(0).getDeclaredConstructors()[0].newInstance(api);
         tasks.remove(0);
+        this.lastTaskFinished = false;
         return true;
+    }
+
+    @Override
+    public void endCurrentTask() {
+        this.lastTaskFinished = true;
     }
 
     private void runTasks(Collection<ITask> tasks) {

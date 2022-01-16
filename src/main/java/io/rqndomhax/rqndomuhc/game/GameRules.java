@@ -30,6 +30,9 @@ public class GameRules implements IRules {
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered scenarios manager");
         setRolesManager(new RolesManager());
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered roles manager");
+        gameTimers.addObject("api.episode_length", 20);
+        gameTimers.addObject("api.teleportation_duration", 15);
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered default timers");
     }
 
     @Override

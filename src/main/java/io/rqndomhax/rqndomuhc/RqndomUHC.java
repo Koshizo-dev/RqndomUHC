@@ -37,6 +37,19 @@ public class RqndomUHC extends JavaPlugin implements GetUHCAPI {
             super.onDisable();
             return;
         }
+        /*
+         * This might seem old, but it may be a source of error
+         */
+        gameManager.setGameTaskManager(null);
+        gameManager.setHostManager(null);
+        gameManager.setWorldManager(null);
+        gameManager.setScoreboardManager(null);
+        gameManager.setInventories(null);
+        if (gameManager.getRules() != null) {
+            gameManager.getRules().setRolesManager(null);
+            gameManager.getRules().setScenariosManager(null);
+        }
+        gameManager.setRules(null);
         super.onDisable();
     }
 

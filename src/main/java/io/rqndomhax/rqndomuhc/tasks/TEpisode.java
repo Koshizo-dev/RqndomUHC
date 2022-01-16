@@ -5,37 +5,36 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
-import io.rqndomhax.rqndomuhc.managers.TaskManager;
+import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.game.IGameTask;
 import io.rqndomhax.uhcapi.game.ITask;
+import io.rqndomhax.uhcapi.utils.RValue;
+import org.bukkit.Bukkit;
 
 public class TEpisode implements ITask {
 
     final String taskName;
-    final TaskManager taskManager;
-    int episode = 0;
+    final UHCAPI api;
 
-    public TEpisode(TaskManager taskManager, String taskName) {
-        this.taskManager = taskManager;
-        this.taskName = taskName;
-    }
-
-    public TEpisode(TaskManager taskManager) {
-        this.taskManager = taskManager;
-        this.taskName = "default";
+    public TEpisode(UHCAPI api) {
+        this.api = api;
+        this.taskName = "api.episode";
     }
 
     @Override
     public void loop() {
-        if (episode == 0)
+        RValue infos = api.getGameTaskManager().getGameInfos(); // Because the GameInfos can be changed while the task is running we have to retrieve it again everytime
+        if ((int) infos.getObject("api.episode") == 0)
             return;
-        int remaining = ((Integer) (taskManager.getGameManager().getRules().getTimers().getObject("io.rqndomhax.rqndomuhc.episode_length")) * taskManager.episode) - (taskManager.elapsedTime);
 
-        if (remaining == 30) {
-            // 30 seconds left before new episode
-        }
+        int remaining = (((int) infos.getObject("api.episodeLength")) * (int) infos.getObject("api.episode")) - (int) (infos.getObject("api.elapsedTime"));
+
+        if (remaining == 30)
+            Bukkit.broadcastMessage("30 seconds before the episode " + infos.getObject("api.episode") + 1);
 
         if (remaining == 0) {
-            // 0 seconds left before new episode
+            infos.addObject("api.episode", (int) infos.getObject("api.episode") + 1);
+            Bukkit.broadcastMessage("Episode " + infos.getObject("api.episode") + " starting !");
         }
     }
 

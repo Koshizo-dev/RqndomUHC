@@ -8,37 +8,47 @@
 package io.rqndomhax.rqndomuhc.tasks;
 
 import io.rqndomhax.rqndomuhc.managers.TaskManager;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.ITask;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class TStart implements ITask {
 
-    private final TaskManager mainTask;
-    String taskName = "io.rqndomhax.rqndomuhc.startTask";
-    int remainingTime = 0;
+    private final UHCAPI api;
+    String taskName;
+    int remainingTime = 15;
+    boolean wasStarting = false;
 
-    public TStart(TaskManager mainTask) {
-        this.mainTask = mainTask;
-        if (mainTask == null)
+    public TStart(UHCAPI api) {
+        this.api = api;
+        if (api.getGameTaskManager() == null)
             return;
-        mainTask.lastTaskFinished = false;
-        loop();
+        this.taskName = "startTask";
     }
 
     @Override
     public void loop() {
-        if (mainTask == null)
+        if (api.getGameTaskManager() == null)
             return;
 
-        // TODO SEND TO PLAYER STARTING
+        if (!(api.getGameTaskManager().getGameInfos().getObject("api.gameState")).equals("LOBBY_START")) {
+            if (wasStarting)
+                remainingTime = 15; // We set back to the default start time if it has been canceled
+            return;
+        }
+
+        wasStarting = true;
+        Bukkit.broadcastMessage("Game is starting in " + remainingTime + " seconds");
 
         if (remainingTime-- == 0) {
-            mainTask.lastTaskFinished = true;
+            api.getGameTaskManager().endCurrentTask();
             init();
         }
     }
 
     private void init() {
-        mainTask.getGameManager().getRules().getScenariosManager().enableScenarios();
+        api.getRules().getScenariosManager().enableScenarios();
     }
 
     @Override

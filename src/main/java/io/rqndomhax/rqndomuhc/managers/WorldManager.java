@@ -18,8 +18,17 @@ import java.util.Set;
 
 public class WorldManager implements IWorldManager {
 
-    private RValue worlds = new RValue();
+    private final RValue worlds = new RValue();
+    private World meetup = null;
+    private World preparation = null;
+    private World lobby = null;
     private final Set<World> deleteOnDisable = new HashSet<>();
+
+    public WorldManager() {
+        lobby = Bukkit.getWorlds().get(0);
+        preparation = lobby;
+        meetup = lobby;
+    }
 
     @Override
     public World createWorld(String key, File newDir, File file) throws IOException {
@@ -35,6 +44,41 @@ public class WorldManager implements IWorldManager {
         worlds.addObject(key, newWorld);
 
         return newWorld;
+    }
+
+    @Override
+    public World generateWorld(String world) {
+        return null;
+    }
+
+    @Override
+    public void setLobby(String key) {
+        setLobby(getWorld(key));
+    }
+
+    @Override
+    public void setLobby(World world) {
+        this.lobby = world;
+    }
+
+    @Override
+    public void setMeetupWorld(String key) {
+        setMeetupWorld(getWorld(key));
+    }
+
+    @Override
+    public void setMeetupWorld(World world) {
+        this.meetup = world;
+    }
+
+    @Override
+    public void setPreparationWorld(String key) {
+        setPreparationWorld(getWorld(key));
+    }
+
+    @Override
+    public void setPreparationWorld(World world) {
+        this.preparation = world;
     }
 
     @Override
@@ -66,6 +110,21 @@ public class WorldManager implements IWorldManager {
         if (result == null)
             return null;
         return (World) result;
+    }
+
+    @Override
+    public World getLobby() {
+        return lobby;
+    }
+
+    @Override
+    public World getMeetupWorld() {
+        return meetup;
+    }
+
+    @Override
+    public World getPreparationWorld() {
+        return preparation;
     }
 
     @Override

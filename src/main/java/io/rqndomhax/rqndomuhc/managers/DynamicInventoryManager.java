@@ -5,6 +5,9 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
+import io.rqndomhax.rqndomuhc.inventories.IHost;
+import io.rqndomhax.rqndomuhc.inventories.IHostConfig;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.*;
 import org.bukkit.Bukkit;
@@ -17,17 +20,22 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class DynamicInventoryManager implements IDynamicInventoryManager, Listener {
 
     private final RValue inventories = new RValue();
     private final HashMap<RInventory, Set<Player>> players = new HashMap<>();
 
-    public DynamicInventoryManager(JavaPlugin plugin) {
+    public DynamicInventoryManager(UHCAPI api) {
         RInventoryManager inventoryManager = new RInventoryManager();
-        Bukkit.getPluginManager().registerEvents(new RInventoryHandler(plugin, inventoryManager), plugin);
-        new RInventoryTask(inventoryManager).runTaskTimer(plugin, 0, 1);
-        Bukkit.getPluginManager().registerEvents(this, plugin);
+        Bukkit.getPluginManager().registerEvents(new RInventoryHandler(api.getPlugin(), inventoryManager), api.getPlugin());
+        new RInventoryTask(inventoryManager).runTaskTimer(api.getPlugin(), 0, 1);
+        Bukkit.getPluginManager().registerEvents(this, api.getPlugin());
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] DynamicInventoryManager >> Registered Events");
+        addInventory("api.host", new IHost(api));
+        addInventory("api.hostConfig", new IHostConfig(api));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] DynamicInventoryManager >> Registered API inventories");
     }
 
     @Override

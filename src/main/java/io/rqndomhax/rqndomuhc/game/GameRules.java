@@ -34,6 +34,9 @@ public class GameRules implements IRules {
         gameInfos.addObject("api.teleportation_duration", 15);
         gameInfos.addObject("api.isServerLocked", false);
         gameInfos.addObject("api.serverLockedKickMessage", "The server is currently locked!");
+        gameInfos.addObject("api.hasSpectatorsAfterBorder", true);
+        gameInfos.addObject("api.hasSpectators", true);
+        gameInfos.addObject("api.hasWhitelist", true);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered default timers.");
     }
 

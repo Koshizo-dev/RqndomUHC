@@ -5,20 +5,15 @@ import io.rqndomhax.uhcapi.game.IGamePlayer;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ELobby implements Listener {
 
@@ -29,73 +24,79 @@ public class ELobby implements Listener {
     }
 
     @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event) {
+    private void onPlayerJoinEvent(PlayerJoinEvent event) {
         if (!isLobby())
             return;
         event.getPlayer().teleport(api.getWorldManager().getLobby());
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                api.getInventories().openInventory("api.host", event.getPlayer());
+            }
+        }.runTaskLater(api.getPlugin(), 2);
     }
     @EventHandler
-    public void onBucket(PlayerBucketEmptyEvent e) {
+    private void onBucket(PlayerBucketEmptyEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onBlockPlace(BlockPlaceEvent e) {
+    private void onBlockPlace(BlockPlaceEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onBlockDestroy(BlockBreakEvent e) {
+    private void onBlockDestroy(BlockBreakEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onBlockExplode(BlockExplodeEvent e) {
+    private void onBlockExplode(BlockExplodeEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onEntityExplode(EntityExplodeEvent e) {
+    private void onEntityExplode(EntityExplodeEvent e) {
         if (isLobby())
             e.blockList().clear();
     }
 
     @EventHandler
-    public void onBlockBurn(BlockBurnEvent e) {
+    private void onBlockBurn(BlockBurnEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
+    private void onDrop(PlayerDropItemEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onThrow(ProjectileLaunchEvent e) {
+    private void onThrow(ProjectileLaunchEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onEntityDamage(EntityDamageEvent e) {
+    private void onEntityDamage(EntityDamageEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onFoodLevelChange(FoodLevelChangeEvent e) {
+    private void onFoodLevelChange(FoodLevelChangeEvent e) {
         if (!e.isCancelled())
             e.setCancelled(isLobby());
     }
 
     @EventHandler
-    public void onMove(PlayerMoveEvent e) {
+    private void onMove(PlayerMoveEvent e) {
         if (!isLobby())
             return;
 
@@ -114,8 +115,8 @@ public class ELobby implements Listener {
     }
 
     @EventHandler
-    private void onRain(WeatherChangeEvent e){
-        if(e.toWeatherState())
+    private void onRain(WeatherChangeEvent e) {
+        if (e.toWeatherState())
             e.setCancelled(true);
     }
 

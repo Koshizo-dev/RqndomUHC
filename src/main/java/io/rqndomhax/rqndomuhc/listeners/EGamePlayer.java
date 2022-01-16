@@ -1,9 +1,9 @@
 package io.rqndomhax.rqndomuhc.listeners;
 
-import io.rqndomhax.uhcapi.events.GamePlayerAddedEvent;
-import io.rqndomhax.uhcapi.events.GamePlayerRemovedEvent;
 import io.rqndomhax.rqndomuhc.game.GamePlayer;
 import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.events.GamePlayerAddEvent;
+import io.rqndomhax.uhcapi.events.GamePlayerRemoveEvent;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -23,7 +23,7 @@ public class EGamePlayer implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) {
         if (!api.getGameTaskManager().getGameState().equals("LOBBY"))
             return;
-        GamePlayerAddedEvent playerAdd = new GamePlayerAddedEvent(new GamePlayer(event.getPlayer().getUniqueId(), event.getPlayer().getName()));
+        GamePlayerAddEvent playerAdd = new GamePlayerAddEvent(new GamePlayer(event.getPlayer().getUniqueId(), event.getPlayer().getName()));
         Bukkit.getPluginManager().callEvent(playerAdd);
         if (!playerAdd.isCancelled())
             api.getGamePlayers().add(playerAdd.getGamePlayer());
@@ -36,7 +36,7 @@ public class EGamePlayer implements Listener {
         IGamePlayer gamePlayer = api.getGamePlayer(event.getPlayer().getUniqueId());
         if (gamePlayer == null)
             return;
-        GamePlayerRemovedEvent playerRemoved = new GamePlayerRemovedEvent(gamePlayer);
+        GamePlayerRemoveEvent playerRemoved = new GamePlayerRemoveEvent(gamePlayer);
         Bukkit.getPluginManager().callEvent(playerRemoved);
         if (!playerRemoved.isCancelled())
             api.getGamePlayers().remove(playerRemoved.getGamePlayer());

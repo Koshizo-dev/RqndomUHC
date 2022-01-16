@@ -46,18 +46,25 @@ public class GameManager implements UHCAPI {
 
     public GameManager(JavaPlugin plugin) throws IOException {
         this.plugin = plugin;
+
         setScoreboardManager(new GameScoreboard(this));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Register scoreboard manager.");
+
         setRules(new GameRules(this));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered rules.");
-        setInventories(new DynamicInventoryManager(plugin));
-        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered inventories manager.");
+
         setHostManager(new HostManager());
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host manager.");
+
+        setInventories(new DynamicInventoryManager(this));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered inventories manager.");
+
         setWorldManager(new WorldManager(this));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered world manager.");
+
         setGameTaskManager(new TaskManager(this));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered game task manager.");
+
         Bukkit.getPluginManager().registerEvents(new ELobby(this), plugin);
         Bukkit.getPluginManager().registerEvents(new EGamePlayer(this), plugin);
         Bukkit.getPluginManager().registerEvents(new GameLock(this), plugin);

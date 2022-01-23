@@ -2,8 +2,8 @@ package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.rqndomuhc.utils.MBuilder;
 import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.managers.IWorldManager;
 import io.rqndomhax.uhcapi.utils.RValue;
-import io.rqndomhax.uhcapi.world.IWorldManager;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;

@@ -6,7 +6,7 @@
 package io.rqndomhax.rqndomuhc.scenarios;
 
 import io.rqndomhax.uhcapi.game.IGamePlayer;
-import io.rqndomhax.uhcapi.scenarios.IScenario;
+import io.rqndomhax.uhcapi.game.IScenario;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

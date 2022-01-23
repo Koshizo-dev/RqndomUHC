@@ -15,17 +15,20 @@ import io.rqndomhax.rqndomuhc.listeners.GameLock;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.game.IGameTask;
-import io.rqndomhax.uhcapi.game.IHostManager;
 import io.rqndomhax.uhcapi.game.IRules;
+import io.rqndomhax.uhcapi.managers.IHostConfigManager;
+import io.rqndomhax.uhcapi.managers.IHostManager;
+import io.rqndomhax.uhcapi.managers.IWorldManager;
+import io.rqndomhax.uhcapi.utils.FileManager;
+import io.rqndomhax.uhcapi.utils.HostConfig;
 import io.rqndomhax.uhcapi.utils.IScoreboard;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.IDynamicInventoryManager;
-import io.rqndomhax.uhcapi.world.IWorldManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,41 +37,47 @@ import java.util.logging.Level;
 
 public class GameManager implements UHCAPI {
 
-    IScoreboard gameScoreboard;
+    final IScoreboard gameScoreboard;
     final Set<IGamePlayer> gamePlayers = new HashSet<>();
-    IRules gameRules;
-    IDynamicInventoryManager inventories;
-    IGameTask taskManager = null;
-    IHostManager hostManager;
+    final IRules gameRules;
+    final IDynamicInventoryManager inventories;
+    final IGameTask taskManager;
+    final IHostManager hostManager;
+    final IHostConfigManager configManager;
     final RValue gameMessages = new GameMessages();
-    IWorldManager worldManager;
+    final IWorldManager worldManager;
     final JavaPlugin plugin;
 
     public GameManager(JavaPlugin plugin) throws IOException {
         this.plugin = plugin;
 
-        setScoreboardManager(new GameScoreboard(this));
+        this.gameScoreboard = new GameScoreboard(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Register scoreboard manager.");
 
-        setRules(new GameRules(this));
+        this.gameRules = new GameRules(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered rules.");
 
-        setHostManager(new HostManager());
+        this.hostManager = new HostManager();
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host manager.");
 
-        setInventories(new DynamicInventoryManager(this));
+        this.configManager = new HostConfigManager(new FileManager(plugin), plugin.getDataFolder());
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host config manager.");
+
+        this.inventories = new DynamicInventoryManager(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered inventories manager.");
 
-        setWorldManager(new WorldManager(this));
+        this.worldManager = new WorldManager(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered world manager.");
 
-        setGameTaskManager(new TaskManager(this));
+        this.taskManager = new TaskManager(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered game task manager.");
 
         Bukkit.getPluginManager().registerEvents(new ELobby(this), plugin);
         Bukkit.getPluginManager().registerEvents(new EGamePlayer(this), plugin);
         Bukkit.getPluginManager().registerEvents(new GameLock(this), plugin);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered listeners.");
+
+        configManager.saveConfig(new HostConfig(gameRules.getGameInfos(), "test", "configs/test.cfg"), true);
     }
 
     @Override
@@ -82,18 +91,8 @@ public class GameManager implements UHCAPI {
     }
 
     @Override
-    public void setScoreboardManager(IScoreboard gameScoreboard) {
-        this.gameScoreboard = gameScoreboard;
-    }
-
-    @Override
     public IRules getRules() {
         return gameRules;
-    }
-
-    @Override
-    public void setRules(IRules gameRules) {
-        this.gameRules = gameRules;
     }
 
     @Override
@@ -129,20 +128,13 @@ public class GameManager implements UHCAPI {
     }
 
     @Override
-    public void setGameTaskManager(IGameTask taskManager) {
-        if (getGameTaskManager() instanceof BukkitRunnable)
-            ((BukkitRunnable) getGameTaskManager()).cancel();
-        this.taskManager = taskManager;
-    }
-
-    @Override
     public IHostManager getHostManager() {
         return hostManager;
     }
 
     @Override
-    public void setHostManager(IHostManager hostManager) {
-        this.hostManager = hostManager;
+    public IHostConfigManager getHostConfigManager() {
+        return this.configManager;
     }
 
     @Override
@@ -151,17 +143,8 @@ public class GameManager implements UHCAPI {
     }
 
     @Override
-    public void setInventories(IDynamicInventoryManager inventories) {
-        this.inventories = inventories;
-    }
-
-    @Override
     public IWorldManager getWorldManager() {
         return worldManager;
     }
 
-    @Override
-    public void setWorldManager(IWorldManager worldManager) {
-        this.worldManager = worldManager;
-    }
 }

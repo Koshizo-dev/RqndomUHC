@@ -5,9 +5,8 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.rqndomuhc.listeners.EHostChange;
 import io.rqndomhax.uhcapi.events.GameHostChangeEvent;
-import io.rqndomhax.uhcapi.game.IHostManager;
+import io.rqndomhax.uhcapi.managers.IHostManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.RInventory;
 import org.bukkit.Bukkit;

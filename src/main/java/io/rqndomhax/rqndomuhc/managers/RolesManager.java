@@ -1,8 +1,8 @@
 package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.uhcapi.game.IGamePlayer;
-import io.rqndomhax.uhcapi.role.IRole;
-import io.rqndomhax.uhcapi.role.IRoleManager;
+import io.rqndomhax.uhcapi.game.IRole;
+import io.rqndomhax.uhcapi.managers.IRoleManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

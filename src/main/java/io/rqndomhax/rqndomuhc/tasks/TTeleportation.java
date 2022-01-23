@@ -6,8 +6,8 @@
 package io.rqndomhax.rqndomuhc.tasks;
 
 import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.game.IScenario;
 import io.rqndomhax.uhcapi.game.ITask;
-import io.rqndomhax.uhcapi.scenarios.IScenario;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 

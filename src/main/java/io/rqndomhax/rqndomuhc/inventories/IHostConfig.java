@@ -17,7 +17,7 @@ public class IHostConfig extends RInventory {
     private final UHCAPI api;
 
     public IHostConfig(UHCAPI api) {
-        super(null, IInfos.MAIN_HOST_NAME, 9*6);
+        super(api, IInfos.MAIN_HOST_NAME, 9*6);
         this.api = api;
     }
 
@@ -59,7 +59,7 @@ public class IHostConfig extends RInventory {
     }
 
     private ItemStack getSpectators() {
-        if ((boolean) api.getRules().getGameInfos().getObject("api.hasSpectators"))
+        if ((boolean) this.api.getRules().getGameInfos().getObject("api.hasSpectators"))
             return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
         return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.DARK_RED + " ✘").toItemStack();
     }

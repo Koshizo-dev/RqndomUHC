@@ -43,7 +43,7 @@ public class GameScoreboard implements IScoreboard {
     @Override
     public FastBoard newGameScoreboard(Player player) {
         FastBoard fb = new FastBoard(player);
-        fb.updateTitle(gameManager.getRules().getGameTitle());
+        fb.updateTitle((String) gameManager.getRules().getGameInfos().getObject("api.gameTitle"));
 
         boards.put(player.getUniqueId(), fb);
         return fb;

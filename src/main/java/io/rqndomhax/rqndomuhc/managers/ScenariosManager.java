@@ -5,8 +5,8 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.uhcapi.scenarios.IScenario;
-import io.rqndomhax.uhcapi.scenarios.RScenariosManager;
+import io.rqndomhax.uhcapi.game.IScenario;
+import io.rqndomhax.uhcapi.managers.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;

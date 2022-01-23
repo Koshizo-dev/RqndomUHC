@@ -25,14 +25,14 @@ import io.rqndomhax.uhcapi.utils.IScoreboard;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.IDynamicInventoryManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 
 public class GameManager implements UHCAPI {
@@ -77,7 +77,11 @@ public class GameManager implements UHCAPI {
         Bukkit.getPluginManager().registerEvents(new GameLock(this), plugin);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered listeners.");
 
-        configManager.saveConfig(new HostConfig(gameRules.getGameInfos(), "test", "configs/test.cfg"), true);
+        ItemStack[] inventory = new ItemStack[40];
+        for (int i = 0; i < 40; inventory[i++] = new ItemStack(Material.DIRT, 2));
+        List<Object> objects = new ArrayList<>();
+        for (int i = 0; i < 40; objects.add(inventory[i++]));
+        objects.forEach(System.out::println);
     }
 
     @Override

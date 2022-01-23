@@ -14,7 +14,7 @@ import java.util.Objects;
 
 public class HostConfigManager implements IHostConfigManager {
 
-    public static final List<HostConfig> configurations = new ArrayList<>();
+    public List<HostConfig> configurations = new ArrayList<>();
     private static FileManager manager;
 
     public HostConfigManager(FileManager fileManager, File dataFolder) {
@@ -56,7 +56,7 @@ public class HostConfigManager implements IHostConfigManager {
             return null;
         HostConfig tmp = new HostConfig(new RValue(), config.getString("configName"), path);
 
-        tmp.getGameInfos().setObjects((HashMap<String, Object>) Objects.requireNonNull(config.getConfigurationSection("gameInfos")).getValues(false));
+        tmp.getGameInfos().setObjects((HashMap<String, Object>) Objects.requireNonNull(config.getConfigurationSection("gameInfos")).getValues(true));
         configurations.add(tmp);
         return tmp;
     }
@@ -79,6 +79,16 @@ public class HostConfigManager implements IHostConfigManager {
         FileManager.Config configuration = manager.getConfig(config.getFilePath());
         configuration.set("gameInfos", config.getGameInfos().getObjects());
         configuration.save();
+    }
+
+    @Override
+    public List<HostConfig> getConfiguration() {
+        return (configurations);
+    }
+
+    @Override
+    public void setConfigurations(List<HostConfig> configurations) {
+        this.configurations = configurations;
     }
 
 }

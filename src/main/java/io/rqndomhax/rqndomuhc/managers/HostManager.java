@@ -25,6 +25,8 @@ import java.util.*;
 public class HostManager extends RValue implements IHostManager {
 
     final HashMap<JavaPlugin, RInventory> pluginConfigInventory = new HashMap<>();
+    UUID startInventory;
+    UUID deathInventory;
     final UHCAPI api;
 
     public HostManager(UHCAPI api) {
@@ -42,6 +44,26 @@ public class HostManager extends RValue implements IHostManager {
     @Override
     public String getHostName() {
         return Bukkit.getOfflinePlayer((UUID) getObject("host")).getName();
+    }
+
+    @Override
+    public UUID getStartInventory() {
+        return startInventory;
+    }
+
+    @Override
+    public void setStartInventory(UUID startInventory) {
+        this.startInventory = startInventory;
+    }
+
+    @Override
+    public UUID getDeathInventory() {
+        return deathInventory;
+    }
+
+    @Override
+    public void setDeathInventory(UUID deathInventory) {
+        this.deathInventory = deathInventory;
     }
 
     @Override
@@ -147,6 +169,8 @@ public class HostManager extends RValue implements IHostManager {
             host.sendMessage(message);
         for (Object coHost : coHosts) {
             UUID coHostUniqueId = retrieveUUID(coHost);
+            if (coHostUniqueId == null)
+                continue;
             Player tmp = Bukkit.getPlayer((UUID) coHost);
             if (tmp != null)
                 tmp.sendMessage(message);

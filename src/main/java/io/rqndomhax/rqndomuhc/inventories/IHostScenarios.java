@@ -21,23 +21,23 @@ public class IHostScenarios extends RInventory {
 
     public IHostScenarios(UHCAPI api) {
         super(api, IInfos.MAIN_HOST_NAME, 9*6);
-        refreshInventory();
-    }
 
-    @Override
-    public void refreshInventory() {
         int[] bars = new int[]{3, 5, 19, 28, 25, 34, 48, 50};
         for (Integer i : bars)
             setItem(i, IInfos.BARS);
 
         setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
         IInfos.placeInvBorders(getInventory());
-
-        int[] slots = new int[]{12, 13, 14, 20, 21, 23, 24, 29, 30, 31, 32, 33, 39, 40, 41};
-
         setItem(49, IInfos.RETURN_ITEM, e -> {
             getApi().getInventories().openInventory("api.host", (Player) e.getWhoClicked());
         });
+
+        refreshInventory();
+    }
+
+    @Override
+    public void refreshInventory() {
+        int[] slots = new int[]{12, 13, 14, 20, 21, 23, 24, 29, 30, 31, 32, 33, 39, 40, 41};
 
         setPageController(pageController -> {
             pageController.setBoard(slots);

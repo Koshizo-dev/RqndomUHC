@@ -37,6 +37,11 @@ public class ScenariosManager implements RScenariosManager {
     }
 
     @Override
+    public void clearScenarios() {
+        scenarios.setObjects(new HashMap<>());
+    }
+
+    @Override
     public IScenario getScenario(String key) {
         return (IScenario) scenarios.getObject(key);
     }
@@ -80,6 +85,11 @@ public class ScenariosManager implements RScenariosManager {
     @Override
     public HashMap<String, IScenario> getActiveScenarios() {
         return (HashMap<String, IScenario>) activeScenarios.castObjects(IScenario.class);
+    }
+
+    @Override
+    public void clearActiveScenarios() {
+        activeScenarios.setObjects(new HashMap<>());
     }
 
     @Override

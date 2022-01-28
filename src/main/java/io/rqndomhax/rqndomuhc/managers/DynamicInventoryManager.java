@@ -6,6 +6,10 @@
 package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.rqndomuhc.inventories.*;
+import io.rqndomhax.rqndomuhc.inventories.configs.IHostCustomConfigs;
+import io.rqndomhax.rqndomuhc.inventories.inventory.IHostDeathInventory;
+import io.rqndomhax.rqndomuhc.inventories.inventory.IHostInventories;
+import io.rqndomhax.rqndomuhc.inventories.inventory.IHostStartInventory;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.*;
@@ -16,7 +20,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 import java.util.logging.Level;
@@ -38,7 +41,10 @@ public class DynamicInventoryManager implements IDynamicInventoryManager, Listen
         addInventory("api.hostConfig", new IHostConfig(api));
         addInventory("api.hostScenarios", new IHostScenarios(api));
         addInventory("api.hostTimers", new IHostTimers(api));
-        addInventory("api.hostCustomConfig", new IHostCustomConfigs(api));
+        addInventory("api.hostCustomConfigs", new IHostCustomConfigs(api));
+        addInventory("api.startInventory", new IHostStartInventory(api));
+        addInventory("api.deathInventory", new IHostDeathInventory(api));
+        addInventory("api.hostInventories", new IHostInventories(api));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] DynamicInventoryManager >> Registered API inventories");
     }
 

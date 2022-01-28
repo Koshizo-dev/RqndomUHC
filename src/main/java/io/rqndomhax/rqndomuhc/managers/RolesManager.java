@@ -41,6 +41,11 @@ public class RolesManager implements IRoleManager {
     }
 
     @Override
+    public void clearRoles() {
+        roles.setObjects(new HashMap<>());
+    }
+
+    @Override
     public void enableRole(IRole role) {
         activeRoles.addObject(roles.getKey(role), role);
     }
@@ -63,6 +68,11 @@ public class RolesManager implements IRoleManager {
     @Override
     public HashMap<String, IRole> getActiveRoles() {
         return (HashMap<String, IRole>) activeRoles.castObjects(IRole.class);
+    }
+
+    @Override
+    public void clearActiveRoles() {
+        activeRoles.setObjects(new HashMap<>());
     }
 
     @Override

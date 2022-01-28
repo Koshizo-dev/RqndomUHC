@@ -1,9 +1,11 @@
 package io.rqndomhax.rqndomuhc.managers;
 
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.managers.IHostConfigManager;
 import io.rqndomhax.uhcapi.utils.FileManager;
 import io.rqndomhax.uhcapi.utils.HostConfig;
 import io.rqndomhax.uhcapi.utils.RValue;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -17,7 +19,7 @@ public class HostConfigManager implements IHostConfigManager {
     public List<HostConfig> configurations = new ArrayList<>();
     private static FileManager manager;
 
-    public HostConfigManager(FileManager fileManager, File dataFolder) {
+    public HostConfigManager(UHCAPI api, FileManager fileManager, File dataFolder) {
         if (fileManager == null)
             return;
 
@@ -41,7 +43,7 @@ public class HostConfigManager implements IHostConfigManager {
         for (File entry : entries) {
             if (entry == null || !entry.exists() || entry.isDirectory())
                 continue;
-            if (entry.getName().endsWith(".cfg") && configurations.stream().noneMatch(c -> c.getFilePath().equals("configs/" + entry.getName())))
+            if (!entry.getName().equals("default.cfg") && entry.getName().endsWith(".cfg") && configurations.stream().noneMatch(c -> c.getFilePath().equals("configs/" + entry.getName())))
                 loadConfig("configs/" + entry.getName());
         }
     }
@@ -73,11 +75,18 @@ public class HostConfigManager implements IHostConfigManager {
     public void saveConfig(HostConfig config, boolean save) {
         if (manager == null || config == null)
             return;
-        if (!configurations.contains(config) && save)
-            configurations.add(config);
+        boolean doesSave = true;
+        if (save) {
+            for (HostConfig tmp : configurations)
+                if (tmp.getFilePath().equals(config.getFilePath()))
+                    doesSave = false;
+            if (doesSave)
+                configurations.add(config);
+        }
 
         FileManager.Config configuration = manager.getConfig(config.getFilePath());
         configuration.set("gameInfos", config.getGameInfos().getObjects());
+        configuration.set("configName", config.getName());
         configuration.save();
     }
 

@@ -3,3 +3,5 @@ author: RqndomHax
 version: 0.1
 api-version: 1.16
 main: io.rqndomhax.rqndomuhc.RqndomUHC
+commands:
+  save:

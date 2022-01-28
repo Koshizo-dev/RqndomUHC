@@ -24,19 +24,22 @@ public class IHostTimers extends RInventory {
 
     public IHostTimers(UHCAPI api) {
         super(api, IInfos.MAIN_HOST_NAME, 9*6);
+
+        int[] bars = new int[]{3, 5, 48, 50};
+        for (Integer i : bars)
+            setItem(i, IInfos.BARS);
+        for (int i = 10 ; i < 17 ; setItem(i, IInfos.BARS), i++);
+        for (int i = 37 ; i < 45 ; setItem(i, IInfos.BARS), i++);
+        setItem(49, IInfos.RETURN_ITEM, e -> {
+            getApi().getInventories().openInventory("api.host", (Player) e.getWhoClicked());
+        });
+
         refreshInventory();
     }
 
     @Override
     public void refreshInventory() {
-        int[] bars = new int[]{3, 5, 48, 50};
         int[] row = new int[]{19, 20, 21, 23, 24, 25};
-
-        for (Integer i : bars)
-            setItem(i, IInfos.BARS);
-
-        for (int i = 10 ; i < 17 ; setItem(i, IInfos.BARS), i++);
-        for (int i = 37 ; i < 45 ; setItem(i, IInfos.BARS), i++);
 
         setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
 
@@ -50,10 +53,6 @@ public class IHostTimers extends RInventory {
 
         updateRoleItem();
         updatePreparationItem();
-
-        setItem(49, IInfos.RETURN_ITEM, e -> {
-            getApi().getInventories().openInventory("api.host", (Player) e.getWhoClicked());
-        });
 
         super.refreshInventory();
     }

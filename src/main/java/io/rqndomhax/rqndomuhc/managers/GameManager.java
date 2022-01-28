@@ -5,6 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
+import io.rqndomhax.rqndomuhc.commands.CHostSaveInventory;
 import io.rqndomhax.rqndomuhc.game.GameMessages;
 import io.rqndomhax.rqndomuhc.game.GamePlayer;
 import io.rqndomhax.rqndomuhc.game.GameRules;
@@ -58,7 +59,7 @@ public class GameManager implements UHCAPI {
         this.hostManager = new HostManager(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host manager.");
 
-        this.configManager = new HostConfigManager(new FileManager(plugin), plugin.getDataFolder());
+        this.configManager = new HostConfigManager(this, new FileManager(plugin), plugin.getDataFolder());
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host config manager.");
 
         this.worldManager = new WorldManager(this);
@@ -71,6 +72,9 @@ public class GameManager implements UHCAPI {
         Bukkit.getPluginManager().registerEvents(new EGamePlayer(this), plugin);
         Bukkit.getPluginManager().registerEvents(new GameLock(this), plugin);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered listeners.");
+
+        Objects.requireNonNull(plugin.getCommand("save")).setExecutor(new CHostSaveInventory(this));
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered commands.");
 
         this.inventories = new DynamicInventoryManager(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered inventories manager.");

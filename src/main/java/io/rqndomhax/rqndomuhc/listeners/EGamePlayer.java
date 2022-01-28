@@ -7,6 +7,7 @@ import io.rqndomhax.uhcapi.events.GamePlayerRemoveEvent;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -48,6 +49,7 @@ public class EGamePlayer implements Listener {
             api.getGamePlayers().add(playerAdd.getGamePlayer());
 
         event.getPlayer().teleport(api.getWorldManager().getLobby());
+        event.getPlayer().setGameMode(GameMode.ADVENTURE);
     }
 
     @EventHandler
@@ -63,6 +65,11 @@ public class EGamePlayer implements Listener {
         Bukkit.getPluginManager().callEvent(playerRemoved);
         if (!playerRemoved.isCancelled())
             api.getGamePlayers().remove(playerRemoved.getGamePlayer());
+
+        if (api.getHostManager().getStartInventory().equals(event.getPlayer().getUniqueId()))
+            api.getHostManager().setStartInventory(null);
+        if (api.getHostManager().getDeathInventory().equals(event.getPlayer().getUniqueId()))
+            api.getHostManager().setDeathInventory(null);
 
     }
 

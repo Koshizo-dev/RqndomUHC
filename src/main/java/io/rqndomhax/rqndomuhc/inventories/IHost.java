@@ -13,19 +13,19 @@ public class IHost extends RInventory {
 
     public IHost(UHCAPI api) {
         super(api, IInfos.MAIN_HOST_NAME, 9*6);
-        refreshInventory();
-    }
-
-    @Override
-    public void refreshInventory() {
         IInfos.placeInvBorders(this.getInventory());
-        this.setItem(4, IInfos.MAIN_HOST_CONFIGS, openHostConfig());
+        this.setItem(4, IInfos.MAIN_HOST_CONFIGS, openCustomConfigs());
         this.setItem(11, IInfos.MAIN_HOST_SCENARIOS, openScenariosConfig());
         this.setItem(15, IInfos.MAIN_HOST_BORDER_CONFIG, openBorderConfig());
         this.setItem(21, IInfos.MAIN_HOST_INVENTORIES, openInventoriesConfig());
         this.setItem(23, IInfos.MAIN_HOST_WORLD, openWorldConfig());
         this.setItem(38, IInfos.MAIN_HOST_TIMERS, openTimerConfig());
         this.setItem(42, IInfos.MAIN_HOST_HOST, openHostConfig());
+        refreshInventory();
+    }
+
+    @Override
+    public void refreshInventory() {
         if (!getApi().getGameTaskManager().getGameState().equals("LOBBY_START"))
             this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
         else
@@ -36,6 +36,12 @@ public class IHost extends RInventory {
     private Consumer<InventoryClickEvent> openScenariosConfig() {
         return e -> {
             getApi().getInventories().openInventory("api.hostScenarios", (Player) e.getWhoClicked());
+        };
+    }
+
+    private Consumer<InventoryClickEvent> openCustomConfigs() {
+        return e -> {
+            getApi().getInventories().openInventory("api.hostCustomConfigs", (Player) e.getWhoClicked());
         };
     }
 
@@ -59,7 +65,7 @@ public class IHost extends RInventory {
 
     private Consumer<InventoryClickEvent> openInventoriesConfig() {
         return e -> {
-            getApi().getInventories().openInventory("api.hostConfig", (Player) e.getWhoClicked());
+            getApi().getInventories().openInventory("api.hostInventories", (Player) e.getWhoClicked());
         };
     }
 

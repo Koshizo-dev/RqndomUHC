@@ -17,17 +17,21 @@ public class IHostConfig extends RInventory {
 
     public IHostConfig(UHCAPI api) {
         super(api, IInfos.MAIN_HOST_NAME, 9*6);
+
+        int[] bars = new int[]{3, 5, 48, 50};
+        for (Integer i : bars)
+            setItem(i, IInfos.BARS);
+        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        IInfos.placeInvBorders(getInventory());
+        setItem(49, IInfos.RETURN_ITEM, e -> {
+            getApi().getInventories().openInventory("api.host", (Player) e.getWhoClicked());
+        });
+
         refreshInventory();
     }
 
     @Override
     public void refreshInventory() {
-        int[] bars = new int[]{3, 5, 48, 50};
-        for (Integer i : bars)
-            setItem(i, IInfos.BARS);
-
-        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
-        IInfos.placeInvBorders(getInventory());
 
         setItem(13, getSpectators(), changeSpectators());
 
@@ -37,9 +41,6 @@ public class IHostConfig extends RInventory {
 
         setItem(33, getWhitelist(), changeWhitelist());
 
-        setItem(49, IInfos.RETURN_ITEM, e -> {
-            getApi().getInventories().openInventory("api.host", (Player) e.getWhoClicked());
-        });
         super.refreshInventory();
     }
 

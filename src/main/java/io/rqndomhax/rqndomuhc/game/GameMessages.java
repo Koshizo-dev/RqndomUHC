@@ -19,6 +19,7 @@ public class GameMessages extends RValue {
         addObject("api.loginWhileGameStart", ChatColor.RED + "You are not able to join this game while it's starting !");
         addObject("api.gameStartNeedMorePlayer", ChatColor.RED + "There is not enough player to start the game !");
         addObject("api.gameStartNeedAnotherTeam", ChatColor.RED + "Every active role is in the same team !");
+        addObject("api.serverLockedKickMessage", "The server is currently locked!");
     }
 
 }

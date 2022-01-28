@@ -18,7 +18,7 @@ public class GameLock implements Listener {
     @EventHandler
     public void onConnect(PlayerLoginEvent event) {
         if((boolean) api.getRules().getGameInfos().getObject("api.isServerLocked")) {
-            event.setKickMessage((String) api.getRules().getGameInfos().getObject("api.serverLockedKickMessage"));
+            event.setKickMessage((String) api.getGameMessages().getObject("api.serverLockedKickMessage"));
             event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
         }
     }

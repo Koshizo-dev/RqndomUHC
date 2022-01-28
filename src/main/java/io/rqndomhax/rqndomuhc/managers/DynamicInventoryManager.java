@@ -5,9 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.rqndomuhc.inventories.IHost;
-import io.rqndomhax.rqndomuhc.inventories.IHostConfig;
-import io.rqndomhax.rqndomuhc.inventories.IHostScenarios;
+import io.rqndomhax.rqndomuhc.inventories.*;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.*;
@@ -39,6 +37,8 @@ public class DynamicInventoryManager implements IDynamicInventoryManager, Listen
         addInventory("api.host", new IHost(api));
         addInventory("api.hostConfig", new IHostConfig(api));
         addInventory("api.hostScenarios", new IHostScenarios(api));
+        addInventory("api.hostTimers", new IHostTimers(api));
+        addInventory("api.hostCustomConfig", new IHostCustomConfigs(api));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] DynamicInventoryManager >> Registered API inventories");
     }
 

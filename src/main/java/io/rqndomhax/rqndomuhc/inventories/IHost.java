@@ -26,7 +26,7 @@ public class IHost extends RInventory {
         this.setItem(23, IInfos.MAIN_HOST_WORLD, openWorldConfig());
         this.setItem(38, IInfos.MAIN_HOST_TIMERS, openTimerConfig());
         this.setItem(42, IInfos.MAIN_HOST_HOST, openHostConfig());
-        if (getApi().getGameTaskManager().getGameState().equals("LOBBY_START"))
+        if (!getApi().getGameTaskManager().getGameState().equals("LOBBY_START"))
             this.setItem(49, IInfos.MAIN_HOST_START, onButtonClick(false));
         else
             this.setItem(49, IInfos.MAIN_HOST_STOP, onButtonClick(true));
@@ -47,13 +47,13 @@ public class IHost extends RInventory {
 
     private Consumer<InventoryClickEvent> openTimerConfig() {
         return e -> {
-            getApi().getInventories().openInventory("api.hostConfig", (Player) e.getWhoClicked());
+            getApi().getInventories().openInventory("api.hostTimers", (Player) e.getWhoClicked());
         };
     }
 
     private Consumer<InventoryClickEvent> openBorderConfig() {
         return e -> {
-            getApi().getInventories().openInventory("api.hostConfig", (Player) e.getWhoClicked());
+            getApi().getInventories().openInventory("api.hostBorder", (Player) e.getWhoClicked());
         };
     }
 

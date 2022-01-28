@@ -131,7 +131,6 @@ public class WorldManager implements IWorldManager {
     @Override
     public void generateDefaultLobby(Location center, int radius) {
         new MBuilder(Material.GRAY_STAINED_GLASS, radius, center, true, false, 235, api.getPlugin());
-        setLobby(center);
     }
 
     @Override

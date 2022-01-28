@@ -29,8 +29,11 @@ public class GameLock implements Listener {
             api.getRules().getGameInfos().addObject("api.isServerLocked", true);
             builds++;
         }
-        if (event.getType().equals(GameBuildEvent.Type.ENDED) && builds-- == 0)
+        if (event.getType().equals(GameBuildEvent.Type.ENDED) && builds-- == 0) {
             api.getRules().getGameInfos().addObject("api.isServerLocked", false);
+            if (api.getGameTaskManager().getGameState().equals("LOBBY"))
+                api.getWorldManager().setLobby(event.getCenter().add(0, 1d, 0));
+        }
     }
 
 }

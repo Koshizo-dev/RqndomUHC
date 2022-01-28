@@ -2,6 +2,9 @@ package io.rqndomhax.rqndomuhc.listeners;
 
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.utils.HostItemStack;
+import io.rqndomhax.uhcapi.utils.PlayerUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +16,10 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Objects;
 
 public class ELobby implements Listener {
 
@@ -27,13 +33,12 @@ public class ELobby implements Listener {
     private void onPlayerJoinEvent(PlayerJoinEvent event) {
         if (!isLobby())
             return;
+
+        /* If the player is a host / co-host we are giving him his host's toolbar */
+        if (api.getHostManager().isHost(event.getPlayer()) || api.getHostManager().isCoHost(event.getPlayer()))
+            PlayerUtils.giveInventory(api.getHostManager().getHostLobbyInventory(), event.getPlayer());
+
         event.getPlayer().teleport(api.getWorldManager().getLobby());
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                api.getInventories().openInventory("api.host", event.getPlayer());
-            }
-        }.runTaskLater(api.getPlugin(), 2);
     }
     @EventHandler
     private void onBucket(PlayerBucketEmptyEvent e) {
@@ -100,12 +105,16 @@ public class ELobby implements Listener {
         if (!isLobby())
             return;
 
-        if (e.getTo().getY() > 220)
+        if (Objects.requireNonNull(e.getTo()).getY() > 220)
             return;
 
         IGamePlayer player = api.getGamePlayer(e.getPlayer().getUniqueId());
         if (player == null) return;
-        e.setTo((Location) player.getPlayerInfos().getObject("platformLocation"));
+        Object platformLocation = player.getPlayerInfos().getObject("platformLocation");
+        if (platformLocation instanceof Location)
+            e.setTo((Location) platformLocation);
+        else
+            e.setTo(api.getWorldManager().getLobby().clone());
     }
 
     @EventHandler
@@ -118,6 +127,25 @@ public class ELobby implements Listener {
     private void onRain(WeatherChangeEvent e) {
         if (e.toWeatherState())
             e.setCancelled(true);
+    }
+
+    @EventHandler
+    private void onHostItem(PlayerInteractEvent e) {
+        if (!isLobby())
+            return;
+
+        if (!api.getHostManager().isHost(e.getPlayer()) && !api.getHostManager().isCoHost((e.getPlayer())))
+            return;
+
+        HostItemStack item = PlayerUtils.getHostItemStackInInventory(api.getHostManager().getHostLobbyInventory(), e.getItem());
+
+        if (item == null) // If it's not a HostItemStack there is no need to continue
+            return;
+
+        if (!item.getActions().contains(e.getAction())) // If the action is not respected according to the HostItemStack we have to deny
+            return;
+        e.setCancelled(item.doesCancelAction());
+        item.getItemEvent().accept(e); // Calls the consumer
     }
 
     private boolean isLobby() {

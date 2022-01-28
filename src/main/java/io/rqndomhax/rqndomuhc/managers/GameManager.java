@@ -20,7 +20,6 @@ import io.rqndomhax.uhcapi.managers.IHostConfigManager;
 import io.rqndomhax.uhcapi.managers.IHostManager;
 import io.rqndomhax.uhcapi.managers.IWorldManager;
 import io.rqndomhax.uhcapi.utils.FileManager;
-import io.rqndomhax.uhcapi.utils.HostConfig;
 import io.rqndomhax.uhcapi.utils.IScoreboard;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.IDynamicInventoryManager;
@@ -30,7 +29,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
@@ -57,7 +55,7 @@ public class GameManager implements UHCAPI {
         this.gameRules = new GameRules(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered rules.");
 
-        this.hostManager = new HostManager();
+        this.hostManager = new HostManager(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host manager.");
 
         this.configManager = new HostConfigManager(new FileManager(plugin), plugin.getDataFolder());
@@ -129,6 +127,11 @@ public class GameManager implements UHCAPI {
     @Override
     public IGameTask getGameTaskManager() {
         return taskManager;
+    }
+
+    @Override
+    public RValue getGameMessages() {
+        return gameMessages;
     }
 
     @Override

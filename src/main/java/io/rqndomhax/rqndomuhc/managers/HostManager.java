@@ -5,27 +5,33 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
+import io.rqndomhax.rqndomuhc.utils.Defaults;
+import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.events.GameCoHostAddEvent;
+import io.rqndomhax.uhcapi.events.GameCoHostRemoveEvent;
 import io.rqndomhax.uhcapi.events.GameHostChangeEvent;
 import io.rqndomhax.uhcapi.managers.IHostManager;
+import io.rqndomhax.uhcapi.utils.PlayerUtils;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.RInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class HostManager extends RValue implements IHostManager {
 
     final HashMap<JavaPlugin, RInventory> pluginConfigInventory = new HashMap<>();
+    final UHCAPI api;
 
-    public HostManager() {
+    public HostManager(UHCAPI api) {
         addObject("coHosts", new HashSet<>());
-        addObject("host", UUID.fromString("9f7be940-8a94-497b-a963-f4af0691c005"));
+        addObject("host", Defaults.HOST_UNIQUE_ID);
+        addObject("hostLobbyInventory", Defaults.HOST_LOBBY_INVENTORY(api));
+        this.api = api;
     }
 
     @Override
@@ -40,11 +46,33 @@ public class HostManager extends RValue implements IHostManager {
 
     @Override
     public void setHost(Object object) {
-        UUID newHost = retrieveUUID(object);
-        GameHostChangeEvent event = new GameHostChangeEvent((UUID) getObject("host"), newHost);
+        UUID oldHostUniqueId = (UUID) getObject("host");
+        UUID newHostUniqueId = retrieveUUID(object);
+        if (oldHostUniqueId.equals(newHostUniqueId)) // If the oldHost is the same as the newHost there is no need to continue
+            return;
+
+        /* Event */
+        GameHostChangeEvent event = new GameHostChangeEvent(oldHostUniqueId, newHostUniqueId);
         Bukkit.getPluginManager().callEvent(event);
-        if (!event.isCancelled())
-            addObject("host", retrieveUUID(object));
+        if (event.isCancelled())
+            return;
+
+        addObject("host", newHostUniqueId); // Set the GameHost
+        if (!api.getGameTaskManager().getGameState().equals("LOBBY")) // Lobby specific actions
+            return;
+
+        /* newHost */
+        Player newHost = Bukkit.getPlayer(oldHostUniqueId);
+        if (newHost != null) // If the player is connected, we have to give him his host inventory
+            PlayerUtils.giveInventory(getHostLobbyInventory(), newHost);
+
+        /* oldHost */
+        Player oldHost = Bukkit.getPlayer(oldHostUniqueId);
+        if (oldHost != null && !isCoHost(oldHost)) { // If the player is connected, and he's not a host anymore, we have to clear his inventory
+            PlayerUtils.clearInventory(oldHost);
+            oldHost.closeInventory();
+        }
+
     }
 
     @Override
@@ -63,23 +91,87 @@ public class HostManager extends RValue implements IHostManager {
     @Override
     @SuppressWarnings("unchecked")
     public void addCoHost(Object object) {
+        UUID newCoHost = retrieveUUID(object);
+
+        if (isCoHost(newCoHost)) // There is no need to continue if the player is already a Co-Host
+            return;
+
+        /* Event */
+        GameCoHostAddEvent event = new GameCoHostAddEvent(newCoHost);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled())
+            return;
+
         ((Set<Object>) getObject("coHosts")).add(retrieveUUID(object));
+
+        if (!api.getGameTaskManager().getGameState().equals("LOBBY")) // Lobby specific actions
+            return;
+        Player host = Bukkit.getPlayer(newCoHost);
+        if (host != null && !isHost(host)) { // If the player is connected, we have to give him his inventory
+            PlayerUtils.giveInventory(getHostLobbyInventory(), host);
+            PlayerUtils.clearInventory(host);
+            host.closeInventory();
+        }
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void removeCoHost(Object object) {
+        UUID oldCoHost = retrieveUUID(object);
+
+        if (!isCoHost(oldCoHost)) // There is no need to continue if the player is not a Co-Host
+            return;
+
+        /* Event */
+        GameCoHostRemoveEvent event = new GameCoHostRemoveEvent(oldCoHost);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled())
+            return;
+
         ((Set<Object>) getObject("coHosts")).remove(retrieveUUID(object));
+
+        if (!api.getGameTaskManager().getGameState().equals("LOBBY")) // Lobby specific actions
+            return;
+        Player host = Bukkit.getPlayer(oldCoHost);
+        if (host != null && !isHost(host)) { // If the player is connected, and he's not a host anymore, we have to clear his inventory
+            PlayerUtils.clearInventory(host);
+            host.closeInventory();
+        }
     }
 
     @Override
-    public HashMap<JavaPlugin, RInventory> getPluginConfigInventory() {
+    public void sendToHost(String message) {
+        Player host = Bukkit.getPlayer(getHost());
+        Set<Object> coHosts = (Set<Object>) getObject("coHosts");
+        if (host != null)
+            host.sendMessage(message);
+        for (Object coHost : coHosts) {
+            UUID coHostUniqueId = retrieveUUID(coHost);
+            Player tmp = Bukkit.getPlayer((UUID) coHost);
+            if (tmp != null)
+                tmp.sendMessage(message);
+        }
+
+    }
+
+    @Override
+    public HashMap<JavaPlugin, RInventory> getPluginsConfigInventory() {
         return pluginConfigInventory;
     }
 
     @Override
-    public RInventory getConfigInventory(JavaPlugin plugin) {
+    public RInventory getPluginConfigInventory(JavaPlugin plugin) {
         return pluginConfigInventory.get(plugin);
+    }
+
+    @Override
+    public ItemStack[] getHostLobbyInventory() {
+        return (ItemStack[]) getObject("hostLobbyInventory");
+    }
+
+    @Override
+    public void setHostLobbyInventory(ItemStack[] newInventory) {
+        addObject("hostLobbyInventory", newInventory);
     }
 
     UUID retrieveUUID(Object object) {
@@ -90,7 +182,7 @@ public class HostManager extends RValue implements IHostManager {
         if (object instanceof OfflinePlayer)
             return ((OfflinePlayer) object).getUniqueId();
         if (object instanceof String && Bukkit.getPlayer((String) object) != null)
-            return Bukkit.getPlayer((String) object).getUniqueId();
+            return Objects.requireNonNull(Bukkit.getPlayer((String) object)).getUniqueId();
         return null;
     }
 

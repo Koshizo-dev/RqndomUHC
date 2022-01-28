@@ -31,7 +31,7 @@ public class MBuilder extends BukkitRunnable {
         this.maxY = maxY;
         x = center.getX() - boundaries;
         z = center.getZ() - boundaries;
-        Bukkit.getPluginManager().callEvent(new GameBuildEvent(GameBuildEvent.Type.STARTED, "MBuilder"));
+        Bukkit.getPluginManager().callEvent(new GameBuildEvent(GameBuildEvent.Type.STARTED, "MBuilder", center));
         runTaskTimer(plugin, 0, 2);
     }
 
@@ -39,7 +39,7 @@ public class MBuilder extends BukkitRunnable {
     public void run() {
         for (int i = 0; i <= 150; i++) {
             if (!place()) {
-                Bukkit.getPluginManager().callEvent(new GameBuildEvent(GameBuildEvent.Type.ENDED, "MBuilder"));
+                Bukkit.getPluginManager().callEvent(new GameBuildEvent(GameBuildEvent.Type.ENDED, "MBuilder", center));
                 cancel();
             }
         }

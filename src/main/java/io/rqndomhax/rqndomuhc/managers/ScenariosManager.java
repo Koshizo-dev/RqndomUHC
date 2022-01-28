@@ -5,6 +5,10 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
+import io.rqndomhax.rqndomuhc.scenarios.SAppleFamine;
+import io.rqndomhax.rqndomuhc.scenarios.SCatEyes;
+import io.rqndomhax.rqndomuhc.scenarios.SNoFall;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IScenario;
 import io.rqndomhax.uhcapi.managers.RScenariosManager;
 import io.rqndomhax.uhcapi.utils.RValue;
@@ -18,10 +22,13 @@ public class ScenariosManager implements RScenariosManager {
 
     RValue activeScenarios = new RValue();
     RValue scenarios = new RValue();
-    final GameManager gameManager;
+    final UHCAPI api;
 
-    public ScenariosManager(GameManager gameManager) {
-        this.gameManager = gameManager;
+    public ScenariosManager(UHCAPI api) {
+        this.api = api;
+        registerScenario("api.noFall", new SNoFall());
+        registerScenario("api.appleFamine", new SAppleFamine());
+        registerScenario("api.catEyes", new SCatEyes(api));
     }
 
     @Override
@@ -85,7 +92,7 @@ public class ScenariosManager implements RScenariosManager {
     public void enableScenario(IScenario scenario) {
         scenario.init();
         if (scenario instanceof Listener)
-            Bukkit.getPluginManager().registerEvents((Listener) scenario, gameManager.plugin);
+            Bukkit.getPluginManager().registerEvents((Listener) scenario, api.getPlugin());
     }
 
     @Override

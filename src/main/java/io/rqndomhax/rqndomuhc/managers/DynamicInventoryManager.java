@@ -7,6 +7,7 @@ package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.rqndomuhc.inventories.IHost;
 import io.rqndomhax.rqndomuhc.inventories.IHostConfig;
+import io.rqndomhax.rqndomuhc.inventories.IHostScenarios;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.RValue;
 import io.rqndomhax.uhcapi.utils.inventory.*;
@@ -33,8 +34,11 @@ public class DynamicInventoryManager implements IDynamicInventoryManager, Listen
         new RInventoryTask(inventoryManager).runTaskTimer(api.getPlugin(), 0, 1);
         Bukkit.getPluginManager().registerEvents(this, api.getPlugin());
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] DynamicInventoryManager >> Registered Events");
+
+        /* HostConfig Inventories */
         addInventory("api.host", new IHost(api));
         addInventory("api.hostConfig", new IHostConfig(api));
+        addInventory("api.hostScenarios", new IHostScenarios(api));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] DynamicInventoryManager >> Registered API inventories");
     }
 

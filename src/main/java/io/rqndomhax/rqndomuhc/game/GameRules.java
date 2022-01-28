@@ -5,9 +5,9 @@
 
 package io.rqndomhax.rqndomuhc.game;
 
-import io.rqndomhax.rqndomuhc.managers.GameManager;
 import io.rqndomhax.rqndomuhc.managers.RolesManager;
 import io.rqndomhax.rqndomuhc.managers.ScenariosManager;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IRules;
 import io.rqndomhax.uhcapi.managers.IRoleManager;
 import io.rqndomhax.uhcapi.managers.RScenariosManager;
@@ -18,16 +18,16 @@ import java.util.logging.Level;
 
 public class GameRules implements IRules {
 
-    final GameManager gameManager;
+    final UHCAPI api;
     RValue gameInfos = new RValue();
-    RScenariosManager scenariosManager;
-    IRoleManager rolesManager;
+    final RScenariosManager scenariosManager;
+    final IRoleManager rolesManager;
 
-    public GameRules(GameManager gameManager) {
-        this.gameManager = gameManager;
-        setScenariosManager(new ScenariosManager(gameManager));
+    public GameRules(UHCAPI api) {
+        this.api = api;
+        this.scenariosManager = new ScenariosManager(api);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered scenarios manager.");
-        setRolesManager(new RolesManager());
+        this.rolesManager = new RolesManager();
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered roles manager.");
         gameInfos.addObject("api.gameTitle", "RqndomUHC");
         gameInfos.addObject("api.episodeLength", 20);
@@ -56,17 +56,7 @@ public class GameRules implements IRules {
     }
 
     @Override
-    public void setScenariosManager(RScenariosManager scenariosManager) {
-        this.scenariosManager = scenariosManager;
-    }
-
-    @Override
     public IRoleManager getRolesManager() {
         return rolesManager;
-    }
-
-    @Override
-    public void setRolesManager(IRoleManager rolesManager) {
-        this.rolesManager = rolesManager;
     }
 }

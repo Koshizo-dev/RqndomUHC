@@ -31,6 +31,7 @@ public class EGamePlayer implements Listener {
         }
         else {
             event.setKickMessage((String) api.getGameMessages().getObject("api.loginWhileGameStart"));
+            event.setResult(PlayerLoginEvent.Result.KICK_FULL);
             api.getHostManager().sendToHost(((String) api.getGameMessages().getObject("api.playerTriedJoiningGameStart")).replaceAll("%player%", event.getPlayer().getName()));
         }
     }

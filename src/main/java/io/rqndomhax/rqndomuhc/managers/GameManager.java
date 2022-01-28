@@ -61,9 +61,6 @@ public class GameManager implements UHCAPI {
         this.configManager = new HostConfigManager(new FileManager(plugin), plugin.getDataFolder());
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered host config manager.");
 
-        this.inventories = new DynamicInventoryManager(this);
-        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered inventories manager.");
-
         this.worldManager = new WorldManager(this);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered world manager.");
 
@@ -75,11 +72,8 @@ public class GameManager implements UHCAPI {
         Bukkit.getPluginManager().registerEvents(new GameLock(this), plugin);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered listeners.");
 
-        ItemStack[] inventory = new ItemStack[40];
-        for (int i = 0; i < 40; inventory[i++] = new ItemStack(Material.DIRT, 2));
-        List<Object> objects = new ArrayList<>();
-        for (int i = 0; i < 40; objects.add(inventory[i++]));
-        objects.forEach(System.out::println);
+        this.inventories = new DynamicInventoryManager(this);
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered inventories manager.");
     }
 
     @Override

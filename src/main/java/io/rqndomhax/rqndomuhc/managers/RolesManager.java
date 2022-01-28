@@ -2,6 +2,7 @@ package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.game.IRole;
+import io.rqndomhax.uhcapi.game.Team;
 import io.rqndomhax.uhcapi.managers.IRoleManager;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.ChatColor;
@@ -93,5 +94,23 @@ public class RolesManager implements IRoleManager {
         }
         for (IRole t : roles)
             t.onRoleGiven();
+    }
+
+    @Override
+    public boolean activeRolesDifferentTeam() {
+        Class<?> tmp = null;
+        for (IRole role : getActiveRoles().values()) {
+            Optional<Class<?>> team = Arrays.stream(role.getClass().getInterfaces()).filter(Team.class::isAssignableFrom).findFirst();
+            if (!team.isPresent())
+                continue;
+            Class<?> toCompare = team.get();
+            if (tmp == null) {
+                tmp = toCompare;
+                continue;
+            }
+            if (!tmp.getName().equals(toCompare.getName()))
+                return (true);
+        }
+        return (false);
     }
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
 
 public class WorldManager implements IWorldManager {
 
@@ -29,6 +30,9 @@ public class WorldManager implements IWorldManager {
         preparation = def;
         meetup = def;
         this.api = api;
+        createWorld("api.preparation");
+        setPreparationWorld("api.preparation");
+        Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Created Preparation World");
     }
 
     @Override
@@ -45,6 +49,23 @@ public class WorldManager implements IWorldManager {
         worlds.addObject(key, newWorld);
 
         return newWorld;
+    }
+
+    @Override
+    public void createWorld(String key) {
+        WorldCreator wc = new WorldCreator(key);
+        wc.environment(World.Environment.NORMAL);
+        wc.type(WorldType.NORMAL);
+        wc.createWorld();
+
+        World world = Bukkit.getWorld(key);
+
+        world.getWorldBorder().setCenter(0, 0);
+        world.getWorldBorder().setSize(5000);
+
+        world.setPVP(false);
+        world.setGameRule(GameRule.DO_FIRE_TICK, false);
+        this.worlds.addObject(key, world);
     }
 
     @Override

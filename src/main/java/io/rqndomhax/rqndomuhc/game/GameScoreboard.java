@@ -6,7 +6,7 @@
 package io.rqndomhax.rqndomuhc.game;
 
 import io.rqndomhax.fastboard.FastBoard;
-import io.rqndomhax.rqndomuhc.managers.GameManager;
+import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.IScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,11 +16,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class GameScoreboard implements IScoreboard {
 
-    final GameManager gameManager;
+    final UHCAPI api;
     final HashMap<UUID, FastBoard> boards = new HashMap<>();
 
-    public GameScoreboard(GameManager gameManager) {
-        this.gameManager = gameManager;
+    public GameScoreboard(UHCAPI api) {
+        this.api = api;
         runBoard();
     }
 
@@ -28,7 +28,7 @@ public class GameScoreboard implements IScoreboard {
 
         AtomicBoolean doClear = new AtomicBoolean(false);
 
-        Bukkit.getServer().getScheduler().runTaskTimer(gameManager.getPlugin(), () -> {
+        Bukkit.getServer().getScheduler().runTaskTimer(api.getPlugin(), () -> {
 
             for (FastBoard board : boards.values()) {
                 if (doClear.get())
@@ -43,7 +43,7 @@ public class GameScoreboard implements IScoreboard {
     @Override
     public FastBoard newGameScoreboard(Player player) {
         FastBoard fb = new FastBoard(player);
-        fb.updateTitle((String) gameManager.getRules().getGameInfos().getObject("api.gameTitle"));
+        fb.updateTitle((String) api.getRules().getGameInfos().getObject("api.gameTitle"));
 
         boards.put(player.getUniqueId(), fb);
         return fb;

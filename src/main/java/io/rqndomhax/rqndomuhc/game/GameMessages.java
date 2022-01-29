@@ -26,6 +26,23 @@ public class GameMessages extends RValue {
         addObject("api.onlyPlayerCommand", "You have to be a player to execute this command!");
         addObject("api.hostInventorySaved", "You have successfully updated this inventory!");
         addObject("api.notEditingAnyInventory", "You are not editing any inventory!");
+        addObject("api.playerNotConnected", "The player %player% is not connected on the server!");
+        addObject("api.onlyCoHostCommand", "You have to be a co-host or higher to execute this command!");
+        addObject("api.hostSayUsage", "Usage: /host say <message>");
+        addObject("api.hostSetUsage", "Usage: /host set <player>");
+        addObject("api.hostPromoteUsage", "Usage: /host promote <player>");
+        addObject("api.hostDemoteUsage", "Usage: /host demote <player>");
+        addObject("api.cannotDemotePlayer", "The player %player% cannot be demoted !");
+        addObject("api.cannotPromotePlayer", "The player %player% cannot be promoted !");
+        addObject("api.playerDoesNotExist", "The player %player% does not exist!");
+        addObject("api.hostSayPrefix", ChatColor.RED + "Rqndom" + ChatColor.GOLD + "UHC");
+        addObject("api.onlyHostCommand", "You have to be an host to execute this command!");
+        addObject("api.hostSetSuccessfully", "You have successfully set the player %player% as the new game host!");
+        addObject("api.demotedSuccessfully", "You have successfully demoted the player %player%!");
+        addObject("api.promotedSuccessfully", "You have successfully promoted the player %player%!");
+        addObject("api.nowHost", "You are now the new game host!");
+        addObject("api.nowCoHost", "You are now part of the game co-hosts!");
+        addObject("api.notAnymoreCoHost", "You are no longer part of the game co-hosts!");
     }
 
 }

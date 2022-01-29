@@ -46,6 +46,10 @@ public class IHost extends RInventory {
 
     private Consumer<InventoryClickEvent> openCustomConfigs() {
         return e -> {
+            if (!getApi().getHostManager().isHost(e.getWhoClicked())) {
+                e.getWhoClicked().sendMessage((String) getApi().getGameMessages().getObject("api.onlyHostCommand"));
+                ((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.ENTITY_ENDER_DRAGON_HURT, 1f, 2f);
+            }
             getApi().getInventories().openInventory("api.hostCustomConfigs", (Player) e.getWhoClicked());
         };
     }

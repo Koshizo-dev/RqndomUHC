@@ -5,6 +5,7 @@ import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.PlayerUtils;
 import io.rqndomhax.uhcapi.utils.inventory.RInventory;
 import org.bukkit.GameMode;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
@@ -57,6 +58,7 @@ public class IHostDeathInventory extends RInventory {
 
             if (getApi().getHostManager().getDeathInventory() != null) {
                 e.getWhoClicked().sendMessage((String) getApi().getGameMessages().getObject("api.inventoryAlreadyEdit"));
+                ((Player) e.getWhoClicked()).playSound(e.getWhoClicked().getLocation(), Sound.BLOCK_ANVIL_USE, 1f, 2f);
                 return;
             }
 

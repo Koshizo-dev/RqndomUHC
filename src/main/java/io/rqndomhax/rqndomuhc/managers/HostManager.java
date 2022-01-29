@@ -80,11 +80,12 @@ public class HostManager extends RValue implements IHostManager {
             return;
 
         addObject("host", newHostUniqueId); // Set the GameHost
+        removeCoHost(newHostUniqueId); // We have to remove him from co-hosts if he was a co-host
         if (!api.getGameTaskManager().getGameState().equals("LOBBY")) // Lobby specific actions
             return;
 
         /* newHost */
-        Player newHost = Bukkit.getPlayer(oldHostUniqueId);
+        Player newHost = Bukkit.getPlayer(newHostUniqueId);
         if (newHost != null) // If the player is connected, we have to give him his host inventory
             PlayerUtils.giveInventory(getHostLobbyInventory(), newHost);
 
@@ -131,7 +132,6 @@ public class HostManager extends RValue implements IHostManager {
         Player host = Bukkit.getPlayer(newCoHost);
         if (host != null && !isHost(host)) { // If the player is connected, we have to give him his inventory
             PlayerUtils.giveInventory(getHostLobbyInventory(), host);
-            PlayerUtils.clearInventory(host);
             host.closeInventory();
         }
     }

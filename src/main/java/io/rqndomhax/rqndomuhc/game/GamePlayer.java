@@ -86,4 +86,5 @@ public class GamePlayer implements IGamePlayer {
     public RValue getPlayerInfos() {
         return playerInfos;
     }
+
 }

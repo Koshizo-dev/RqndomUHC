@@ -43,8 +43,13 @@ public class TStart implements ITask {
     }
 
     private void init() {
+        if (api.getRules().getScenariosManager().getActiveScenarios().containsKey("api.meetup")) {
+            new TGenerate(api.getWorldManager().getMeetupWorld(), 250, api.getGamePlayers(), 0, 0, api);
+            api.getGameTaskManager().getTasks().remove(0); // remove preparation's teleportation task
+            api.getGameTaskManager().getTasks().remove(0); // remove preparation task
+        } else
+            new TGenerate(api.getWorldManager().getPreparationWorld(), 250, api.getGamePlayers(), 0, 0, api);
         api.getRules().getScenariosManager().enableScenarios();
-        new TGenerate(api.getWorldManager().getWorld("api.preparation"), 250, api.getGamePlayers(), 0, 0, api);
     }
 
     @Override

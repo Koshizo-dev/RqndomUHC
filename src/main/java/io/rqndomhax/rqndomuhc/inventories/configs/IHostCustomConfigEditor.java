@@ -31,7 +31,7 @@ public class IHostCustomConfigEditor extends RInventory {
         setItem(4, new ItemBuilder(Material.GOLD_BLOCK)
                 .setName(selected.getName())
                 .setLore(ChatColor.GOLD + "ID: " + selected.getFilePath().replaceAll("configs/", "").replaceAll(".cfg", ""))
-                .addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1)
+                .addUnsafeEnchantment(Enchantment.DURABILITY, 1)
                 .hideEnchants()
                 .toItemStack());
 

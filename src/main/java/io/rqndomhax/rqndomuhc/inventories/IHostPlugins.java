@@ -27,7 +27,7 @@ public class IHostPlugins extends RInventory {
         for (Integer i : bars)
             setItem(i, IInfos.BARS);
 
-        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack());
         IInfos.placeInvBorders(getInventory());
         setItem(49, IInfos.RETURN_ITEM, e -> {
             getApi().getInventories().openInventory("api.host", (Player) e.getWhoClicked());

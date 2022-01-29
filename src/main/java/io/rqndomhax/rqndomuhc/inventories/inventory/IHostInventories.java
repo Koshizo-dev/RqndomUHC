@@ -19,7 +19,7 @@ public class IHostInventories extends RInventory {
 
         for (int i = 3 ; i <= 5 ; setItem(i, IInfos.BARS), i += 2);
 
-        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_INVENTORIES.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_INVENTORIES.clone()).addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack());
 
         setItem(30, IInfos.INVENTORIES_HOST_BEGINNING, getStartInventory());
 

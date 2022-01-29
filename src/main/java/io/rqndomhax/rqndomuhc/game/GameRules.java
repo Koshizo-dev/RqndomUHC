@@ -47,6 +47,7 @@ public class GameRules implements IRules {
         config.getGameInfos().addObject("api.hasWhitelist", true);
         config.getGameInfos().addObject("api.startInventory", new ItemStack[40]);
         config.getGameInfos().addObject("api.deathInventory", new ItemStack[40]);
+        config.getGameInfos().addObject("api.immunityDuration", 60);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Rules >> Registered default timers.");
     }
 

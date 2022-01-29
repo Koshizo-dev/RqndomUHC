@@ -7,6 +7,7 @@ package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.rqndomuhc.scenarios.SAppleFamine;
 import io.rqndomhax.rqndomuhc.scenarios.SCatEyes;
+import io.rqndomhax.rqndomuhc.scenarios.SMeetup;
 import io.rqndomhax.rqndomuhc.scenarios.SNoFall;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IScenario;
@@ -29,6 +30,7 @@ public class ScenariosManager implements RScenariosManager {
         registerScenario("api.noFall", new SNoFall());
         registerScenario("api.appleFamine", new SAppleFamine());
         registerScenario("api.catEyes", new SCatEyes(api));
+        registerScenario("api.meetup", new SMeetup());
     }
 
     @Override

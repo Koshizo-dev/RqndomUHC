@@ -97,6 +97,7 @@ public class WorldManager implements IWorldManager {
     @Override
     public void setPreparationWorld(World world) {
         this.preparation = world;
+        world.setPVP(false);
     }
 
     @Override

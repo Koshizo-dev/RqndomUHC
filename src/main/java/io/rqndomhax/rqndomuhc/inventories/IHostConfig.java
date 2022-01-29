@@ -21,7 +21,7 @@ public class IHostConfig extends RInventory {
         int[] bars = new int[]{3, 5, 48, 50};
         for (Integer i : bars)
             setItem(i, IInfos.BARS);
-        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack());
         IInfos.placeInvBorders(getInventory());
         setItem(49, IInfos.RETURN_ITEM, e -> {
             getApi().getInventories().openInventory("api.host", (Player) e.getWhoClicked());
@@ -46,7 +46,7 @@ public class IHostConfig extends RInventory {
 
     private ItemStack getBorderDisconnects() {
         if ((boolean) getApi().getRules().getGameInfos().getObject("api.hasSpectatorsAfterBorder"))
-            return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+            return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
         return new ItemBuilder(IInfos.HOST_SPECTATORS_AFTER_BORDER.clone()).setName("Déconnexion bordure " + ChatColor.DARK_RED + " ✘").toItemStack();
     }
 
@@ -60,7 +60,7 @@ public class IHostConfig extends RInventory {
 
     private ItemStack getSpectators() {
         if ((boolean) this.getApi().getRules().getGameInfos().getObject("api.hasSpectators"))
-            return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+            return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
         return new ItemBuilder(IInfos.HOST_SPECTATORS.clone()).setName("Spectateurs " + ChatColor.DARK_RED + " ✘").toItemStack();
     }
 
@@ -74,7 +74,7 @@ public class IHostConfig extends RInventory {
 
     private ItemStack getWhitelist() {
         if ((boolean) getApi().getRules().getGameInfos().getObject("api.hasWhitelist"))
-            return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+            return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
         return new ItemBuilder(IInfos.HOST_WHITELIST.clone()).setName("Whitelist " + ChatColor.DARK_RED + " ✘").toItemStack();
     }
 

@@ -41,7 +41,7 @@ public class IHostTimers extends RInventory {
     public void refreshInventory() {
         int[] row = new int[]{19, 20, 21, 23, 24, 25};
 
-        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_HOST.clone()).addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack());
 
         for (int i = 0 ; i < 2 ; i++) {
             int n = 0;

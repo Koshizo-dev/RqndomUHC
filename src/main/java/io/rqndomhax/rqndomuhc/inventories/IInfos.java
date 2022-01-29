@@ -13,10 +13,10 @@ public abstract class IInfos {
     public static String MAIN_HOST_NAME = ChatColor.GOLD + "Configuration";
     public static String ENCHANT_HOST = ChatColor.GOLD + "Forge des dieux";
 
-    public static ItemStack ENCHANT_ITEM = new ItemBuilder(Material.ANVIL).setName(ChatColor.GOLD + "Forge des dieux").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+    public static ItemStack ENCHANT_ITEM = new ItemBuilder(Material.ANVIL).setName(ChatColor.GOLD + "Forge des dieux").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
     public static ItemStack ENCHANT_RENAME = new ItemBuilder(Material.NAME_TAG).setName("Renommer").toItemStack();
 
-    public static ItemStack ENCHANT_UNBREAKABLE_TRUE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack();
+    public static ItemStack ENCHANT_UNBREAKABLE_TRUE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.GREEN + " ✔").addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack();
     public static ItemStack ENCHANT_UNBREAKABLE_FALSE = new ItemBuilder(Material.DIAMOND_AXE).setName("Incassable " + ChatColor.RED + " ✘").toItemStack();
 
     public static ItemStack ORANGE_GLASS_BORDER = new ItemBuilder(Material.ORANGE_STAINED_GLASS_PANE).setName(" ").toItemStack();
@@ -39,7 +39,7 @@ public abstract class IInfos {
     public static ItemStack HOST_SPECTATORS_AFTER_BORDER = new ItemBuilder(Material.BARRIER).toItemStack();
 
     // IHOSTITEM
-    public static ItemStack MAIN_HOST_ITEM = new ItemBuilder(Material.COMPARATOR).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().setName(MAIN_HOST_NAME).toItemStack();
+    public static ItemStack MAIN_HOST_ITEM = new ItemBuilder(Material.COMPARATOR).addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().setName(MAIN_HOST_NAME).toItemStack();
 
     // IHOST
     public static ItemStack MAIN_HOST_CONFIGS = new ItemBuilder(Material.ENDER_CHEST).setName(ChatColor.GREEN + "Configurations").toItemStack();

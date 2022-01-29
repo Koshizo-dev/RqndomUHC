@@ -30,7 +30,7 @@ public class IHostCustomConfigs extends RInventory {
         for (Integer i : bars)
             setItem(i, IInfos.BARS);
 
-        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_CONFIGS.clone()).addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1).hideEnchants().toItemStack());
+        setItem(4, new ItemBuilder(IInfos.MAIN_HOST_CONFIGS.clone()).addUnsafeEnchantment(Enchantment.DURABILITY, 1).hideEnchants().toItemStack());
         IInfos.placeInvBorders(getInventory());
 
         ItemStack stand = new ItemBuilder(Material.ARMOR_STAND).setName(" ").toItemStack();
@@ -64,7 +64,7 @@ public class IHostCustomConfigs extends RInventory {
         setItem(13, new ItemBuilder(Material.GOLD_INGOT)
                 .setName(getApi().getRules().getHostConfig().getName())
                 .setLore(ChatColor.GOLD + "ID: " + getApi().getRules().getHostConfig().getFilePath().replaceAll("configs/", "").replaceAll(".cfg", ""))
-                .addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, 1)
+                .addUnsafeEnchantment(Enchantment.DURABILITY, 1)
                 .hideEnchants()
                 .toItemStack(), updateConfig(getApi().getRules().getHostConfig()));
 

@@ -7,9 +7,8 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
-import io.rqndomhax.rqndomuhc.tasks.TEpisode;
-import io.rqndomhax.rqndomuhc.tasks.TStart;
-import io.rqndomhax.rqndomuhc.tasks.TTeleportation;
+import io.rqndomhax.rqndomuhc.tasks.*;
+import io.rqndomhax.rqndomuhc.tasks.teleportation.TTeleportation;
 import io.rqndomhax.uhcapi.events.GameStateEvent;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGameTask;
@@ -45,13 +44,19 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
         setGameState("LOBBY");
         tasks.add(TStart.class);
         tasks.add(TTeleportation.class);
+        tasks.add(TPreparation.class);
         beforeTasks.add(new TEpisode(api));
+        beforeTasks.add(new TEndChecker(api));
         runTaskTimer(api.getPlugin(), 0, 20);
     }
 
     @Override
     public void run() {
         runTasks(beforeTasks);
+        if (gameState.equals("END")) {
+            cancel();
+            return;
+        }
         if (lastTaskFinished) {
             try {
                 if (!startNextTask())

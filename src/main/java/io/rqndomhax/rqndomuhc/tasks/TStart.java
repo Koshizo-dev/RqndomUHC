@@ -7,6 +7,7 @@
 
 package io.rqndomhax.rqndomuhc.tasks;
 
+import io.rqndomhax.rqndomuhc.tasks.teleportation.TGenerate;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.ITask;
 import org.bukkit.Bukkit;
@@ -15,7 +16,7 @@ public class TStart implements ITask {
 
     private final UHCAPI api;
     String taskName;
-    int remainingTime = 15;
+    int remainingTime = 5; // TODO change to 15
     boolean wasStarting = false;
 
     public TStart(UHCAPI api) {
@@ -29,21 +30,21 @@ public class TStart implements ITask {
     public void loop() {
         if (!(api.getGameTaskManager().getGameState().equals("LOBBY_START"))) {
             if (wasStarting)
-                remainingTime = 15; // We set back to the default start time if it has been canceled
+                remainingTime = 5; // We set back to the default start time if it has been canceled // TODO CHANGE TO 15
             return;
         }
 
         wasStarting = true;
-        Bukkit.broadcastMessage("Game is starting in " + remainingTime + " seconds");
+        if (remainingTime-- > 0)
+            Bukkit.broadcastMessage("Game is starting in " + remainingTime + " seconds");
 
-        if (remainingTime-- == 0) {
-            api.getGameTaskManager().endCurrentTask();
+        if (remainingTime == 0)
             init();
-        }
     }
 
     private void init() {
         api.getRules().getScenariosManager().enableScenarios();
+        new TGenerate(api.getWorldManager().getWorld("api.preparation"), 250, api.getGamePlayers(), 0, 0, api);
     }
 
     @Override

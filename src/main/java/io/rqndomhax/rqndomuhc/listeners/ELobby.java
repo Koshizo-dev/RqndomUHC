@@ -37,6 +37,8 @@ public class ELobby implements Listener {
         /* If the player is a host / co-host we are giving him his host's toolbar */
         if (api.getHostManager().isHost(event.getPlayer()) || api.getHostManager().isCoHost(event.getPlayer()))
             PlayerUtils.giveInventory(api.getHostManager().getHostLobbyInventory(), event.getPlayer());
+        else
+            PlayerUtils.clearInventory(event.getPlayer());
 
         event.getPlayer().teleport(api.getWorldManager().getLobby());
     }

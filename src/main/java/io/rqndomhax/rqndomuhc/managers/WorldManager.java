@@ -53,6 +53,11 @@ public class WorldManager implements IWorldManager {
 
     @Override
     public void createWorld(String key) {
+        try {
+            FileUtils.deleteDirectory(new File(key));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         WorldCreator wc = new WorldCreator(key);
         wc.environment(World.Environment.NORMAL);
         wc.type(WorldType.NORMAL);
@@ -138,6 +143,27 @@ public class WorldManager implements IWorldManager {
     @Override
     public void setEndGameLobby(Location location) {
         // TODO
+    }
+
+    @Override
+    public void clearPlayerData(File path) {
+        if (!path.isDirectory())
+            return;
+
+        File[] entries = path.listFiles();
+        for (File entry : entries) {
+            if (entry == null || !entry.exists() || !entry.isDirectory())
+                continue;
+            clearPlayerData(entry);
+            if (entry.getName().equals("playerdata")) {
+                File[] files = entry.listFiles();
+
+                for (File target : files) {
+                    if (target != null && target.exists() && !target.isDirectory())
+                        target.delete();
+                }
+            }
+        }
     }
 
     @Override

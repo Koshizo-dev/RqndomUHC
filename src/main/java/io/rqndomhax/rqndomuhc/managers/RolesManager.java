@@ -2,6 +2,7 @@ package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.game.IRole;
+import io.rqndomhax.uhcapi.game.Solo;
 import io.rqndomhax.uhcapi.game.Team;
 import io.rqndomhax.uhcapi.managers.IRoleManager;
 import io.rqndomhax.uhcapi.utils.RValue;
@@ -116,12 +117,18 @@ public class RolesManager implements IRoleManager {
 
     @Override
     public boolean activeRolesDifferentTeam() {
+        int solos = 0;
         Class<?> tmp = null;
         for (IRole role : getActiveRoles().values()) {
             Optional<Class<?>> team = Arrays.stream(role.getClass().getInterfaces()).filter(Team.class::isAssignableFrom).findFirst();
             if (!team.isPresent())
                 continue;
             Class<?> toCompare = team.get();
+            if (Solo.class.isAssignableFrom(toCompare)) {
+                solos++;
+                if (solos > 1)
+                    return (true);
+            }
             if (tmp == null) {
                 tmp = toCompare;
                 continue;

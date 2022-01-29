@@ -12,6 +12,7 @@ import io.rqndomhax.rqndomuhc.game.GameRules;
 import io.rqndomhax.rqndomuhc.game.GameScoreboard;
 import io.rqndomhax.rqndomuhc.listeners.EGamePlayer;
 import io.rqndomhax.rqndomuhc.listeners.ELobby;
+import io.rqndomhax.rqndomuhc.listeners.ERole;
 import io.rqndomhax.rqndomuhc.listeners.GameLock;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
@@ -72,6 +73,7 @@ public class GameManager implements UHCAPI {
         Bukkit.getPluginManager().registerEvents(new ELobby(this), plugin);
         Bukkit.getPluginManager().registerEvents(new EGamePlayer(this), plugin);
         Bukkit.getPluginManager().registerEvents(new GameLock(this), plugin);
+        Bukkit.getPluginManager().registerEvents(new ERole(this), plugin);
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered listeners.");
 
         Objects.requireNonNull(plugin.getCommand("save")).setExecutor(new CHostSaveInventory(this));

@@ -78,6 +78,11 @@ public class GamePlayer implements IGamePlayer {
     }
 
     @Override
+    public void setPlayerLocation(Location playerLocation) {
+        this.lastKnownLocation = playerLocation;
+    }
+
+    @Override
     public RValue getPlayerInfos() {
         return playerInfos;
     }

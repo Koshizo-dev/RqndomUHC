@@ -8,7 +8,6 @@ package io.rqndomhax.rqndomuhc.game;
 import io.rqndomhax.rqndomuhc.managers.RolesManager;
 import io.rqndomhax.rqndomuhc.managers.ScenariosManager;
 import io.rqndomhax.uhcapi.UHCAPI;
-import io.rqndomhax.uhcapi.game.IRole;
 import io.rqndomhax.uhcapi.game.IRules;
 import io.rqndomhax.uhcapi.managers.IRoleManager;
 import io.rqndomhax.uhcapi.managers.RScenariosManager;
@@ -19,7 +18,6 @@ import io.rqndomhax.uhcapi.utils.inventory.RInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.Set;
 import java.util.logging.Level;
 
@@ -40,7 +38,7 @@ public class GameRules implements IRules {
         config.getGameInfos().addObject("api.gameTitle", "RqndomUHC");
         config.getGameInfos().addObject("api.episodeLength", 20);
         config.getGameInfos().addObject("api.timeBeforeDeath", 10);
-        config.getGameInfos().addObject("api.teleportationDuration", 15);
+        config.getGameInfos().addObject("api.teleportationDuration", 5); // TODO CHANGE TO 15
         config.getGameInfos().addObject("api.rolesAnnounce", 20*60);
         config.getGameInfos().addObject("api.preparationDuration", 40*60);
         config.getGameInfos().addObject("api.isServerLocked", false);

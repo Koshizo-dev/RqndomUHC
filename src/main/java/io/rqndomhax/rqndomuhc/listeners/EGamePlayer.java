@@ -5,11 +5,13 @@ import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.events.GamePlayerAddEvent;
 import io.rqndomhax.uhcapi.events.GamePlayerRemoveEvent;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.game.IRole;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -66,9 +68,9 @@ public class EGamePlayer implements Listener {
         if (!playerRemoved.isCancelled())
             api.getGamePlayers().remove(playerRemoved.getGamePlayer());
 
-        if (api.getHostManager().getStartInventory().equals(event.getPlayer().getUniqueId()))
+        if (api.getHostManager().getStartInventory() != null && api.getHostManager().getStartInventory().equals(event.getPlayer().getUniqueId()))
             api.getHostManager().setStartInventory(null);
-        if (api.getHostManager().getDeathInventory().equals(event.getPlayer().getUniqueId()))
+        if (api.getHostManager().getDeathInventory() != null && api.getHostManager().getDeathInventory().equals(event.getPlayer().getUniqueId()))
             api.getHostManager().setDeathInventory(null);
 
     }

@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
+import java.security.KeyPair;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,13 @@ public class RolesManager implements IRoleManager {
     @Override
     public HashMap<String, IRole> getRoles() {
         return (HashMap<String, IRole>) roles.castObjects(IRole.class);
+    }
+
+    @Override
+    public HashMap<String, IRole> getRolesStartingByKey(String key) {
+        return ((HashMap<String, IRole>) getRoles().entrySet().stream()
+                .filter(map -> map.getKey().startsWith(key))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
     }
 
     @Override

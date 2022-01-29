@@ -16,9 +16,8 @@ public class IHost extends RInventory {
         IInfos.placeInvBorders(this.getInventory());
         this.setItem(4, IInfos.MAIN_HOST_CONFIGS, openCustomConfigs());
         this.setItem(11, IInfos.MAIN_HOST_SCENARIOS, openScenariosConfig());
-        this.setItem(15, IInfos.MAIN_HOST_BORDER_CONFIG, openBorderConfig());
-        this.setItem(21, IInfos.MAIN_HOST_INVENTORIES, openInventoriesConfig());
-        this.setItem(23, IInfos.MAIN_HOST_WORLD, openWorldConfig());
+        this.setItem(15, IInfos.MAIN_HOST_INVENTORIES, openInventoriesConfig());
+        this.setItem(22, IInfos.MAIN_HOST_PLUGIN, openPluginsConfig());
         this.setItem(38, IInfos.MAIN_HOST_TIMERS, openTimerConfig());
         this.setItem(42, IInfos.MAIN_HOST_HOST, openHostConfig());
         refreshInventory();
@@ -36,6 +35,12 @@ public class IHost extends RInventory {
     private Consumer<InventoryClickEvent> openScenariosConfig() {
         return e -> {
             getApi().getInventories().openInventory("api.hostScenarios", (Player) e.getWhoClicked());
+        };
+    }
+
+    private Consumer<InventoryClickEvent> openPluginsConfig() {
+        return e -> {
+            getApi().getInventories().openInventory("api.hostPlugins", (Player) e.getWhoClicked());
         };
     }
 
@@ -57,21 +62,9 @@ public class IHost extends RInventory {
         };
     }
 
-    private Consumer<InventoryClickEvent> openBorderConfig() {
-        return e -> {
-            getApi().getInventories().openInventory("api.hostBorder", (Player) e.getWhoClicked());
-        };
-    }
-
     private Consumer<InventoryClickEvent> openInventoriesConfig() {
         return e -> {
             getApi().getInventories().openInventory("api.hostInventories", (Player) e.getWhoClicked());
-        };
-    }
-
-    private Consumer<InventoryClickEvent> openWorldConfig() {
-        return e ->  {
-            getApi().getInventories().openInventory("api.hostConfig", (Player) e.getWhoClicked());
         };
     }
 

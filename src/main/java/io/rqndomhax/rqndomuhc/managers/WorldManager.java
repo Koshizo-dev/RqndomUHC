@@ -65,6 +65,7 @@ public class WorldManager implements IWorldManager {
 
         world.setPVP(false);
         world.setGameRule(GameRule.DO_FIRE_TICK, false);
+        world.setGameRule(GameRule.DO_INSOMNIA, false);
         this.worlds.addObject(key, world);
     }
 

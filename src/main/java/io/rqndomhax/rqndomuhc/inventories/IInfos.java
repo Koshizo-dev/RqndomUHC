@@ -44,9 +44,9 @@ public abstract class IInfos {
     // IHOST
     public static ItemStack MAIN_HOST_CONFIGS = new ItemBuilder(Material.ENDER_CHEST).setName(ChatColor.GREEN + "Configurations").toItemStack();
     public static ItemStack MAIN_HOST_SCENARIOS = new ItemBuilder(Material.GOLDEN_APPLE, 1, (byte) 1).setName(ChatColor.GREEN + "Scénarios").toItemStack();
-    public static ItemStack MAIN_HOST_BORDER_CONFIG = new ItemBuilder(Material.BEDROCK).setName(ChatColor.GREEN + "Configuration de la bordure").toItemStack();
     public static ItemStack MAIN_HOST_INVENTORIES = new ItemBuilder(Material.CHEST).setName(ChatColor.GREEN + "Inventaires").toItemStack();
     public static ItemStack MAIN_HOST_WORLD = new ItemBuilder(Material.MAP).setName(ChatColor.GREEN + "Gestion des mondes").addItemFlag(ItemFlag.HIDE_POTION_EFFECTS).toItemStack();
+    public static ItemStack MAIN_HOST_PLUGIN = new ItemBuilder(Material.WRITABLE_BOOK).setName(ChatColor.GREEN + "Gestion des plugins").toItemStack();
     public static ItemStack MAIN_HOST_TIMERS = new ItemBuilder(Material.BEACON).setName(ChatColor.GREEN + "Timers").toItemStack();
     public static ItemStack MAIN_HOST_HOST = new ItemBuilder(Material.ANVIL).setName(ChatColor.GREEN + "Configuration du host").toItemStack();
     public static ItemStack MAIN_HOST_START = new ItemBuilder(Material.GREEN_DYE).setName(ChatColor.DARK_GREEN + "Lancer").toItemStack();
@@ -56,17 +56,6 @@ public abstract class IInfos {
     public static ItemStack INVENTORIES_HOST_BEGINNING = new ItemBuilder(Material.CHEST).setName(ChatColor.GREEN + "Inventaire de départ").toItemStack();
     public static ItemStack INVENTORIES_HOST_DEATH = new ItemBuilder(Material.CHEST).setName(ChatColor.DARK_GRAY + "Inventaire de mort").toItemStack();
     public static ItemStack INVENTORIES_EDIT = new ItemBuilder(Material.SLIME_BALL).setName(ChatColor.GREEN + "Editer").toItemStack();
-
-    // IHOST - World
-    public static ItemStack WORLD_HOST_DROPS = new ItemBuilder(Material.FEATHER).setName(ChatColor.GRAY + "Drops").toItemStack();
-    public static ItemStack WORLD_HOST_DAY_CYCLE = new ItemBuilder(Material.CLOCK).setName(ChatColor.GREEN + "Cycle jour/nuit").toItemStack();
-    public static ItemStack WORLD_HOST_DIFFICULTY = new ItemBuilder(Material.DEAD_BUSH).setName(ChatColor.GREEN + "Difficulté").toItemStack();
-
-    // IHOST - Border
-    public static ItemStack HOST_BORDER_CENTER = new ItemBuilder(Material.COMPASS).setName(ChatColor.GREEN + "Centre").toItemStack();
-    public static ItemStack HOST_BORDER_ACTIVATION = new ItemBuilder(Material.CLOCK).setName(ChatColor.GREEN + "Activation").toItemStack();
-    public static ItemStack HOST_BORDER_SIZE = new ItemBuilder(Material.HOPPER).setName(ChatColor.GREEN + "Taille").toItemStack();
-    public static ItemStack HOST_BORDER_SPEED_AND_DAMAGE = new ItemBuilder(Material.FEATHER).setName(ChatColor.GREEN + "Rapidité et dégâts").toItemStack();
 
     // IHOST - Timer
     public static ItemStack HOST_TIMER_ROLES = new ItemStack(Material.WITHER_SKELETON_SKULL);

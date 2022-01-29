@@ -179,6 +179,14 @@ public class HostManager extends RValue implements IHostManager {
     }
 
     @Override
+    public void putPluginConfigInventory(JavaPlugin plugin, RInventory inventory) {
+        pluginConfigInventory.put(plugin, inventory);
+        api.getInventories().addInventory(UUID.randomUUID().toString().substring(0, 8), inventory);
+        api.getInventories().getInventory("api.hostPlugins").refreshInventory();
+        api.getInventories().updateInventory("api.hostPlugins");
+    }
+
+    @Override
     public HashMap<JavaPlugin, RInventory> getPluginsConfigInventory() {
         return pluginConfigInventory;
     }

@@ -41,6 +41,7 @@ public class DynamicInventoryManager implements IDynamicInventoryManager, Listen
         addInventory("api.hostConfig", new IHostConfig(api));
         addInventory("api.hostScenarios", new IHostScenarios(api));
         addInventory("api.hostTimers", new IHostTimers(api));
+        addInventory("api.hostPlugins", new IHostPlugins(api));
         addInventory("api.hostCustomConfigs", new IHostCustomConfigs(api));
         addInventory("api.startInventory", new IHostStartInventory(api));
         addInventory("api.deathInventory", new IHostDeathInventory(api));

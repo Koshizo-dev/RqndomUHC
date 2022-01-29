@@ -53,7 +53,7 @@ public class ERole implements Listener {
         for (IGamePlayer player : api.getGamePlayers()) {
             Object role = player.getPlayerInfos().getObject("role");
             if (role instanceof IRole)
-                ((IRole) role).onPlayerDeath(event);
+                ((IRole) role).onPlayerDeath(gamePlayer);
         }
     }
 

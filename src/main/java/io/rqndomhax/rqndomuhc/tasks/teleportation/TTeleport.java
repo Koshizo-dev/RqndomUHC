@@ -3,10 +3,12 @@ package io.rqndomhax.rqndomuhc.tasks.teleportation;
 import io.rqndomhax.rqndomuhc.game.GamePlayer;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
+import io.rqndomhax.uhcapi.utils.PlayerUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Iterator;
@@ -32,6 +34,11 @@ public class TTeleport extends BukkitRunnable {
     @Override
     public void run() {
         if (!players.hasNext() || size - i == 0) {
+            for (IGamePlayer gamePlayer : api.getGamePlayers()) {
+                Player player = gamePlayer.getPlayer();
+                if (player != null)
+                    PlayerUtils.giveInventory((ItemStack[]) api.getRules().getGameInfos().getObject("api.startInventory"), player);
+            }
             api.getGameTaskManager().endCurrentTask();
             cancel();
             return;

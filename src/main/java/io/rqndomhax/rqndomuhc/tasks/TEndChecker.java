@@ -55,12 +55,10 @@ public class TEndChecker implements ITask {
                 teamName = name;
 
             if (name.equals("solo")) {
-                System.out.println("solo = " + solo);
                 if (solo == null)
                     solo = (IRole) tmp;
                 if (!tmp.equals(solo))
                     return;
-                System.out.println("team =  " + teamName);
             }
 
             if (!(teamName.equals(name)))

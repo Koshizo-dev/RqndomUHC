@@ -43,6 +43,14 @@ public class GameMessages extends RValue {
         addObject("api.nowHost", "You are now the new game host!");
         addObject("api.nowCoHost", "You are now part of the game co-hosts!");
         addObject("api.notAnymoreCoHost", "You are no longer part of the game co-hosts!");
+        addObject("api.rolesAttributingIn", "Roles will be attributed in %time% s!");
+        addObject("api.rolesAlreadyAttributed", "Roles have already been attributed!");
+        addObject("api.rolesAlreadyAttributing", "The roles are already being attributed!");
+        addObject("api.alreadyTeleporting", "A teleportation is already happening!");
+        addObject("api.alreadyMeetupWorld", "The game state is already meetup!");
+        addObject("api.preparationEndingIn", "%time% s left before the end of preparation!");
+        addObject("api.preparationAlreadyEnding", "The preparation phase is ending soon!");
+        addObject("api.notInGame", "You are not in game!");
     }
 
 }

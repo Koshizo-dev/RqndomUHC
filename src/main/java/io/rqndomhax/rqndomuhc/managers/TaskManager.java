@@ -41,15 +41,16 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
         gameInfos.addObject("api.elapsedTime",0);
         gameInfos.addObject("api.episode",0);
         gameInfos.addObject("api.episodeLength", 20*60);
-        gameInfos.addObject("api.hasGameStarted", false);
+        gameInfos.addObject("api.hasRoleBeenAttributed", false);
         setGameState("LOBBY");
         tasks.add(TStart.class);
         tasks.add(TTeleportation.class);
         tasks.add(TPreparation.class);
         tasks.add(TTeleportation.class);
         tasks.add(TMeetup.class);
-        beforeTasks.add(new TEpisode(api));
+        beforeTasks.add(new TEpisode(api, gameInfos));
         beforeTasks.add(new TEndChecker(api));
+        afterTasks.add(new TRoles(api, gameInfos));
         runTaskTimer(api.getPlugin(), 0, 20);
     }
 
@@ -118,6 +119,16 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
     @Override
     public String getGameState() {
         return gameState;
+    }
+
+    @Override
+    public List<ITask> getBeforeTasks() {
+        return beforeTasks;
+    }
+
+    @Override
+    public List<ITask> getAfterTasks() {
+        return afterTasks;
     }
 
     private void runTasks(Collection<ITask> tasks) {

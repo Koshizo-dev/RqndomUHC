@@ -38,7 +38,7 @@ public class GameRules implements IRules {
         config.getGameInfos().addObject("api.gameTitle", "RqndomUHC");
         config.getGameInfos().addObject("api.episodeLength", 20);
         config.getGameInfos().addObject("api.timeBeforeDeath", 10);
-        config.getGameInfos().addObject("api.teleportationDuration", 5); // TODO CHANGE TO 15
+        config.getGameInfos().addObject("api.teleportationDuration", 10);
         config.getGameInfos().addObject("api.rolesAnnounce", 20*60);
         config.getGameInfos().addObject("api.preparationDuration", 40*60);
         config.getGameInfos().addObject("api.isServerLocked", false);

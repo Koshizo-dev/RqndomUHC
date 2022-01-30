@@ -18,6 +18,7 @@ public class TStart implements ITask {
     String taskName;
     int remainingTime = 5; // TODO change to 15
     boolean wasStarting = false;
+    boolean doesStop = false;
 
     public TStart(UHCAPI api) {
         this.api = api;
@@ -28,6 +29,8 @@ public class TStart implements ITask {
 
     @Override
     public void loop() {
+        if (doesStop)
+            return;
         if (!(api.getGameTaskManager().getGameState().equals("LOBBY_START"))) {
             if (wasStarting)
                 remainingTime = 5; // We set back to the default start time if it has been canceled // TODO CHANGE TO 15
@@ -36,7 +39,7 @@ public class TStart implements ITask {
 
         wasStarting = true;
         if (remainingTime-- > 0)
-            Bukkit.broadcastMessage("Game is starting in " + remainingTime + " seconds");
+            Bukkit.broadcastMessage("Game is starting in " + (remainingTime + 1) + " seconds");
 
         if (remainingTime == 0)
             init();
@@ -50,6 +53,7 @@ public class TStart implements ITask {
         } else
             new TGenerate(api.getWorldManager().getPreparationWorld(), 250, api.getGamePlayers(), 0, 0, api);
         api.getRules().getScenariosManager().enableScenarios();
+        doesStop = true;
     }
 
     @Override

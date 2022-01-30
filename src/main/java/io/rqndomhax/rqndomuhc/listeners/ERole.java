@@ -24,9 +24,9 @@ public class ERole implements Listener {
             return;
         if (!api.getGameTaskManager().getGameState().startsWith("GAME"))
             return;
-        IGamePlayer gamePlayer = api.getGamePlayer((Player) event.getEntity());
         if (!(event.getEntity() instanceof Player))
             return;
+        IGamePlayer gamePlayer = api.getGamePlayer((Player) event.getEntity());
         if (gamePlayer == null)
             return;
 

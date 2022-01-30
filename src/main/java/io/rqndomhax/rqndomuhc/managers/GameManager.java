@@ -5,6 +5,7 @@
 
 package io.rqndomhax.rqndomuhc.managers;
 
+import io.rqndomhax.rqndomuhc.commands.CForce;
 import io.rqndomhax.rqndomuhc.commands.CHost;
 import io.rqndomhax.rqndomuhc.commands.CHostSaveInventory;
 import io.rqndomhax.rqndomuhc.game.GameMessages;
@@ -79,6 +80,7 @@ public class GameManager implements UHCAPI {
 
         Objects.requireNonNull(plugin.getCommand("save")).setExecutor(new CHostSaveInventory(this));
         Objects.requireNonNull(plugin.getCommand("host")).setExecutor(new CHost(this));
+        Objects.requireNonNull(plugin.getCommand("force")).setExecutor(new CForce(this));
         Bukkit.getLogger().log(Level.INFO, "[RqndomUHC] Registered commands.");
 
         this.inventories = new DynamicInventoryManager(this);

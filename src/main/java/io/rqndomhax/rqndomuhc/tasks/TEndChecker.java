@@ -40,6 +40,8 @@ public class TEndChecker implements ITask {
     public void loop() {
         if (!(api.getGameTaskManager().getGameState().startsWith("GAME")))
             return;
+        if (!(boolean) api.getGameTaskManager().getGameInfos().getObject("api.hasRoleBeenAttributed"))
+            return;
         IRole solo = null;
         String teamName = null;
         for (IGamePlayer player : api.getGamePlayers()) {

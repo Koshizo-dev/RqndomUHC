@@ -38,7 +38,6 @@ public class TTeleportation implements ITask {
             api.getRules().getScenariosManager().getScenarios().values().forEach(this::registerScenario);
             api.getGameTaskManager().endCurrentTask();
             api.getGameTaskManager().getGameInfos().addObject("api.episode", 1); // We start the first episode
-            api.getRules().getRolesManager().dispatchRoles(api.getGamePlayers()); // TODO REMOVE TMP role initialization
             removePlatform(api.getGamePlayers());
         }
     }

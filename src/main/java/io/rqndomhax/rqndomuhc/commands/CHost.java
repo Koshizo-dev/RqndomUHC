@@ -23,6 +23,9 @@ public class CHost implements CommandExecutor {
             return true;
         }
 
+        if (args.length <= 1)
+            return false;
+
         switch(args[0].toLowerCase()) {
             case "ban":
                 return onPlayerBan(sender, args);

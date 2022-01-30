@@ -14,15 +14,16 @@ public class TEpisode implements ITask {
 
     final String taskName;
     final UHCAPI api;
+    final RValue infos;
 
-    public TEpisode(UHCAPI api) {
+    public TEpisode(UHCAPI api, RValue infos) {
         this.api = api;
         this.taskName = "api.episode";
+        this.infos = infos;
     }
 
     @Override
     public void loop() {
-        RValue infos = api.getGameTaskManager().getGameInfos(); // Because the GameInfos can be changed while the task is running we have to retrieve it again everytime
         if ((int) infos.getObject("api.episode") == 0)
             return;
 

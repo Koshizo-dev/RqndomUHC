@@ -42,6 +42,7 @@ public class ELobby implements Listener {
 
         event.getPlayer().teleport(api.getWorldManager().getLobby());
     }
+
     @EventHandler
     private void onBucket(PlayerBucketEmptyEvent e) {
         if (!e.isCancelled())
@@ -93,7 +94,7 @@ public class ELobby implements Listener {
     @EventHandler
     private void onEntityDamage(EntityDamageEvent e) {
         if (!e.isCancelled())
-            e.setCancelled(isLobby());
+            e.setCancelled(isLobby() || api.getGameTaskManager().getGameState().equals("GAME_IMMUNITY"));
     }
 
     @EventHandler

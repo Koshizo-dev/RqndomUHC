@@ -5,7 +5,6 @@
 
 package io.rqndomhax.rqndomuhc.tasks.teleportation;
 
-import io.rqndomhax.rqndomuhc.game.GamePlayer;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.game.IScenario;
@@ -15,7 +14,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import java.util.List;
 import java.util.Set;
 
 public class TTeleportation implements ITask {

@@ -20,6 +20,7 @@ public class GameMessages extends RValue {
         addObject("api.gameStartNeedMorePlayer", ChatColor.RED + "There is not enough player to start the game!");
         addObject("api.gameStartNeedAnotherTeam", ChatColor.RED + "Every active role is in the same team !");
         addObject("api.serverLockedKickMessage", "The server is currently locked!");
+        addObject("api.serverWhitelistKickMessage", "The server is currently under a whitelist!");
         addObject("api.defaultConfigEdit", "You cannot edit the default host configuration!");
         addObject("api.inventoryAlreadyEdit", "This inventory is already being edited!");
         addObject("api.inventoryEditing", "You are editing the inventory");
@@ -51,6 +52,9 @@ public class GameMessages extends RValue {
         addObject("api.preparationEndingIn", "%time% s left before the end of preparation!");
         addObject("api.preparationAlreadyEnding", "The preparation phase is ending soon!");
         addObject("api.notInGame", "You are not in game!");
+        addObject("api.notInLobby", "You are not in lobby!");
+        addObject("api.needItemInHand", "You need an item in your hand!");
+        addObject("api.notEditingAnyInventory", "You have to be editing an inventory to execute this command!");
     }
 
 }

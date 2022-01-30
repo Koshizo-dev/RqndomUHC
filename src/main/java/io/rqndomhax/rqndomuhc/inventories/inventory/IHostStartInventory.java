@@ -1,6 +1,5 @@
 package io.rqndomhax.rqndomuhc.inventories.inventory;
 
-import io.rqndomhax.rqndomuhc.game.GameRules;
 import io.rqndomhax.rqndomuhc.inventories.IInfos;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.utils.PlayerUtils;

@@ -7,7 +7,6 @@ import io.rqndomhax.uhcapi.game.IRole;
 import io.rqndomhax.uhcapi.game.ITask;
 import org.bukkit.Bukkit;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

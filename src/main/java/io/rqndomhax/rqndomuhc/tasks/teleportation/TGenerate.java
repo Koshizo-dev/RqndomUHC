@@ -1,13 +1,11 @@
 package io.rqndomhax.rqndomuhc.tasks.teleportation;
 
-import io.rqndomhax.rqndomuhc.game.GamePlayer;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.utils.Colors;
-import org.bukkit.*;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;

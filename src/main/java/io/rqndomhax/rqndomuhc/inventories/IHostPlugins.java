@@ -1,17 +1,14 @@
 package io.rqndomhax.rqndomuhc.inventories;
 
 import io.rqndomhax.uhcapi.UHCAPI;
-import io.rqndomhax.uhcapi.game.IScenario;
 import io.rqndomhax.uhcapi.utils.ItemBuilder;
 import io.rqndomhax.uhcapi.utils.inventory.PageController;
 import io.rqndomhax.uhcapi.utils.inventory.RInventory;
 import io.rqndomhax.uhcapi.utils.inventory.RInventoryData;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;

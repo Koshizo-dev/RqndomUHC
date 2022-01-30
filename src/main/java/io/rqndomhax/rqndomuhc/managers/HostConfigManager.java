@@ -5,7 +5,6 @@ import io.rqndomhax.uhcapi.managers.IHostConfigManager;
 import io.rqndomhax.uhcapi.utils.FileManager;
 import io.rqndomhax.uhcapi.utils.HostConfig;
 import io.rqndomhax.uhcapi.utils.RValue;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

@@ -6,6 +6,7 @@ main: io.rqndomhax.rqndomuhc.RqndomUHC
 commands:
   save:
   cancel:
+  enchant:
   force:
   host:
     aliases: [h]

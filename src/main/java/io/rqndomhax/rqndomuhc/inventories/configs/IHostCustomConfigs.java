@@ -2,7 +2,6 @@ package io.rqndomhax.rqndomuhc.inventories.configs;
 
 import io.rqndomhax.rqndomuhc.inventories.IInfos;
 import io.rqndomhax.uhcapi.UHCAPI;
-import io.rqndomhax.uhcapi.utils.BukkitSerializer;
 import io.rqndomhax.uhcapi.utils.HostConfig;
 import io.rqndomhax.uhcapi.utils.ItemBuilder;
 import io.rqndomhax.uhcapi.utils.PlayerUtils;
@@ -17,7 +16,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 

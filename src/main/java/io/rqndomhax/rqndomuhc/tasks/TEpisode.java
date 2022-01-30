@@ -24,9 +24,10 @@ public class TEpisode implements ITask {
 
     @Override
     public void loop() {
-        if ((int) infos.getObject("api.episode") == 0)
+        if (!api.getGameTaskManager().getGameState().startsWith("GAME"))
             return;
 
+        api.getGameTaskManager().getGameInfos().addObject("api.elapsedTime", (int) api.getGameTaskManager().getGameInfos().getObject("api.elapsedTime") + 1);
         int remaining = (((int) infos.getObject("api.episodeLength")) * (int) infos.getObject("api.episode")) - (int) (infos.getObject("api.elapsedTime"));
 
         if (remaining == 30)

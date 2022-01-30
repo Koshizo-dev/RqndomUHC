@@ -1,7 +1,7 @@
 package io.rqndomhax.rqndomuhc.listeners;
 
-import io.rqndomhax.uhcapi.events.GameBuildEvent;
 import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.events.GameBuildEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -20,6 +20,10 @@ public class GameLock implements Listener {
         if((boolean) api.getRules().getGameInfos().getObject("api.isServerLocked")) {
             event.setKickMessage((String) api.getGameMessages().getObject("api.serverLockedKickMessage"));
             event.setResult(PlayerLoginEvent.Result.KICK_OTHER);
+        }
+        if ((boolean) api.getRules().getGameInfos().getObject("api.hasWhitelist") && !event.getPlayer().isOp()) {
+            event.setKickMessage((String) api.getGameMessages().getObject("api.serverWhitelistKickMessage"));
+            event.setResult(PlayerLoginEvent.Result.KICK_WHITELIST);
         }
     }
 

@@ -1,7 +1,6 @@
 package io.rqndomhax.rqndomuhc.listeners;
 
 import io.rqndomhax.uhcapi.UHCAPI;
-import io.rqndomhax.uhcapi.events.GameEndEvent;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.game.IRole;
 import org.bukkit.entity.Player;

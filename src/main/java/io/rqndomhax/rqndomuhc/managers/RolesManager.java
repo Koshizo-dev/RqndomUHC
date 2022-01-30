@@ -10,7 +10,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
-import java.security.KeyPair;
 import java.util.*;
 import java.util.stream.Collectors;
 

@@ -10,8 +10,6 @@ import io.rqndomhax.uhcapi.game.ITask;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Bukkit;
 
-import java.util.Arrays;
-
 public class TRoles implements ITask {
 
     final String taskName;

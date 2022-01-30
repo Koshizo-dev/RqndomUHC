@@ -1,6 +1,5 @@
 package io.rqndomhax.rqndomuhc.tasks.teleportation;
 
-import io.rqndomhax.rqndomuhc.game.GamePlayer;
 import io.rqndomhax.uhcapi.UHCAPI;
 import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.utils.PlayerUtils;

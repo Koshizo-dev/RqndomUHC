@@ -8,10 +8,9 @@
 package io.rqndomhax.rqndomuhc.managers;
 
 import io.rqndomhax.rqndomuhc.tasks.*;
-import io.rqndomhax.rqndomuhc.tasks.teleportation.TTeleport;
 import io.rqndomhax.rqndomuhc.tasks.teleportation.TTeleportation;
-import io.rqndomhax.uhcapi.events.GameStateEvent;
 import io.rqndomhax.uhcapi.UHCAPI;
+import io.rqndomhax.uhcapi.events.GameStateEvent;
 import io.rqndomhax.uhcapi.game.IGameTask;
 import io.rqndomhax.uhcapi.game.ITask;
 import io.rqndomhax.uhcapi.utils.RValue;
@@ -39,7 +38,7 @@ public class TaskManager extends BukkitRunnable implements IGameTask {
         this.gameInfos = new RValue();
         gameInfos.addObject("api.elapsedRawTime", 0);
         gameInfos.addObject("api.elapsedTime",0);
-        gameInfos.addObject("api.episode",0);
+        gameInfos.addObject("api.episode",1);
         gameInfos.addObject("api.episodeLength", 20*60);
         gameInfos.addObject("api.hasRoleBeenAttributed", false);
         setGameState("LOBBY");

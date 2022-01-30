@@ -9,10 +9,7 @@ import io.rqndomhax.uhcapi.game.IGamePlayer;
 import io.rqndomhax.uhcapi.game.IScenario;
 import io.rqndomhax.uhcapi.utils.RValue;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SMeetup extends RValue implements Listener, IScenario {
 

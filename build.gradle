@@ -12,14 +12,13 @@ compileJava.getOptions().setEncoding("UTF-8")
 
 repositories {
     mavenCentral()
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url 'https://repo.dmulloy2.net/repository/public/' }
-    mavenLocal();
+    mavenLocal()
 }
 
 dependencies {
     compileOnly('org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT')
-    implementation('commons-io:commons-io:2.6')
+    implementation('commons-io:commons-io:2.7')
     implementation('xyz.xenondevs:particle:1.5.1')
     implementation('fr.mrmicky:fastboard:1.2.0')
     implementation files('../RqndomUHC-API/build/libs/RqndomUHC-API-1.0-SNAPSHOT-all.jar')
